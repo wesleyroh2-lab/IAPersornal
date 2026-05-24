@@ -6,7 +6,12 @@ Site estático de plano de treino + dieta personalizado por inteligência artifi
 
 ## 🌐 Acesso
 
-**GitHub Pages:** `https://wesleyroh2-lab.github.io/IAPersornal/`
+**🔗 Site ao vivo:** [https://wesleyroh2-lab.github.io/IAPersornal/](https://wesleyroh2-lab.github.io/IAPersornal/)
+
+> **Para ativar o GitHub Pages:**
+> 1. Vá em **Settings → Pages**
+> 2. Source: `Deploy from a branch` → branch **`main`** → pasta **`/ (root)`**
+> 3. Clique **Save** e aguarde ~1 minuto
 
 > Para ativar, vá em **Settings → Pages → Source → branch: `main`, pasta: `/ (root)`** e salve.
 
