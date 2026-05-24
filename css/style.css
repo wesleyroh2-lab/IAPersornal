@@ -306,6 +306,84 @@ input { font-family: inherit; }
   margin-bottom: 1.5rem;
 }
 
+/* ── Video Player no Card ── */
+.card-video {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #000;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.card-video__thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .35s ease;
+}
+.card-video:hover .card-video__thumb { transform: scale(1.04); }
+
+.card-video__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background: rgba(0,0,0,.45);
+  transition: background .2s ease;
+}
+.card-video:hover .card-video__overlay { background: rgba(0,0,0,.22); }
+
+.card-video__play-btn {
+  width: 52px;
+  height: 52px;
+  background: var(--orange);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(255,107,0,.55);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.card-video:hover .card-video__play-btn {
+  transform: scale(1.14);
+  box-shadow: 0 6px 28px rgba(255,107,0,.75);
+}
+.card-video__label {
+  font-size: .7rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0,0,0,.7);
+}
+.card-video__iframe {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.card-video.playing .card-video__thumb,
+.card-video.playing .card-video__overlay { display: none; }
+.card-video.playing .card-video__iframe  { display: block; }
+
+/* Fallback quando thumbnail não carrega */
+.card-video.thumb-error .card-video__thumb { display: none; }
+.card-video.thumb-error {
+  background: linear-gradient(135deg, var(--card-color, #FF6B00) 0%, #1a1a1a 100%);
+  opacity: .8;
+}
+
+/* ── Muscle group color strip ── */
+.card-color-strip {
+  height: 3px;
+}
+
 /* ── Exercise Card ── */
 .exercise-card {
   background: var(--surface);
