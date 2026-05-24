@@ -31,11 +31,25 @@ function isLoggedIn() {
   }
 }
 
-/* ── Salvar sessão ── */
-function saveSession(username) {
+/* ── Retornar dados do usuário logado ── */
+function getSessionUser() {
+  try {
+    const raw = sessionStorage.getItem(AUTH_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (Date.now() > data.expiry) return null;
+    return data.userData || null;
+  } catch {
+    return null;
+  }
+}
+
+/* ── Salvar sessão com dados completos do usuário ── */
+function saveSession(userData) {
   sessionStorage.setItem(AUTH_KEY, JSON.stringify({
-    user:   username,
-    expiry: Date.now() + SESSION_MINS * 60 * 1000,
+    user:     userData.id,
+    userData: userData,
+    expiry:   Date.now() + SESSION_MINS * 60 * 1000,
   }));
 }
 
@@ -49,21 +63,28 @@ function logout() {
 function requireAuth() {
   if (!isLoggedIn()) {
     window.location.replace('login.html');
+    return;
+  }
+  // Aplicar tema do usuário no body
+  const user = getSessionUser();
+  if (user) {
+    document.body.dataset.user = user.id;
   }
 }
 
 /* ── Lógica da página de login ── */
 async function initLogin() {
-  const form     = document.getElementById('login-form');
+  const form      = document.getElementById('login-form');
   const userInput = document.getElementById('login-user');
   const passInput = document.getElementById('login-pass');
-  const errorEl  = document.getElementById('login-error');
-  const btnText  = document.getElementById('btn-text');
-  const spinner  = document.getElementById('btn-spinner');
+  const errorEl   = document.getElementById('login-error');
+  const btnText   = document.getElementById('btn-text');
+  const spinner   = document.getElementById('btn-spinner');
 
-  // Se já está logado, vai direto para a home
+  // Se já está logado, redireciona para a página do usuário
   if (isLoggedIn()) {
-    window.location.replace('index.html');
+    const user = getSessionUser();
+    window.location.replace(user?.redirect || 'index.html');
     return;
   }
 
@@ -89,17 +110,17 @@ async function initLogin() {
       const userHash = await sha256(user);
       const passHash = await sha256(pass);
 
-      // Comparar com os hashes armazenados
-      const match = data.users.some(
+      // Encontrar usuário correspondente
+      const matched = data.users.find(
         u => u.username_hash === userHash && u.password_hash === passHash
       );
 
-      if (match) {
-        saveSession(user);
-        // Animação de sucesso antes de redirecionar
+      if (matched) {
+        saveSession(matched);
         form.classList.add('success');
-        btnText.textContent = '✓ Entrando...';
-        setTimeout(() => window.location.replace('index.html'), 800);
+        btnText.textContent = `✓ Olá, ${matched.displayName}!`;
+        // Redireciona para a página específica do usuário
+        setTimeout(() => window.location.replace(matched.redirect || 'index.html'), 900);
       } else {
         throw new Error('Usuário ou senha incorretos.');
       }
@@ -119,7 +140,6 @@ async function initLogin() {
       spinner.style.display = 'none';
       form.querySelector('button[type="submit"]').disabled = false;
 
-      // Focar no campo usuário
       userInput.focus();
     }
   });
@@ -135,13 +155,25 @@ async function initLogin() {
   }
 }
 
-/* ── Adicionar botão de logout na navbar das páginas protegidas ── */
+/* ── Adicionar saudação e botão de logout na navbar ── */
 function injectLogoutBtn() {
   const nav = document.querySelector('.nav-links');
   if (!nav) return;
+
+  const user = getSessionUser();
+
+  // Saudação com nome do usuário
+  if (user?.displayName) {
+    const greeting = document.createElement('span');
+    greeting.className = 'nav-user-greeting';
+    greeting.innerHTML = `<i class="fa-solid fa-circle-user"></i> ${user.displayName}`;
+    nav.appendChild(greeting);
+  }
+
+  // Botão logout
   const btn = document.createElement('button');
   btn.className   = 'btn-logout';
-  btn.textContent = 'Sair';
+  btn.innerHTML   = '<i class="fa-solid fa-arrow-right-from-bracket"></i> Sair';
   btn.onclick     = logout;
   nav.appendChild(btn);
 }
