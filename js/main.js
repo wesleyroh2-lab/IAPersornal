@@ -1,7 +1,7 @@
 /* ============================================================
    IAPersornal — main.js
-   Treino + Dieta + Vídeos do YouTube por exercício
-   Persistência via localStorage | Sem frameworks
+   Treino Hipertrofia Wesley | Seg–Sex | ~1h por sessão
+   Dieta | Persistência via localStorage | Sem frameworks
    ============================================================ */
 
 const START_WEIGHT = 55;
@@ -14,288 +14,311 @@ const DAY_COLORS = {
   quarta:  '#06D6A0',
   quinta:  '#FFD700',
   sexta:   '#FF006E',
-  sabado:  '#FF6B00',
-  domingo: '#06D6A0',
+  sabado:  null,
+  domingo: null,
 };
 
 /* ============================================================
-   DADOS DE TREINO — com youtubeId por exercício
-   Fonte dos vídeos: canais brasileiros de educação física
+   TREINO SEG–SEX — HIPERTROFIA MUSCULAR (~60 min/dia)
+   Foco: progressão de carga, exercícios compostos + isolados
    ============================================================ */
 const workouts = {
+
+  /* ── SEGUNDA: PEITO + TRÍCEPS ── */
   segunda: {
     fullName: 'Segunda-feira',
-    focus: 'PEITO',
-    icon: '🫀',
+    focus:    'PEITO + TRÍCEPS',
+    icon:     '🫀',
+    duration: '~60 min',
     exercises: [
       {
-        name: 'Supino Reto com Barra',
-        sets: '4 × 8–12',
-        muscle: 'PEITO',
-        icon: '🏋️',
+        name:      'Supino Reto com Barra',
+        sets:      '4 × 6–8 reps',
+        muscle:    'PEITO',
+        icon:      '🏋️',
         youtubeId: 'vIGvt-vgrvY',
-        tip: 'Escápulas retraídas e pés firmes no chão. Desça a barra com controle até tocar levemente o peito e empurre explosivamente.',
+        tip:       'Rei do peito. Escápulas retraídas e deprimidas, pés firmes. Desça controlado até o peito tocar levemente a barra e empurre de forma explosiva.',
       },
       {
-        name: 'Supino Inclinado com Halteres',
-        sets: '3 × 10–12',
-        muscle: 'PEITO SUPERIOR',
-        icon: '📐',
+        name:      'Supino Inclinado com Halteres',
+        sets:      '4 × 8–10 reps',
+        muscle:    'PEITO SUPERIOR',
+        icon:      '📐',
         youtubeId: 'G-i3jMIbDmo',
-        tip: 'Inclinação de 30–45°. Foque na contração da parte superior do peitoral. Controle a descida para máximo alongamento.',
+        tip:       'Banco a 30–45°. Máximo alongamento na descida. Foco na parte clavicular do peitoral. Contração total no topo.',
       },
       {
-        name: 'Crossover na Polia',
-        sets: '3 × 12–15',
-        muscle: 'PEITO',
-        icon: '🔀',
-        youtubeId: 'E3aha5zhlc0',
-        tip: 'Puxe os cabos em arco cruzando as mãos na frente do corpo. Sinta a compressão do peitoral no ponto de cruzamento.',
+        name:      'Supino Declinado com Barra',
+        sets:      '3 × 8–10 reps',
+        muscle:    'PEITO INFERIOR',
+        icon:      '⬇️',
+        youtubeId: 'LfyQTpGnFNw',
+        tip:       'Ativa a porção esternal inferior do peitoral. Cuidado com o pescoço. Barra desce até baixo do peito. Pegada mais larga.',
       },
       {
-        name: 'Crucifixo com Halteres',
-        sets: '3 × 12',
-        muscle: 'PEITO',
-        icon: '✈️',
-        youtubeId: 'ZjIKUMtW37c',
-        tip: 'Cotovelos levemente dobrados. Abra sentindo o alongamento e feche contraindo o peito. Movimento amplo e controlado.',
+        name:      'Peck Deck (Voador)',
+        sets:      '3 × 12–15 reps',
+        muscle:    'PEITO / ISOLAÇÃO',
+        icon:      '🦅',
+        youtubeId: 'FwtqdGlRgig',
+        tip:       'Mantenha arco no cotovelo durante todo o movimento. Espelhe um abraço ao fechar. Pause 1 seg contraído. Controle total na volta.',
       },
       {
-        name: 'Flexão de Braços',
-        sets: '3 × falha',
-        muscle: 'PEITO / TRÍCEPS',
-        icon: '⬇️',
-        youtubeId: 'UkDVBs9GEWo',
-        tip: 'Corpo reto como prancha. Desça até o peito quase tocar o chão. Empurre de forma explosiva. Finalização perfeita.',
+        name:      'Tríceps Corda na Polia',
+        sets:      '4 × 12–15 reps',
+        muscle:    'TRÍCEPS',
+        icon:      '⬇️',
+        youtubeId: '7le1JRUUagM',
+        tip:       'Cotovelos fixos ao lado do corpo. Abra a corda no final para ativar as cabeças lateral e medial. Controle total no retorno.',
+      },
+      {
+        name:      'Tríceps Francês (Skull Crusher)',
+        sets:      '3 × 10–12 reps',
+        muscle:    'TRÍCEPS CABEÇA LONGA',
+        icon:      '💡',
+        youtubeId: 'RavQHfFxbdA',
+        tip:       'Deite no banco. Desça o halter/barra até próximo da testa controlando o excêntrico em 3 seg. Cotovelos apontados para cima e fixos.',
       },
     ],
   },
 
+  /* ── TERÇA: COSTAS + BÍCEPS ── */
   terca: {
     fullName: 'Terça-feira',
-    focus: 'COSTAS',
-    icon: '🦅',
+    focus:    'COSTAS + BÍCEPS',
+    icon:     '🦅',
+    duration: '~60 min',
     exercises: [
       {
-        name: 'Puxada Frontal na Polia',
-        sets: '4 × 10–12',
-        muscle: 'LATÍSSIMO',
-        icon: '⬇️',
-        youtubeId: '25XTUWnt_R4',
-        tip: 'Puxe a barra até a altura do queixo. Projete o peito para fora e comprima as escápulas. Controle a volta.',
+        name:      'Barra Fixa (Pull-up)',
+        sets:      '4 × 6–8 reps',
+        muscle:    'LATÍSSIMO / LARGURA',
+        icon:      '⬇️',
+        youtubeId: 'eGo4IYlbE5g',
+        tip:       'O melhor exercício para largura de costas. Pegada supinada (chin-up) ou pronada. Desça até total extensão. Puxe o queixo acima da barra.',
       },
       {
-        name: 'Remada Curvada com Barra',
-        sets: '4 × 8–10',
-        muscle: 'COSTAS MÉDIAS',
-        icon: '↩️',
+        name:      'Remada Curvada com Barra',
+        sets:      '4 × 8–10 reps',
+        muscle:    'COSTAS MÉDIAS / ESPESSURA',
+        icon:      '↩️',
         youtubeId: 'VJHBEy2duVc',
-        tip: 'Tronco a 45°. Puxe a barra em direção ao umbigo, contraindo as escápulas ao final. Sem balançar o tronco.',
+        tip:       'Tronco a 45°, costas retas. Puxe a barra em direção ao umbigo comprimindo as escápulas. Sem balançar o tronco.',
       },
       {
-        name: 'Remada Unilateral com Halter',
-        sets: '3 × 10–12',
-        muscle: 'LATÍSSIMO',
-        icon: '💪',
+        name:      'Puxada Frontal na Polia',
+        sets:      '4 × 10–12 reps',
+        muscle:    'LATÍSSIMO',
+        icon:      '⬇️',
+        youtubeId: '25XTUWnt_R4',
+        tip:       'Puxe a barra até a altura do queixo. Projete o peito para fora e comprima as escápulas ao final. Controle a subida.',
+      },
+      {
+        name:      'Remada Unilateral com Halter',
+        sets:      '3 × 10–12 reps',
+        muscle:    'LATÍSSIMO / UNILATERAL',
+        icon:      '💪',
         youtubeId: 'SUvZiVClLKw',
-        tip: 'Apoie o joelho e a mão no banco. Puxe o halter em direção ao quadril com o cotovelo junto ao corpo.',
+        tip:       'Apoie joelho e mão no banco. Puxe o halter em direção ao quadril com o cotovelo junto ao corpo. Foque na retração escapular.',
       },
       {
-        name: 'Pull-down Pegada Neutra',
-        sets: '3 × 12',
-        muscle: 'LATÍSSIMO',
-        icon: '⬇️',
-        youtubeId: 'BOW9my4J_ek',
-        tip: 'Use pegada neutra paralela. Ativa mais o latíssimo e reduz tensão nos ombros. Ideal para desenvolvimento de força.',
+        name:      'Rosca Direta com Barra',
+        sets:      '4 × 10–12 reps',
+        muscle:    'BÍCEPS',
+        icon:      '💪',
+        youtubeId: 'Et1wgGMGW8w',
+        tip:       'Cotovelos fixos ao lado do corpo. Suba controlado. Desça em 3 segundos (excêntrico). Evite usar o tronco como impulso.',
+      },
+      {
+        name:      'Rosca Martelo com Halteres',
+        sets:      '3 × 12 reps',
+        muscle:    'BRAQUIAL / BÍCEPS',
+        icon:      '🔨',
+        youtubeId: '1-xCKLVxqqg',
+        tip:       'Pegada neutra (polegar para cima). Trabalha o braquial e dá espessura ao braço. Alterne os braços. Sem balançar.',
       },
     ],
   },
 
+  /* ── QUARTA: PERNAS ── */
   quarta: {
     fullName: 'Quarta-feira',
-    focus: 'PERNAS',
-    icon: '🦵',
+    focus:    'PERNAS COMPLETO',
+    icon:     '🦵',
+    duration: '~65 min',
     exercises: [
       {
-        name: 'Agachamento Livre',
-        sets: '4 × 8–12',
-        muscle: 'QUADRÍCEPS / GLÚTEOS',
-        icon: '🏋️',
+        name:      'Agachamento Livre com Barra',
+        sets:      '4 × 6–8 reps',
+        muscle:    'QUADRÍCEPS / GLÚTEOS',
+        icon:      '🏋️',
         youtubeId: 'rM6SDUdl9fs',
-        tip: 'Pés na largura dos ombros. Desça até as coxas paralelas ao chão. Joelhos na direção dos pés. Rei dos exercícios.',
+        tip:       'Rei dos exercícios. Pés na largura dos ombros. Desça até as coxas paralelas ao chão. Joelhos na direção dos pés. Costas retas.',
       },
       {
-        name: 'Leg Press 45°',
-        sets: '4 × 10–12',
-        muscle: 'QUADRÍCEPS',
-        icon: '🦵',
+        name:      'Leg Press 45°',
+        sets:      '4 × 10–12 reps',
+        muscle:    'QUADRÍCEPS / VOLUME',
+        icon:      '🦵',
         youtubeId: 'waAxlYvtCcI',
-        tip: 'Não trave os joelhos no topo. Desça controlando até 90°. Pés no centro da plataforma para equilíbrio muscular.',
+        tip:       'Não trave os joelhos no topo. Desça controlando até 90°. Pés no centro da plataforma. Após o agachamento, ideal para volume extra.',
       },
       {
-        name: 'Cadeira Extensora',
-        sets: '3 × 12–15',
-        muscle: 'QUADRÍCEPS',
-        icon: '⬆️',
+        name:      'Cadeira Extensora',
+        sets:      '3 × 12–15 reps',
+        muscle:    'QUADRÍCEPS ISOLADO',
+        icon:      '⬆️',
         youtubeId: 'Svq2T3L9oKo',
-        tip: 'Suba controlado, pause 1 segundo com o músculo contraído no topo, desça lentamente. Foco total na contração.',
+        tip:       'Suba controlado, pause 1 segundo no topo com o músculo contraído, desça em 3 segundos. Foco total na contração do quadríceps.',
       },
       {
-        name: 'Mesa Flexora',
-        sets: '3 × 12–15',
-        muscle: 'ISQUIOTIBIAIS',
-        icon: '⬇️',
+        name:      'Stiff com Barra',
+        sets:      '4 × 8–10 reps',
+        muscle:    'POSTERIOR / GLÚTEOS',
+        icon:      '🏋️',
+        youtubeId: '1uDiW5--re4',
+        tip:       'Joelhos levemente flexionados. Desça sentindo o alongamento no posterior da coxa. Costas neutras em todo o movimento.',
+      },
+      {
+        name:      'Mesa Flexora',
+        sets:      '3 × 12–15 reps',
+        muscle:    'ISQUIOTIBIAIS ISOLADO',
+        icon:      '⬇️',
         youtubeId: '8Nat6GRiEoc',
-        tip: 'O excêntrico (descida) é fundamental. Desça em 3 segundos. Não use momentum. Quadril fixo na mesa.',
+        tip:       'O excêntrico (descida) é a fase mais importante. Desça em 3 segundos. Quadril fixo na mesa. Sem usar momentum.',
       },
       {
-        name: 'Panturrilha em Pé',
-        sets: '4 × 15–20',
-        muscle: 'PANTURRILHA',
-        icon: '⬆️',
+        name:      'Panturrilha em Pé',
+        sets:      '4 × 15–20 reps',
+        muscle:    'PANTURRILHA',
+        icon:      '⬆️',
         youtubeId: 'nQmWQ3shmTw',
-        tip: 'Eleve completamente na ponta dos pés e desça abaixo do nível do degrau para máximo alongamento do sóleo.',
+        tip:       'Eleve completamente na ponta dos pés e desça abaixo do nível do degrau para máximo alongamento. Pause 1 seg no topo.',
       },
     ],
   },
 
+  /* ── QUINTA: OMBROS + TRAPÉZIO ── */
   quinta: {
     fullName: 'Quinta-feira',
-    focus: 'OMBROS',
-    icon: '🏔️',
+    focus:    'OMBROS + TRAPÉZIO',
+    icon:     '🏔️',
+    duration: '~60 min',
     exercises: [
       {
-        name: 'Desenvolvimento com Halteres',
-        sets: '4 × 10–12',
-        muscle: 'DELTÓIDE',
-        icon: '⬆️',
+        name:      'Desenvolvimento com Barra',
+        sets:      '4 × 8–10 reps',
+        muscle:    'DELTÓIDE / COMPOUND',
+        icon:      '⬆️',
         youtubeId: 'eufDL9MmF8A',
-        tip: 'Sente-se com encosto. Empurre os halteres sem travar os cotovelos. Controle a descida até 90° para ativação máxima.',
+        tip:       'Empurre a barra acima da cabeça sem travar os cotovelos no topo. Controle a descida até a altura do queixo. Core contraído.',
       },
       {
-        name: 'Elevação Lateral',
-        sets: '4 × 12–15',
-        muscle: 'DELTÓIDE LATERAL',
-        icon: '↔️',
+        name:      'Elevação Lateral com Halteres',
+        sets:      '4 × 12–15 reps',
+        muscle:    'DELTÓIDE LATERAL',
+        icon:      '↔️',
         youtubeId: 'jannLx4RxKo',
-        tip: 'Cotovelos levemente dobrados. Suba até a altura dos ombros. Controle a descida em 2 segundos. Sem impulso.',
+        tip:       'Cotovelos levemente dobrados. Suba até a altura dos ombros com o indicador levemente para baixo. Controle a descida em 3 seg.',
       },
       {
-        name: 'Elevação Frontal',
-        sets: '3 × 12',
-        muscle: 'DELTÓIDE FRONTAL',
-        icon: '⬆️',
+        name:      'Elevação Frontal com Halteres',
+        sets:      '3 × 12 reps',
+        muscle:    'DELTÓIDE FRONTAL',
+        icon:      '⬆️',
         youtubeId: 'kKjjeiXL960',
-        tip: 'Levante alternando os braços à frente do corpo até a altura dos ombros. Evite balançar o tronco. Peso moderado.',
+        tip:       'Levante alternando os braços à frente até a altura dos ombros. Tronco fixo sem balançar. Peso moderado para máxima amplitude.',
       },
       {
-        name: 'Encolhimento com Halteres',
-        sets: '3 × 12–15',
-        muscle: 'TRAPÉZIO',
-        icon: '⬆️',
+        name:      'Face Pull na Polia',
+        sets:      '3 × 15 reps',
+        muscle:    'DELTÓIDE POSTERIOR / MANGUITO',
+        icon:      '🎯',
+        youtubeId: 'rep-qVOkqgk',
+        tip:       'Polia na altura dos olhos. Puxe em direção ao rosto abrindo os cotovelos para cima. Essencial para saúde do ombro e postura.',
+      },
+      {
+        name:      'Remada Alta com Barra',
+        sets:      '3 × 12 reps',
+        muscle:    'DELTÓIDE / TRAPÉZIO',
+        icon:      '⬆️',
+        youtubeId: 'jOgSBer-tYo',
+        tip:       'Pegada um pouco mais estreita que os ombros. Puxe a barra até a altura do queixo com os cotovelos acima das mãos.',
+      },
+      {
+        name:      'Encolhimento com Halteres',
+        sets:      '4 × 15 reps',
+        muscle:    'TRAPÉZIO SUPERIOR',
+        icon:      '⬆️',
         youtubeId: 'rqtfxLLuxn4',
-        tip: 'Eleve os ombros em direção às orelhas e segure 1–2 segundos. Não role os ombros. Movimento direto: sobe e desce.',
+        tip:       'Eleve os ombros em direção às orelhas e segure 1–2 segundos no topo. Não role os ombros. Movimento direto: sobe e desce.',
       },
     ],
   },
 
+  /* ── SEXTA: BRAÇOS + CORE ── */
   sexta: {
     fullName: 'Sexta-feira',
-    focus: 'BRAÇOS',
-    icon: '💪',
+    focus:    'BRAÇOS + CORE',
+    icon:     '💪',
+    duration: '~55 min',
     exercises: [
       {
-        name: 'Rosca Direta com Barra',
-        sets: '4 × 10–12',
-        muscle: 'BÍCEPS',
-        icon: '💪',
+        name:      'Rosca Direta com Barra',
+        sets:      '4 × 10–12 reps',
+        muscle:    'BÍCEPS / MASSA',
+        icon:      '💪',
         youtubeId: 'Et1wgGMGW8w',
-        tip: 'Cotovelos fixos ao lado do corpo. Suba controlado e desça lentamente em 3 segundos. Evite balançar o tronco.',
+        tip:       'Cotovelos fixos ao lado do corpo. Suba controlado até a plena contração. Excêntrico lento de 3 segundos. Proibido balançar.',
       },
       {
-        name: 'Rosca Alternada com Halteres',
-        sets: '3 × 10 cada',
-        muscle: 'BÍCEPS',
-        icon: '🔄',
+        name:      'Rosca Alternada com Halteres',
+        sets:      '3 × 12 reps cada',
+        muscle:    'BÍCEPS / PEAK',
+        icon:      '🔄',
         youtubeId: 'AuBN9_8Iihc',
-        tip: 'Alterne os braços. Gire o pulso supinando no topo para máxima contração do bíceps. Controle total do movimento.',
+        tip:       'Gire o pulso supinando no topo para máxima contração do bíceps. Concentre-se em cada braço alternadamente. Peso controlado.',
       },
       {
-        name: 'Martelo com Halteres',
-        sets: '3 × 12',
-        muscle: 'BRAQUIAL / BÍCEPS',
-        icon: '🔨',
+        name:      'Rosca Martelo com Halteres',
+        sets:      '3 × 12 reps',
+        muscle:    'BRAQUIAL / ESPESSURA',
+        icon:      '🔨',
         youtubeId: '1-xCKLVxqqg',
-        tip: 'Pegada neutra (polegar aponta para cima). Trabalha o braquial e dá espessura ao braço. Não balance o tronco.',
+        tip:       'Pegada neutra (polegar para cima) dá espessura e preenche o braço. Sem balançar o tronco. Movimento limpo e controlado.',
       },
       {
-        name: 'Tríceps Corda na Polia',
-        sets: '4 × 12–15',
-        muscle: 'TRÍCEPS',
-        icon: '⬇️',
+        name:      'Tríceps Corda na Polia',
+        sets:      '4 × 12–15 reps',
+        muscle:    'TRÍCEPS / CABEÇAS LATERAL E MEDIAL',
+        icon:      '⬇️',
         youtubeId: '7le1JRUUagM',
-        tip: 'Abra a corda no final do movimento para maior ativação das cabeças laterais. Cotovelos fixos ao lado do corpo.',
+        tip:       'Abra a corda ao final para ativar as cabeças lateral e medial. Cotovelos fixos. Controle absoluto no retorno. Não use peso excessivo.',
       },
       {
-        name: 'Tríceps Francês',
-        sets: '3 × 10–12',
-        muscle: 'TRÍCEPS',
-        icon: '💡',
+        name:      'Tríceps Francês com Halter',
+        sets:      '3 × 10–12 reps',
+        muscle:    'TRÍCEPS CABEÇA LONGA',
+        icon:      '💡',
         youtubeId: 'RavQHfFxbdA',
-        tip: 'Skull crusher: desça o halter até próximo da testa controlando o excêntrico. Cotovelos apontados para cima, fixos.',
-      },
-    ],
-  },
-
-  sabado: {
-    fullName: 'Sábado',
-    focus: 'PEITO + CORE',
-    icon: '🔥',
-    exercises: [
-      {
-        name: 'Supino Inclinado com Barra',
-        sets: '4 × 8–10',
-        muscle: 'PEITO SUPERIOR',
-        icon: '🏋️',
-        youtubeId: 'MKJEZaSIMPE',
-        tip: 'Pegada na largura dos ombros. Desça controlado até tocar levemente o peito superior. Explosivo na subida.',
+        tip:       'Deite no banco, desça o halter por trás da cabeça controlando o excêntrico. Cotovelos apontados para cima e fixos. Máximo alongamento.',
       },
       {
-        name: 'Peck Deck (Voador)',
-        sets: '3 × 12–15',
-        muscle: 'PEITO',
-        icon: '🦅',
-        youtubeId: 'FwtqdGlRgig',
-        tip: 'Mantenha um arco nos cotovelos durante todo o movimento. Foque na contração do peito no centro. Controle a volta.',
-      },
-      {
-        name: 'Pullover com Halter',
-        sets: '3 × 12',
-        muscle: 'PEITO / COSTAS',
-        icon: '🔄',
-        youtubeId: 'tKzMqbZmtlI',
-        tip: 'Deite transversal no banco. Desça o halter atrás da cabeça sentindo o alongamento do peitoral e retorna controlado.',
-      },
-      {
-        name: 'Prancha',
-        sets: '3 × 45 seg',
-        muscle: 'CORE',
-        icon: '⏱️',
+        name:      'Prancha + Crunch Abdominal',
+        sets:      '3 × 45 seg + 20 reps',
+        muscle:    'CORE COMPLETO',
+        icon:      '🔥',
         youtubeId: 'Yu0wjtD5FkU',
-        tip: 'Corpo reto, abdômen e glúteos contraídos. Respire normalmente. Não deixe o quadril subir ou cair. Foco no core.',
-      },
-      {
-        name: 'Abdominal Crunch',
-        sets: '3 × 20',
-        muscle: 'ABDÔMEN',
-        icon: '🔥',
-        youtubeId: 'c4yjTN9uKRY',
-        tip: 'Enrole apenas o tronco superior — não o pescoço. Expire ao subir, inspire ao descer. Controle o excêntrico.',
+        tip:       'Superset finalizador: 45 seg de prancha → 20 crunch sem descanso. Core contraído, abdômen trabalhando. Finalize a semana forte!',
       },
     ],
   },
 
-  domingo: null, // descanso ativo
+  /* ── SÁBADO: Descanso Ativo ── */
+  sabado: null,
+
+  /* ── DOMINGO: Descanso Ativo ── */
+  domingo: null,
 };
 
 /* ============================================================
@@ -377,7 +400,6 @@ function lsSet(key, value) {
    ============================================================ */
 function playVideo(container, videoId) {
   if (!videoId) return;
-  // Pausa qualquer outro vídeo aberto no mesmo painel
   document.querySelectorAll('.card-video.playing').forEach(c => {
     if (c !== container) {
       const f = c.querySelector('.card-video__iframe');
@@ -391,29 +413,43 @@ function playVideo(container, videoId) {
 }
 
 /* ============================================================
-   PROGRESSO DE PESO
+   PROGRESSO DE PESO (com meta editável)
    ============================================================ */
 function initWeightProgress() {
-  const input = document.getElementById('current-weight');
-  const fill  = document.getElementById('weight-fill');
-  const pct   = document.getElementById('weight-percent');
-  if (!input) return;
-  const saved = lsGet('currentWeight', START_WEIGHT);
-  input.value = saved;
-  updateWeightBar(saved, fill, pct);
-  input.addEventListener('input', () => {
-    const w = parseFloat(input.value) || START_WEIGHT;
+  const curInput  = document.getElementById('current-weight');
+  const goalInput = document.getElementById('goal-weight');
+  const fill      = document.getElementById('weight-fill');
+  const pct       = document.getElementById('weight-percent');
+  if (!curInput) return;
+
+  const savedCur  = lsGet('currentWeight', START_WEIGHT);
+  const savedGoal = lsGet('goalWeight',    GOAL_WEIGHT);
+  curInput.value  = savedCur;
+  if (goalInput) goalInput.value = savedGoal;
+  updateWeightBar(savedCur, savedGoal, fill, pct);
+
+  curInput.addEventListener('input', () => {
+    const w = parseFloat(curInput.value)  || START_WEIGHT;
+    const g = parseFloat(goalInput?.value) || lsGet('goalWeight', GOAL_WEIGHT);
     lsSet('currentWeight', w);
-    updateWeightBar(w, fill, pct);
+    updateWeightBar(w, g, fill, pct);
   });
+  if (goalInput) {
+    goalInput.addEventListener('input', () => {
+      const w = parseFloat(curInput.value) || lsGet('currentWeight', START_WEIGHT);
+      const g = parseFloat(goalInput.value) || GOAL_WEIGHT;
+      lsSet('goalWeight', g);
+      updateWeightBar(w, g, fill, pct);
+    });
+  }
 }
 
-function updateWeightBar(current, fill, pctEl) {
-  const range   = GOAL_WEIGHT - START_WEIGHT;
+function updateWeightBar(current, goal, fill, pctEl) {
+  const range   = goal - START_WEIGHT;
   const done    = Math.max(0, Math.min(current - START_WEIGHT, range));
-  const percent = Math.round((done / range) * 100);
-  if (fill)  fill.style.width = percent + '%';
-  if (pctEl) pctEl.textContent = `${percent}% concluído  •  ${current} kg → ${GOAL_WEIGHT} kg`;
+  const percent = range > 0 ? Math.round((done / range) * 100) : 0;
+  if (fill)  fill.style.width = Math.max(0, Math.min(100, percent)) + '%';
+  if (pctEl) pctEl.textContent = `${percent}% concluído  •  ${current} kg → ${goal} kg`;
 }
 
 /* ============================================================
@@ -428,8 +464,8 @@ function getWeekKey() {
 function renderWeeklyCounter() {
   const el = document.getElementById('weekly-text');
   if (!el) return;
-  const data  = lsGet(getWeekKey(), []);
-  el.textContent = `Você treinou ${data.length}/6 dias esta semana`;
+  const data = lsGet(getWeekKey(), []);
+  el.textContent = `Você treinou ${data.length}/5 dias esta semana`;
 }
 function markTodayTrained() {
   const key  = getWeekKey();
@@ -454,9 +490,7 @@ function buildVideoHtml(youtubeId, name) {
            onerror="this.parentElement.classList.add('thumb-error')"/>
       <div class="card-video__overlay">
         <div class="card-video__play-btn">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <span class="card-video__label">Ver execução</span>
       </div>
@@ -472,14 +506,13 @@ function renderPanels() {
 
   Object.keys(workouts).forEach(day => {
     const data  = workouts[day];
-    const color = DAY_COLORS[day];
+    const color = DAY_COLORS[day] || '#555577';
     const panel = document.createElement('div');
     panel.className = 'day-panel';
     panel.id = `panel-${day}`;
     if (day === 'segunda') panel.classList.add('active');
 
     if (!data) {
-      // Domingo — descanso ativo
       panel.innerHTML = `
         <div class="rest-card">
           <div class="rest-icon">🧘</div>
@@ -487,14 +520,17 @@ function renderPanels() {
           <p>Hoje é dia de recuperação. Seu corpo cresce durante o descanso, não na academia.<br/>
           <strong>Sugestão:</strong> 15 min de alongamento global + caminhada leve de 20–30 min.</p>
           <div class="motivational">
-            "O descanso não é fraqueza — é parte do treino. Amanhã você volta mais forte." 💪
+            "O descanso não é fraqueza — é parte do treino. Na segunda você volta mais forte." 💪
           </div>
         </div>`;
     } else {
-      const saved = lsGet(`exercises_${day}`, {});
+      const saved        = lsGet(`exercises_${day}`, {});
+      const savedWeights = lsGet(`weights_${day}`, {});
+
       const cardsHtml = data.exercises.map((ex, i) => {
         const checked   = saved[i] ? 'checked' : '';
         const doneClass = saved[i] ? 'done' : '';
+        const wVal      = savedWeights[i] ?? '';
         return `
           <div class="exercise-card ${doneClass}" id="card-${day}-${i}" style="--card-color:${color}">
             <div class="card-color-strip" style="background:${color}"></div>
@@ -504,37 +540,71 @@ function renderPanels() {
               <div class="card-name">${ex.name}</div>
               <div class="card-sets">${ex.sets}</div>
               <div class="card-tip">${ex.tip}</div>
-              <div class="card-check-area">
-                <input type="checkbox" class="card-checkbox" id="chk-${day}-${i}"
-                  data-day="${day}" data-idx="${i}" ${checked}/>
-                <label class="card-check-label" for="chk-${day}-${i}">Marcar como concluído</label>
+
+              <div class="card-weight-row">
+                <i class="fa-solid fa-dumbbell"></i>
+                <input type="number" class="card-weight-input"
+                  id="w-${day}-${i}" data-day="${day}" data-idx="${i}"
+                  placeholder="Peso" min="0" step="2.5" value="${wVal}"/>
+                <span class="cwl">kg</span>
+              </div>
+
+              <div class="card-actions">
+                <div class="card-check-area">
+                  <input type="checkbox" class="card-checkbox" id="chk-${day}-${i}"
+                    data-day="${day}" data-idx="${i}" ${checked}/>
+                  <label class="card-check-label" for="chk-${day}-${i}">Concluído</label>
+                </div>
+                <button class="btn-rest-timer" onclick="openRestTimer()" title="Cronômetro de descanso">
+                  <i class="fa-solid fa-stopwatch"></i> Descanso
+                </button>
               </div>
             </div>
           </div>`;
       }).join('');
 
+      const durBadge = data.duration
+        ? `<span class="duration-badge"><i class="fa-solid fa-clock"></i> ${data.duration}</span>`
+        : '';
+
       panel.innerHTML = `
         <div class="day-panel-header">
           <span class="day-panel-title" style="color:${color}">${data.fullName}</span>
-          <span class="focus-badge">${data.focus}</span>
+          <span class="focus-badge" style="border-color:${color};color:${color};background:${color}22">${data.focus}</span>
+          ${durBadge}
         </div>
         <div class="exercise-grid">${cardsHtml}</div>`;
     }
-
     container.appendChild(panel);
   });
 
-  // Eventos de checkbox
+  // Evento: checkbox concluído
   container.addEventListener('change', e => {
-    if (!e.target.classList.contains('card-checkbox')) return;
+    if (e.target.classList.contains('card-checkbox')) {
+      const { day, idx } = e.target.dataset;
+      const saved = lsGet(`exercises_${day}`, {});
+      saved[idx] = e.target.checked;
+      lsSet(`exercises_${day}`, saved);
+      document.getElementById(`card-${day}-${idx}`)?.classList.toggle('done', e.target.checked);
+      checkDayComplete(day);
+      if (e.target.checked) markTodayTrained();
+    }
+    // Evento: peso do exercício
+    if (e.target.classList.contains('card-weight-input')) {
+      const { day, idx } = e.target.dataset;
+      const wts = lsGet(`weights_${day}`, {});
+      wts[idx] = parseFloat(e.target.value) || null;
+      lsSet(`weights_${day}`, wts);
+    }
+  });
+
+  // Salva peso também no blur (para inputs numéricos)
+  container.addEventListener('input', e => {
+    if (!e.target.classList.contains('card-weight-input')) return;
     const { day, idx } = e.target.dataset;
-    const saved = lsGet(`exercises_${day}`, {});
-    saved[idx] = e.target.checked;
-    lsSet(`exercises_${day}`, saved);
-    const card = document.getElementById(`card-${day}-${idx}`);
-    if (card) card.classList.toggle('done', e.target.checked);
-    checkDayComplete(day);
-    if (e.target.checked) markTodayTrained();
+    const wts = lsGet(`weights_${day}`, {});
+    wts[idx] = e.target.value !== '' ? parseFloat(e.target.value) : null;
+    lsSet(`weights_${day}`, wts);
   });
 
   animateCards('segunda');
@@ -575,7 +645,6 @@ function initDaySelector() {
       if (panel) { panel.classList.add('active'); animateCards(day); }
       const banner = document.getElementById('completion-banner');
       if (banner) { banner.classList.remove('show'); checkDayComplete(day); }
-      // Para vídeos em outros painéis ao trocar de dia
       document.querySelectorAll('.card-video.playing').forEach(c => {
         const f = c.querySelector('.card-video__iframe');
         if (f) f.src = '';
@@ -607,13 +676,15 @@ function initWeightDiet() {
   const fill  = document.getElementById('weight-fill-diet');
   const pct   = document.getElementById('weight-percent-diet');
   if (!input) return;
-  const saved = lsGet('currentWeight', START_WEIGHT);
-  input.value = saved;
-  updateWeightBar(saved, fill, pct);
+  const savedCur  = lsGet('currentWeight', START_WEIGHT);
+  const savedGoal = lsGet('goalWeight',    GOAL_WEIGHT);
+  input.value = savedCur;
+  updateWeightBar(savedCur, savedGoal, fill, pct);
   input.addEventListener('input', () => {
     const w = parseFloat(input.value) || START_WEIGHT;
+    const g = lsGet('goalWeight', GOAL_WEIGHT);
     lsSet('currentWeight', w);
-    updateWeightBar(w, fill, pct);
+    updateWeightBar(w, g, fill, pct);
   });
 }
 
@@ -698,20 +769,17 @@ function renderTips() {
   const container = document.getElementById('tips-container');
   if (!container) return;
   const tips = [
-    { icon: '🔔', title: 'Coma de 3 em 3 horas',           text: 'Configure alarme no celular. Consistência é chave para hard gainers.' },
-    { icon: '🥜', title: 'Prefira alimentos calóricos',     text: 'Amendoim, banana, arroz, ovos, queijo — densos em calorias e nutrientes.' },
-    { icon: '🫒', title: 'Enriqueça as refeições',          text: 'Adicione azeite, pasta de amendoim e leite integral a tudo que puder.' },
-    { icon: '💧', title: 'Não beba água antes das refeições', text: 'Evita saciedade precoce. Beba após ou 30 min antes das principais.' },
-    { icon: '🥤', title: 'Use hipercalórico estratégico',   text: 'Nos dias em que não conseguir bater as calorias apenas pela comida.' },
-    { icon: '😴', title: 'Durma 7–9 horas',                 text: 'O músculo cresce no descanso, não na academia. Sono é anabolismo grátis.' },
+    { icon: '🔔', title: 'Coma de 3 em 3 horas',              text: 'Configure alarme no celular. Consistência é chave para hard gainers.' },
+    { icon: '🥜', title: 'Prefira alimentos calóricos',        text: 'Amendoim, banana, arroz, ovos, queijo — densos em calorias e nutrientes.' },
+    { icon: '🫒', title: 'Enriqueça as refeições',             text: 'Adicione azeite, pasta de amendoim e leite integral a tudo que puder.' },
+    { icon: '💧', title: 'Não beba água antes das refeições',  text: 'Evita saciedade precoce. Beba após ou 30 min antes das principais.' },
+    { icon: '🥤', title: 'Use hipercalórico estratégico',      text: 'Nos dias em que não conseguir bater as calorias apenas pela comida.' },
+    { icon: '😴', title: 'Durma 7–9 horas',                    text: 'O músculo cresce no descanso, não na academia. Sono é anabolismo grátis.' },
   ];
   container.innerHTML = tips.map(tip => `
     <div class="tip-card">
       <span class="tip-icon">${tip.icon}</span>
-      <div class="tip-text">
-        <strong>${tip.title}</strong>
-        <span>${tip.text}</span>
-      </div>
+      <div class="tip-text"><strong>${tip.title}</strong><span>${tip.text}</span></div>
     </div>`).join('');
   container.querySelectorAll('.tip-card').forEach((card, i) => {
     setTimeout(() => card.classList.add('animate-in'), i * 80);
@@ -752,7 +820,6 @@ function initScrollAnimations() {
    INIT
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
-  // Página de treino
   if (document.getElementById('panels')) {
     renderPanels();
     initDaySelector();
@@ -760,7 +827,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderWeeklyCounter();
     checkDayComplete('segunda');
   }
-  // Página de dieta
   if (document.getElementById('meals-container')) {
     renderMacros();
     renderMeals();
@@ -771,7 +837,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Funções globais (chamadas via onclick inline)
 window.playVideo  = playVideo;
 window.resetDay   = resetDay;
 window.resetWeek  = resetWeek;

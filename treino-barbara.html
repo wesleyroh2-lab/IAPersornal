@@ -23,10 +23,10 @@
   <!-- ── MAIN ── -->
   <main class="container page-main">
 
-    <!-- Título da página -->
+    <!-- Título -->
     <div class="page-header">
       <h1 class="page-title">TREINO DA BARBARA</h1>
-      <p class="page-subtitle">Personal Trainer IA — Foco em Emagrecimento &amp; Definição</p>
+      <p class="page-subtitle">Personal Trainer IA — Emagrecimento &amp; Definição · Seg a Sáb</p>
     </div>
 
     <!-- Progresso de peso -->
@@ -37,18 +37,23 @@
         </span>
         <div class="weight-inputs">
           <label>
-            Peso atual:
-            <input type="number" id="current-weight" value="65" min="40" max="150" step="0.1" />
+            Atual:
+            <input type="number" id="current-weight" value="65" min="30" max="200" step="0.1" />
+            kg
+          </label>
+          <label>
+            Meta:
+            <input type="number" id="goal-weight" value="55" min="30" max="200" step="0.5" />
             kg
           </label>
         </div>
       </div>
       <div class="progress-bar-container">
-        <span class="progress-label">65 kg</span>
+        <span class="progress-label">Início</span>
         <div class="progress-bar">
           <div class="progress-fill" id="weight-fill" style="width:0%"></div>
         </div>
-        <span class="progress-label">55 kg</span>
+        <span class="progress-label">Meta</span>
       </div>
       <div class="progress-percent" id="weight-percent">Carregando...</div>
     </div>
@@ -73,10 +78,10 @@
 
     <!-- Banner de conclusão -->
     <div class="completion-banner" id="completion-banner">
-      🔥✨ Treino Concluído! Você foi incrível hoje! Continue assim!
+      🔥✨ Treino Concluído! Você foi incrível hoje! Continue assim, Barbara!
     </div>
 
-    <!-- Painéis de exercícios (renderizados pelo JS) -->
+    <!-- Painéis de exercícios -->
     <div id="panels"></div>
 
     <!-- Botão de reset -->
@@ -93,7 +98,37 @@
     </div>
   </footer>
 
+  <!-- ── CRONÔMETRO DE DESCANSO (flutuante) ── -->
+  <div class="rest-timer-widget" id="rest-timer">
+    <div class="rtw__header">
+      <span class="rtw__title"><i class="fa-solid fa-stopwatch"></i> Descanso</span>
+      <button class="rtw__close" onclick="closeRestTimer()" title="Fechar">✕</button>
+    </div>
+    <div class="rtw__ring-wrap">
+      <svg class="rtw__svg" viewBox="0 0 100 100">
+        <circle class="rtw__ring-bg"   cx="50" cy="50" r="44"/>
+        <circle class="rtw__ring-fill" cx="50" cy="50" r="44" id="rtw-ring"/>
+      </svg>
+      <div class="rtw__time" id="rtw-time">01:30</div>
+    </div>
+    <div class="rtw__presets">
+      <button class="rtw__preset" data-secs="60"  onclick="setRestTime(60)">1 min</button>
+      <button class="rtw__preset active" data-secs="90"  onclick="setRestTime(90)">1:30</button>
+      <button class="rtw__preset" data-secs="120" onclick="setRestTime(120)">2 min</button>
+      <button class="rtw__preset" data-secs="180" onclick="setRestTime(180)">3 min</button>
+    </div>
+    <div class="rtw__controls">
+      <button class="rtw__btn-start" id="rtw-toggle" onclick="toggleRestTimer()">
+        <i class="fa-solid fa-play"></i> Iniciar
+      </button>
+      <button class="rtw__btn-reset" onclick="resetRestTimer()">
+        <i class="fa-solid fa-rotate-right"></i> Zerar
+      </button>
+    </div>
+  </div>
+
   <script src="js/auth.js"></script>
+  <script src="js/timer.js"></script>
   <script src="js/barbara.js"></script>
 </body>
 </html>
