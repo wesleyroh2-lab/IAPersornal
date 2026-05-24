@@ -1,0 +1,818 @@
+/* ============================================================
+   IAPersornal — CSS Global
+   Dark Mode Esportivo | #FF6B00 laranja | #FFD700 dourado
+   Fontes: Bebas Neue (títulos) + Nunito (corpo)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+/* ── Variables ── */
+:root {
+  --bg:          #0a0a0a;
+  --surface:     #141414;
+  --surface-2:   #1c1c1c;
+  --border:      #2a2a2a;
+  --orange:      #FF6B00;
+  --orange-glow: rgba(255,107,0,.25);
+  --gold:        #FFD700;
+  --gold-glow:   rgba(255,215,0,.20);
+  --text:        #f0f0f0;
+  --text-muted:  #7a7a7a;
+  --success:     #06D6A0;
+  --blue:        #3A86FF;
+  --pink:        #FF006E;
+  --radius:      12px;
+  --radius-lg:   18px;
+  --shadow:      0 4px 24px rgba(0,0,0,.55);
+  --transition:  all .28s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+a { color: var(--orange); text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; outline: none; }
+input { font-family: inherit; }
+
+/* ── Container ── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(10,10,10,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: var(--orange);
+  letter-spacing: 1px;
+}
+.nav-links {
+  display: flex;
+  gap: .5rem;
+}
+.nav-links a {
+  padding: .4rem 1rem;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: .9rem;
+  letter-spacing: .5px;
+  transition: var(--transition);
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--orange);
+  background: var(--orange-glow);
+}
+
+/* ── Page main ── */
+.page-main {
+  padding-top: 80px;
+  padding-bottom: 4rem;
+}
+
+/* ── Page Header ── */
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem 0 1rem;
+}
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  color: var(--orange);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.page-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: .5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── Weight Progress Card ── */
+.weight-progress-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.weight-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .8rem;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--gold);
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.weight-inputs label {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .9rem;
+  color: var(--text-muted);
+}
+.weight-inputs input {
+  width: 60px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  padding: .25rem .5rem;
+  font-size: .9rem;
+  text-align: center;
+}
+.weight-inputs input:focus { outline: none; border-color: var(--orange); }
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .5rem;
+}
+.progress-label {
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.progress-bar {
+  flex: 1;
+  height: 12px;
+  background: var(--surface-2);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--gold));
+  border-radius: 99px;
+  transition: width .5s ease;
+}
+.progress-percent {
+  font-size: .85rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ── Weekly Counter ── */
+.weekly-counter {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .9rem 1.2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: .95rem;
+  flex-wrap: wrap;
+}
+.weekly-counter i {
+  color: var(--gold);
+  font-size: 1.2rem;
+}
+.weekly-counter span {
+  flex: 1;
+}
+.btn-reset-week {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: .8rem;
+  padding: .3rem .8rem;
+  border-radius: 6px;
+  transition: var(--transition);
+}
+.btn-reset-week:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
+/* ── Day Selector ── */
+.day-selector {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.day-btn {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  padding: .55rem 1.1rem;
+  border-radius: 10px;
+  transition: var(--transition);
+}
+.day-btn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+.day-btn.active {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+  box-shadow: 0 0 16px var(--orange-glow);
+}
+.day-btn.rest.active {
+  background: var(--success);
+  border-color: var(--success);
+  box-shadow: 0 0 16px rgba(6,214,160,.3);
+}
+
+/* ── Completion Banner ── */
+.completion-banner {
+  display: none;
+  background: linear-gradient(135deg, var(--orange), var(--gold));
+  color: #000;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  animation: popIn .4s cubic-bezier(.175,.885,.32,1.275);
+}
+.completion-banner.show { display: block; }
+
+/* ── Day Panel ── */
+.day-panel { display: none; }
+.day-panel.active { display: block; }
+
+.day-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.day-panel-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+.focus-badge {
+  background: var(--orange-glow);
+  color: var(--orange);
+  border: 1px solid var(--orange);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: .3rem .75rem;
+  border-radius: 99px;
+}
+
+/* ── Exercise Grid ── */
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Exercise Card ── */
+.exercise-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  opacity: 0;
+  transform: translateY(20px);
+}
+.exercise-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.exercise-card.done {
+  border-color: var(--success);
+  opacity: .7;
+}
+.exercise-card.done .card-visual { filter: grayscale(.4); }
+.exercise-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(255,107,0,.2);
+}
+.exercise-card.done:hover { transform: none; }
+
+.card-visual {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.card-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--card-color, #FF6B00) 0%, transparent 70%);
+  opacity: .18;
+}
+
+.card-body { padding: 1rem 1.1rem 1.2rem; }
+.card-muscle {
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #fff;
+  background: var(--card-color, #FF6B00);
+  padding: .2rem .65rem;
+  border-radius: 99px;
+  display: inline-block;
+  margin-bottom: .6rem;
+}
+.card-name {
+  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: .35rem;
+  line-height: 1.3;
+}
+.card-sets {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.25rem;
+  color: var(--gold);
+  letter-spacing: .5px;
+  margin-bottom: .5rem;
+}
+.card-tip {
+  font-size: .8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: .75rem;
+}
+.card-check-area {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.card-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  flex-shrink: 0;
+}
+.card-checkbox:checked {
+  background: var(--success);
+  border-color: var(--success);
+}
+.card-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  color: #000;
+  font-size: .8rem;
+  font-weight: 900;
+}
+.card-check-label {
+  font-size: .85rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+/* ── Rest Day Card ── */
+.rest-card {
+  background: var(--surface);
+  border: 2px solid var(--success);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 0 32px rgba(6,214,160,.15);
+}
+.rest-card .rest-icon { font-size: 5rem; margin-bottom: 1rem; }
+.rest-card h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: var(--success);
+  margin-bottom: .5rem;
+}
+.rest-card p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; }
+.rest-card .motivational {
+  margin-top: 1.5rem;
+  background: var(--surface-2);
+  border-radius: var(--radius);
+  padding: 1rem;
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ── Reset Area ── */
+.reset-area {
+  text-align: center;
+  margin-top: 1rem;
+}
+.btn-secondary {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: .6rem 1.4rem;
+  border-radius: 8px;
+  font-size: .9rem;
+  font-weight: 700;
+  transition: var(--transition);
+}
+.btn-secondary:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+/* ── DIET PAGE ── */
+
+/* Goal Card */
+.goal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.goal-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+.goal-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+.goal-meta-item {
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  padding: .75rem;
+  text-align: center;
+}
+.goal-meta-item .label {
+  font-size: .7rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: .25rem;
+}
+.goal-meta-item .value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  color: var(--orange);
+}
+
+/* Macros */
+.macros-section { margin-bottom: 2rem; }
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: var(--text);
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+.section-title span { color: var(--orange); }
+.macros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.macro-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  text-align: center;
+  transition: var(--transition);
+}
+.macro-card:hover { border-color: var(--orange); }
+.macro-icon { font-size: 2rem; margin-bottom: .5rem; }
+.macro-name {
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: .25rem;
+}
+.macro-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: var(--orange);
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.macro-unit {
+  font-size: .75rem;
+  color: var(--text-muted);
+}
+.macro-bar {
+  height: 6px;
+  background: var(--surface-2);
+  border-radius: 99px;
+  margin-top: .75rem;
+  overflow: hidden;
+}
+.macro-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width .5s ease;
+}
+
+/* Meals */
+.meals-section { margin-bottom: 2rem; }
+.kcal-counter-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .9rem 1.2rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.kcal-counter-bar .kcal-icon { font-size: 1.4rem; }
+.kcal-text { flex: 1; font-weight: 700; }
+.kcal-text strong { color: var(--orange); font-size: 1.1rem; }
+.kcal-text span { color: var(--text-muted); font-size: .9rem; }
+.btn-reset-meals {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: .8rem;
+  padding: .3rem .8rem;
+  border-radius: 6px;
+  transition: var(--transition);
+}
+.btn-reset-meals:hover { color: var(--orange); border-color: var(--orange); }
+
+.meals-grid {
+  display: grid;
+  gap: 1rem;
+}
+.meal-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+  opacity: 0;
+  transform: translateY(16px);
+}
+.meal-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.meal-card.meal-done {
+  border-color: var(--success);
+  opacity: .75;
+}
+.meal-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  background: var(--surface-2);
+  cursor: pointer;
+  user-select: none;
+}
+.meal-emoji { font-size: 1.8rem; }
+.meal-info { flex: 1; }
+.meal-name {
+  font-weight: 800;
+  font-size: 1rem;
+}
+.meal-time {
+  font-size: .8rem;
+  color: var(--text-muted);
+}
+.meal-kcal {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+.meal-check {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  flex-shrink: 0;
+}
+.meal-check:checked {
+  background: var(--success);
+  border-color: var(--success);
+}
+.meal-check:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  color: #000;
+  font-size: .85rem;
+  font-weight: 900;
+}
+.meal-body {
+  padding: .9rem 1.2rem 1.1rem;
+}
+.meal-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+.meal-items li {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+  font-size: .9rem;
+  color: var(--text-muted);
+}
+.meal-items li::before {
+  content: '•';
+  color: var(--orange);
+  font-weight: 900;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Tips & Supplements */
+.tips-section,
+.supplements-section,
+.hydration-section {
+  margin-bottom: 2rem;
+}
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.tip-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem;
+  display: flex;
+  gap: .9rem;
+  align-items: flex-start;
+  transition: var(--transition);
+  opacity: 0;
+  transform: translateY(12px);
+}
+.tip-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tip-card:hover { border-color: var(--gold); }
+.tip-icon { font-size: 1.8rem; flex-shrink: 0; }
+.tip-text strong {
+  display: block;
+  font-size: .95rem;
+  font-weight: 800;
+  margin-bottom: .25rem;
+}
+.tip-text span { font-size: .85rem; color: var(--text-muted); }
+
+.supplement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.supplement-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  transition: var(--transition);
+  opacity: 0;
+  transform: translateY(12px);
+}
+.supplement-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.supplement-card:hover { border-color: var(--orange); }
+.supplement-name {
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--orange);
+  margin-bottom: .3rem;
+}
+.supplement-dose {
+  font-size: .85rem;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: .25rem;
+}
+.supplement-reason { font-size: .8rem; color: var(--text-muted); }
+
+.hydration-card {
+  background: var(--surface);
+  border: 1px solid var(--blue);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.hydration-icon { font-size: 3rem; }
+.hydration-info h4 {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--blue);
+  margin-bottom: .25rem;
+}
+.hydration-info p { font-size: .9rem; color: var(--text-muted); }
+.hydration-info .warning {
+  margin-top: .5rem;
+  font-size: .85rem;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ── Footer ── */
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 0;
+  text-align: center;
+  font-size: .85rem;
+  color: var(--text-muted);
+}
+
+/* ── Animations ── */
+@keyframes popIn {
+  from { transform: scale(.8); opacity: 0; }
+  to   { transform: scale(1);  opacity: 1; }
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .page-title { font-size: 2.8rem; }
+  .exercise-grid { grid-template-columns: 1fr; }
+  .macros-grid { grid-template-columns: repeat(2, 1fr); }
+  .tips-grid { grid-template-columns: 1fr; }
+  .supplement-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .nav-logo { font-size: 1.3rem; }
+  .day-btn { padding: .4rem .7rem; font-size: .9rem; }
+  .macros-grid { grid-template-columns: 1fr 1fr; }
+  .supplement-grid { grid-template-columns: 1fr; }
+  .weight-progress-header { flex-direction: column; align-items: flex-start; }
+  .goal-meta { grid-template-columns: 1fr 1fr; }
+}

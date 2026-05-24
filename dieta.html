@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu Plano Alimentar | IAPersornal</title>
+  <meta name="description" content="Plano nutricional personalizado para ganho de massa — IAPersornal Hard Gainer." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">🏋️ IAPersornal</a>
+      <nav class="nav-links">
+        <a href="index.html">Treino</a>
+        <a href="dieta.html" class="active">Dieta</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <main class="container page-main">
+
+    <!-- Título da página -->
+    <div class="page-header">
+      <h1 class="page-title">MEU PLANO ALIMENTAR</h1>
+      <p class="page-subtitle">Nutricionista IA — Ganho de Massa para Hard Gainers</p>
+    </div>
+
+    <!-- Card de Meta / Progresso ── -->
+    <div class="goal-card">
+      <h3>🎯 Meta de Peso</h3>
+      <div class="goal-meta">
+        <div class="goal-meta-item">
+          <div class="label">Peso Atual</div>
+          <div class="value" id="goal-current">55 kg</div>
+        </div>
+        <div class="goal-meta-item">
+          <div class="label">Meta</div>
+          <div class="value">65 kg</div>
+        </div>
+        <div class="goal-meta-item">
+          <div class="label">Prazo</div>
+          <div class="value" style="font-size:1.1rem;color:#FFD700">Mar/2027</div>
+        </div>
+        <div class="goal-meta-item">
+          <div class="label">Tipo</div>
+          <div class="value" style="font-size:1rem;color:#06D6A0">Hard Gainer</div>
+        </div>
+      </div>
+
+      <!-- Barra de progresso editável -->
+      <div class="weight-progress-header" style="margin-top:.5rem">
+        <span>📊 Progresso</span>
+        <div class="weight-inputs">
+          <label>
+            Atualizar peso:
+            <input type="number" id="current-weight-diet" value="55" min="40" max="150" step="0.1" />
+            kg
+          </label>
+        </div>
+      </div>
+      <div class="progress-bar-container" style="margin-top:.6rem">
+        <span class="progress-label">55 kg</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="weight-fill-diet" style="width:0%"></div>
+        </div>
+        <span class="progress-label">65 kg</span>
+      </div>
+      <div class="progress-percent" id="weight-percent-diet">Carregando...</div>
+    </div>
+
+    <!-- ── MACROS ── -->
+    <section class="macros-section">
+      <h2 class="section-title">Macros <span>Diários</span></h2>
+      <div class="macros-grid" id="macros-container">
+        <!-- Renderizado pelo JS -->
+      </div>
+    </section>
+
+    <!-- ── REFEIÇÕES ── -->
+    <section class="meals-section">
+      <h2 class="section-title">Cardápio <span>do Dia</span></h2>
+
+      <!-- Contador de kcal -->
+      <div class="kcal-counter-bar">
+        <span class="kcal-icon">🔥</span>
+        <div class="kcal-text" id="kcal-done">
+          <strong>0</strong> <span>/ 3.750 kcal consumidas hoje</span>
+        </div>
+        <button class="btn-reset-meals" onclick="resetMeals()">🔄 Reiniciar</button>
+      </div>
+
+      <!-- Lista de refeições -->
+      <div class="meals-grid" id="meals-container">
+        <!-- Renderizado pelo JS -->
+      </div>
+
+      <p style="text-align:center;color:var(--text-muted);font-size:.85rem;margin-top:1rem">
+        💡 Marque cada refeição ao concluir. Os dados ficam salvos no navegador.
+      </p>
+    </section>
+
+    <!-- ── DICAS PARA HARD GAINERS ── -->
+    <section class="tips-section">
+      <h2 class="section-title">Dicas para <span>Hard Gainers</span></h2>
+      <div class="tips-grid" id="tips-container">
+        <!-- Renderizado pelo JS -->
+      </div>
+    </section>
+
+    <!-- ── SUPLEMENTAÇÃO ── -->
+    <section class="supplements-section">
+      <h2 class="section-title">Suplementação <span>Sugerida</span></h2>
+      <div class="supplement-grid" id="supplements-container">
+        <!-- Renderizado pelo JS -->
+      </div>
+    </section>
+
+    <!-- ── HIDRATAÇÃO ── -->
+    <section class="hydration-section">
+      <h2 class="section-title">💧 <span>Hidratação</span></h2>
+      <div class="hydration-card">
+        <span class="hydration-icon">💧</span>
+        <div class="hydration-info">
+          <h4>Meta: 2,0 a 2,5 litros por dia</h4>
+          <p>Água é fundamental para o transporte de nutrientes, síntese proteica e performance nos treinos.</p>
+          <p class="warning">
+            ⚠️ <strong>Não beba água nos 30 minutos antes das refeições principais.</strong>
+            Isso reduz a saciedade precoce e ajuda a consumir mais calorias — essencial para hard gainers.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container">
+      🏋️ IAPersornal &copy; 2025 — Feito com ❤️ e IA
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
