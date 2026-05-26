@@ -2,9 +2,10 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Login | IAPersornal</title>
   <meta name="description" content="Acesse seu plano de treino e dieta personalizado — IAPersornal." />
+  <meta name="theme-color" content="#2563EB" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/login.css" />
@@ -23,30 +24,22 @@
     <!-- Card de login -->
     <div class="login-card">
 
-      <!-- Logo -->
       <div class="login-logo">
         <span class="login-logo__icon">🏋️</span>
         <span class="login-logo__text">IAPersornal</span>
       </div>
 
       <h1 class="login-title">Bem-vindo de volta</h1>
-      <p class="login-subtitle">Entre para acessar seu plano personalizado</p>
+      <p class="login-subtitle">Entre para acessar seu plano personalizado de treino e nutrição.</p>
 
-      <!-- Formulário -->
       <form id="login-form" class="login-form" autocomplete="off" novalidate>
 
         <div class="form-group">
           <label for="login-user" class="form-label">
             <i class="fa-solid fa-user"></i> Usuário
           </label>
-          <input
-            type="text"
-            id="login-user"
-            class="form-input"
-            placeholder="Digite seu usuário"
-            autocomplete="username"
-            required
-          />
+          <input type="text" id="login-user" class="form-input"
+            placeholder="Digite seu usuário" autocomplete="username" required />
         </div>
 
         <div class="form-group">
@@ -54,24 +47,16 @@
             <i class="fa-solid fa-lock"></i> Senha
           </label>
           <div class="input-wrap">
-            <input
-              type="password"
-              id="login-pass"
-              class="form-input"
-              placeholder="Digite sua senha"
-              autocomplete="current-password"
-              required
-            />
+            <input type="password" id="login-pass" class="form-input"
+              placeholder="Digite sua senha" autocomplete="current-password" required />
             <button type="button" id="toggle-pass" class="toggle-pass" title="Mostrar/ocultar senha">
               👁️
             </button>
           </div>
         </div>
 
-        <!-- Mensagem de erro -->
         <div class="login-error" id="login-error"></div>
 
-        <!-- Botão submit -->
         <button type="submit" class="btn-login">
           <span id="btn-text">Entrar</span>
           <span id="btn-spinner" class="btn-spinner" style="display:none">⟳</span>
@@ -79,14 +64,13 @@
 
       </form>
 
-      <!-- Rodapé do card -->
       <p class="login-footer-note">
-        🔒 Suas credenciais são verificadas localmente com <strong>SHA-256</strong>.
+        <i class="fa-solid fa-shield-halved" style="color:#10B981"></i>
+        Suas credenciais são verificadas localmente com <strong>SHA-256</strong>.
         Nenhum dado é enviado a servidores externos.
       </p>
 
     </div>
-
   </div>
 
   <script src="js/auth.js"></script>

@@ -2,15 +2,18 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Treino da Barbara | IAPersornal</title>
   <meta name="description" content="Plano de treino personalizado por IA para emagrecimento — Barbara · IAPersornal." />
+  <meta name="theme-color" content="#7C3AED" />
+  <meta property="og:title" content="Treino da Barbara | IAPersornal" />
+  <meta property="og:description" content="Personal Trainer IA — Emagrecimento &amp; Definição para Barbara." />
+  <meta property="og:type" content="website" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- ── NAVBAR ── -->
   <header class="navbar">
     <div class="container nav-inner">
       <a href="treino-barbara.html" class="nav-logo">🏋️ IAPersornal</a>
@@ -20,52 +23,37 @@
     </div>
   </header>
 
-  <!-- ── MAIN ── -->
   <main class="container page-main">
 
-    <!-- Título -->
     <div class="page-header">
-      <h1 class="page-title">TREINO DA BARBARA</h1>
+      <h1 class="page-title">Treino da <span class="gradient-text">Barbara</span></h1>
       <p class="page-subtitle">Personal Trainer IA — Emagrecimento &amp; Definição · Seg a Sáb</p>
     </div>
 
-    <!-- Progresso de peso -->
     <div class="weight-progress-card">
       <div class="weight-progress-header">
         <span class="weight-progress-label">
           <i class="fa-solid fa-scale-balanced"></i> Progresso de Peso
         </span>
         <div class="weight-inputs">
-          <label>
-            Atual:
-            <input type="number" id="current-weight" value="65" min="30" max="200" step="0.1" />
-            kg
-          </label>
-          <label>
-            Meta:
-            <input type="number" id="goal-weight" value="55" min="30" max="200" step="0.5" />
-            kg
-          </label>
+          <label>Atual: <input type="number" id="current-weight" value="65" min="30" max="200" step="0.1" /> kg</label>
+          <label>Meta: <input type="number" id="goal-weight" value="55" min="30" max="200" step="0.5" /> kg</label>
         </div>
       </div>
       <div class="progress-bar-container">
         <span class="progress-label">Início</span>
-        <div class="progress-bar">
-          <div class="progress-fill" id="weight-fill" style="width:0%"></div>
-        </div>
+        <div class="progress-bar"><div class="progress-fill" id="weight-fill" style="width:0%"></div></div>
         <span class="progress-label">Meta</span>
       </div>
       <div class="progress-percent" id="weight-percent">Carregando...</div>
     </div>
 
-    <!-- Contador semanal -->
     <div class="weekly-counter">
       <i class="fa-solid fa-calendar-check"></i>
       <span id="weekly-text">Você treinou 0/6 dias esta semana</span>
       <button class="btn-reset-week" onclick="resetWeek()">🔄 Reiniciar semana</button>
     </div>
 
-    <!-- Seletor de dias -->
     <div class="day-selector">
       <button class="day-btn active" data-day="segunda">SEG</button>
       <button class="day-btn"        data-day="terca">TER</button>
@@ -76,33 +64,56 @@
       <button class="day-btn rest"   data-day="domingo">DOM 🧘</button>
     </div>
 
-    <!-- Banner de conclusão -->
-    <div class="completion-banner" id="completion-banner">
-      🔥✨ Treino Concluído! Você foi incrível hoje! Continue assim, Barbara!
+    <div class="workout-progress" id="workout-progress" style="display:none">
+      <div class="workout-progress__bar">
+        <div class="workout-progress__fill" id="workout-progress-fill"></div>
+      </div>
+      <span class="workout-progress__text" id="workout-progress-text">0 / 0 exercícios</span>
+      <span class="workout-progress__pct" id="workout-progress-pct">0%</span>
     </div>
 
-    <!-- Painéis de exercícios -->
+    <div class="completion-banner" id="completion-banner" onclick="openShareModal(window._currentWorkoutShare)">
+      🔥✨ Treino Concluído! Você foi incrível, Barbara!
+      <span class="share-hint">Toque para compartilhar seu resultado →</span>
+    </div>
+
     <div id="panels"></div>
 
-    <!-- Botão de reset -->
     <div class="reset-area">
-      <button class="btn-secondary" onclick="resetDay()">🔄 Reiniciar treino do dia</button>
+      <button class="btn-secondary" onclick="resetDay()">
+        <i class="fa-solid fa-rotate-right"></i> Reiniciar treino do dia
+      </button>
     </div>
 
   </main>
 
-  <!-- ── FOOTER ── -->
   <footer class="footer">
     <div class="container">
       🏋️ IAPersornal &copy; 2025 — Feito com ❤️ e IA para <strong>Barbara</strong>
     </div>
   </footer>
 
-  <!-- ── CRONÔMETRO DE DESCANSO (flutuante) ── -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav__inner">
+      <a href="treino-barbara.html" class="bottom-nav__item active">
+        <i class="fa-solid fa-dumbbell"></i><span>Treino</span>
+      </a>
+      <button class="bottom-nav__item" onclick="openRestTimer()">
+        <i class="fa-solid fa-stopwatch"></i><span>Timer</span>
+      </button>
+      <button class="bottom-nav__item" onclick="openShareModal(window._currentWorkoutShare || {})">
+        <i class="fa-solid fa-share-nodes"></i><span>Compartilhar</span>
+      </button>
+      <button class="bottom-nav__item" onclick="logout()">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i><span>Sair</span>
+      </button>
+    </div>
+  </nav>
+
   <div class="rest-timer-widget" id="rest-timer">
     <div class="rtw__header">
       <span class="rtw__title"><i class="fa-solid fa-stopwatch"></i> Descanso</span>
-      <button class="rtw__close" onclick="closeRestTimer()" title="Fechar">✕</button>
+      <button class="rtw__close" onclick="closeRestTimer()">✕</button>
     </div>
     <div class="rtw__ring-wrap">
       <svg class="rtw__svg" viewBox="0 0 100 100">
@@ -113,7 +124,7 @@
     </div>
     <div class="rtw__presets">
       <button class="rtw__preset" data-secs="60"  onclick="setRestTime(60)">1 min</button>
-      <button class="rtw__preset active" data-secs="90"  onclick="setRestTime(90)">1:30</button>
+      <button class="rtw__preset active" data-secs="90" onclick="setRestTime(90)">1:30</button>
       <button class="rtw__preset" data-secs="120" onclick="setRestTime(120)">2 min</button>
       <button class="rtw__preset" data-secs="180" onclick="setRestTime(180)">3 min</button>
     </div>
@@ -122,13 +133,31 @@
         <i class="fa-solid fa-play"></i> Iniciar
       </button>
       <button class="rtw__btn-reset" onclick="resetRestTimer()">
-        <i class="fa-solid fa-rotate-right"></i> Zerar
+        <i class="fa-solid fa-rotate-right"></i>
       </button>
+    </div>
+  </div>
+
+  <div class="share-modal" id="share-modal">
+    <div class="share-modal__overlay" onclick="closeShareModal()"></div>
+    <div class="share-modal__sheet">
+      <div class="share-modal__handle"></div>
+      <div class="share-modal__title">🏆 Compartilhar Treino</div>
+      <div class="share-modal__subtitle">Mostre seu progresso para o mundo!</div>
+      <div class="share-canvas-wrap" id="share-canvas-wrap"></div>
+      <div class="share-buttons">
+        <button class="share-btn share-btn--whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-btn share-btn--telegram" onclick="shareTelegram()"><i class="fa-brands fa-telegram"></i> Telegram</button>
+        <button class="share-btn share-btn--download" onclick="downloadCard()"><i class="fa-solid fa-download"></i> Salvar</button>
+        <button class="share-btn share-btn--instagram" onclick="downloadCard()"><i class="fa-brands fa-instagram"></i> Instagram</button>
+        <button class="share-btn share-btn--native" onclick="shareNative()"><i class="fa-solid fa-share-nodes"></i> Compartilhar via…</button>
+      </div>
     </div>
   </div>
 
   <script src="js/auth.js"></script>
   <script src="js/timer.js"></script>
+  <script src="js/share.js"></script>
   <script src="js/barbara.js"></script>
 </body>
 </html>
