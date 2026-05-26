@@ -215,7 +215,13 @@ function renderPanels() {
       const saved = lsGet(`exercises_barbara_${day}`, {});
       saved[idx] = e.target.checked; lsSet(`exercises_barbara_${day}`, saved);
       document.getElementById(`card-${day}-${idx}`)?.classList.toggle('done', e.target.checked);
-      checkDayComplete(day); if (e.target.checked) markTodayTrained();
+      if (e.target.checked) {
+        if (typeof hapticFeedback === 'function') hapticFeedback([40, 20, 40]);
+        if (typeof startWorkoutClock === 'function') startWorkoutClock();
+      }
+      checkDayComplete(day);
+      updateProgressBar(day);
+      if (e.target.checked) markTodayTrained();
     }
   });
   container.addEventListener('input', e => {
@@ -230,7 +236,36 @@ function renderPanels() {
 function checkDayComplete(day) {
   const data=workoutsB[day]; if(!data)return;
   const done=Object.values(lsGet(`exercises_barbara_${day}`,{})).filter(Boolean).length;
-  document.getElementById('completion-banner')?.classList.toggle('show', done>=data.exercises.length&&data.exercises.length>0);
+  const total=data.exercises.length;
+  const complete=done>=total&&total>0;
+  document.getElementById('completion-banner')?.classList.toggle('show', complete);
+  if (complete) {
+    window._currentWorkoutShare = {
+      label:      data.focus || 'TREINO',
+      focus:      data.focus || '',
+      doneCount:  done,
+      totalCount: total,
+      duration:   typeof getWorkoutElapsed==='function' ? getWorkoutElapsed() : '',
+    };
+    if (typeof launchConfetti==='function') launchConfetti(50);
+    if (typeof hapticFeedback==='function') hapticFeedback([50,50,200]);
+  }
+}
+
+function updateProgressBar(day) {
+  const data=workoutsB[day];
+  const wrap=document.getElementById('workout-progress');
+  if(!data||!wrap) return;
+  const done=Object.values(lsGet(`exercises_barbara_${day}`,{})).filter(Boolean).length;
+  const total=data.exercises.length;
+  const pct=total>0?Math.round(done/total*100):0;
+  wrap.style.display=total>0?'flex':'none';
+  const fill=document.getElementById('workout-progress-fill');
+  const text=document.getElementById('workout-progress-text');
+  const pctEl=document.getElementById('workout-progress-pct');
+  if(fill) fill.style.width=pct+'%';
+  if(text) text.textContent=`${done} / ${total} exercícios`;
+  if(pctEl) pctEl.textContent=pct+'%';
 }
 function animateCards(day) {
   document.getElementById(`panel-${day}`)?.querySelectorAll('.exercise-card,.rest-card').forEach((c,i)=>{
@@ -246,7 +281,7 @@ function initDaySelector() {
     document.getElementById(`panel-${day}`)?.classList.add('active');
     animateCards(day);
     const banner=document.getElementById('completion-banner');
-    if(banner){banner.classList.remove('show');checkDayComplete(day);}
+    if(banner){banner.classList.remove('show');checkDayComplete(day);updateProgressBar(day);}
     document.querySelectorAll('.card-video.playing').forEach(c=>{
       const f=c.querySelector('.card-video__iframe');if(f)f.src='';c.classList.remove('playing');
     });
@@ -263,7 +298,8 @@ function resetDay() {
 
 document.addEventListener('DOMContentLoaded', ()=>{
   if(document.getElementById('panels')){
-    renderPanels(); initDaySelector(); initWeightProgressB(); renderWeeklyCounter(); checkDayComplete('segunda');
+    renderPanels(); initDaySelector(); initWeightProgressB(); renderWeeklyCounter();
+    checkDayComplete('segunda'); updateProgressBar('segunda');
   }
 });
 window.playVideo=playVideo; window.resetDay=resetDay; window.resetWeek=resetWeek;

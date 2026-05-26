@@ -460,7 +460,13 @@ function renderPanels() {
       saved[idx] = e.target.checked;
       lsSet(`exercises_${day}`, saved);
       document.getElementById(`card-${day}-${idx}`)?.classList.toggle('done', e.target.checked);
+      // Haptic + workout clock
+      if (e.target.checked) {
+        if (typeof hapticFeedback === 'function') hapticFeedback([40, 20, 40]);
+        if (typeof startWorkoutClock === 'function') startWorkoutClock();
+      }
       checkDayComplete(day);
+      updateProgressBar(day);
       if (e.target.checked) markTodayTrained();
     }
   });
@@ -480,7 +486,38 @@ function checkDayComplete(day) {
   const data = workouts[day]; if (!data) return;
   const saved = lsGet(`exercises_${day}`, {});
   const done  = Object.values(saved).filter(Boolean).length;
-  document.getElementById('completion-banner')?.classList.toggle('show', done >= data.exercises.length && data.exercises.length > 0);
+  const total = data.exercises.length;
+  const complete = done >= total && total > 0;
+  document.getElementById('completion-banner')?.classList.toggle('show', complete);
+  if (complete) {
+    // Prepare share data
+    window._currentWorkoutShare = {
+      label:      data.label || '',
+      focus:      data.focus || '',
+      doneCount:  done,
+      totalCount: total,
+      duration:   typeof getWorkoutElapsed === 'function' ? getWorkoutElapsed() : '',
+    };
+    if (typeof launchConfetti === 'function') launchConfetti(50);
+    if (typeof hapticFeedback === 'function') hapticFeedback([50, 50, 200]);
+  }
+}
+
+function updateProgressBar(day) {
+  const data = workouts[day];
+  const wrap = document.getElementById('workout-progress');
+  if (!data || !wrap) return;
+  const saved = lsGet(`exercises_${day}`, {});
+  const done  = Object.values(saved).filter(Boolean).length;
+  const total = data.exercises.length;
+  const pct   = total > 0 ? Math.round(done / total * 100) : 0;
+  wrap.style.display = total > 0 ? 'flex' : 'none';
+  const fill = document.getElementById('workout-progress-fill');
+  const text = document.getElementById('workout-progress-text');
+  const pctEl= document.getElementById('workout-progress-pct');
+  if (fill)  fill.style.width = pct + '%';
+  if (text)  text.textContent  = `${done} / ${total} exercícios`;
+  if (pctEl) pctEl.textContent = pct + '%';
 }
 
 function animateCards(day) {
@@ -506,7 +543,7 @@ function initDaySelector() {
       const panel = document.getElementById(`panel-${day}`);
       if (panel) { panel.classList.add('active'); animateCards(day); }
       const banner = document.getElementById('completion-banner');
-      if (banner) { banner.classList.remove('show'); checkDayComplete(day); }
+      if (banner) { banner.classList.remove('show'); checkDayComplete(day); updateProgressBar(day); }
       document.querySelectorAll('.card-video.playing').forEach(c => {
         const f = c.querySelector('.card-video__iframe'); if (f) f.src = ''; c.classList.remove('playing');
       });
@@ -572,14 +609,18 @@ function renderMeals() {
   if (!container) return;
   const saved = lsGet('meals_checked', {});
   container.innerHTML = meals.map((meal, i) => `
-    <div class="meal-card ${saved[i] ? 'meal-done' : ''}" id="meal-card-${i}">
-      <div class="meal-header">
+    <div class="meal-card ${saved[i] ? 'done' : ''}" id="meal-card-${i}">
+      <div class="meal-header" onclick="toggleMealItems(${i})">
+        <span class="meal-time">${meal.time}</span>
         <span class="meal-emoji">${meal.emoji}</span>
-        <div class="meal-info"><div class="meal-name">${meal.name}</div><div class="meal-time">${meal.time}</div></div>
+        <span class="meal-name">${meal.name}</span>
         <span class="meal-kcal">${meal.kcal} kcal</span>
-        <input type="checkbox" class="meal-check" id="mcheck-${i}" data-idx="${i}" data-kcal="${meal.kcal}" ${saved[i] ? 'checked' : ''}/>
+        <input type="checkbox" class="meal-check" id="mcheck-${i}" data-idx="${i}" data-kcal="${meal.kcal}"
+          ${saved[i] ? 'checked' : ''} onclick="event.stopPropagation()" />
       </div>
-      <div class="meal-body"><ul class="meal-items">${meal.items.map(it => `<li>${it}</li>`).join('')}</ul></div>
+      <div class="meal-items ${saved[i] ? 'show' : ''}" id="meal-items-${i}">
+        ${meal.items.map(it => `<div class="meal-item">${it}</div>`).join('')}
+      </div>
     </div>`).join('');
   container.querySelectorAll('.meal-card').forEach((c, i) => setTimeout(() => c.classList.add('animate-in'), i * 70));
   updateKcalCounter();
@@ -587,7 +628,7 @@ function renderMeals() {
     if (!e.target.classList.contains('meal-check')) return;
     const idx = parseInt(e.target.dataset.idx), sv = lsGet('meals_checked', {});
     sv[idx] = e.target.checked; lsSet('meals_checked', sv);
-    document.getElementById(`meal-card-${idx}`)?.classList.toggle('meal-done', e.target.checked);
+    document.getElementById(`meal-card-${idx}`)?.classList.toggle('done', e.target.checked);
     updateKcalCounter();
   });
 }
@@ -602,8 +643,13 @@ function updateKcalCounter() {
 function resetMeals() {
   lsSet('meals_checked', {});
   document.querySelectorAll('.meal-check').forEach(cb => cb.checked = false);
-  document.querySelectorAll('.meal-card').forEach(c => c.classList.remove('meal-done'));
+  document.querySelectorAll('.meal-card').forEach(c => c.classList.remove('done'));
   updateKcalCounter();
+}
+
+function toggleMealItems(i) {
+  const el = document.getElementById(`meal-items-${i}`);
+  if (el) el.classList.toggle('show');
 }
 
 function renderTips() {
@@ -617,8 +663,10 @@ function renderTips() {
     { icon: '😴', title: 'Durma 7–9 horas',                  text: 'O músculo cresce no descanso, não na academia. Sono é anabolismo grátis.' },
   ];
   container.innerHTML = tips.map(t => `
-    <div class="tip-card"><span class="tip-icon">${t.icon}</span>
-    <div class="tip-text"><strong>${t.title}</strong><span>${t.text}</span></div></div>`).join('');
+    <div class="tip-card">
+      <strong>${t.icon} ${t.title}</strong>
+      <p>${t.text}</p>
+    </div>`).join('');
   container.querySelectorAll('.tip-card').forEach((c, i) => setTimeout(() => c.classList.add('animate-in'), i * 80));
 }
 
@@ -631,8 +679,13 @@ function renderSupplements() {
     { name: 'Vitamina D3 + Zinco', dose: 'Conforme rótulo',      reason: 'Suporte hormonal e imunidade — essencial no inverno.' },
   ];
   container.innerHTML = supps.map(s => `
-    <div class="supplement-card"><div class="supplement-name">${s.name}</div>
-    <div class="supplement-dose">💊 ${s.dose}</div><div class="supplement-reason">${s.reason}</div></div>`).join('');
+    <div class="supplement-card">
+      <div class="supplement-icon">💊</div>
+      <div class="supplement-info">
+        <strong>${s.name}</strong>
+        <span>${s.dose} — ${s.reason}</span>
+      </div>
+    </div>`).join('');
   container.querySelectorAll('.supplement-card').forEach((c, i) => setTimeout(() => c.classList.add('animate-in'), i * 80));
 }
 
@@ -648,14 +701,16 @@ function initScrollAnimations() {
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('panels')) {
-    renderPanels(); initDaySelector(); initWeightProgress(); renderWeeklyCounter(); checkDayComplete('segunda');
+    renderPanels(); initDaySelector(); initWeightProgress(); renderWeeklyCounter();
+    checkDayComplete('segunda'); updateProgressBar('segunda');
   }
   if (document.getElementById('meals-container')) {
     renderMacros(); renderMeals(); renderTips(); renderSupplements(); initWeightDiet(); initScrollAnimations();
   }
 });
 
-window.playVideo  = playVideo;
-window.resetDay   = resetDay;
-window.resetWeek  = resetWeek;
-window.resetMeals = resetMeals;
+window.playVideo       = playVideo;
+window.resetDay        = resetDay;
+window.resetWeek       = resetWeek;
+window.resetMeals      = resetMeals;
+window.toggleMealItems = toggleMealItems;

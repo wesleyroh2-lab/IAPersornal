@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Meu Plano Alimentar | IAPersornal</title>
   <meta name="description" content="Plano nutricional personalizado para ganho de massa — IAPersornal Hard Gainer." />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
@@ -26,7 +26,7 @@
 
     <!-- Título da página -->
     <div class="page-header">
-      <h1 class="page-title">MEU PLANO ALIMENTAR</h1>
+      <h1 class="page-title">Plano <span class="gradient-text">Alimentar</span></h1>
       <p class="page-subtitle">Nutricionista IA — Ganho de Massa para Hard Gainers</p>
     </div>
 
@@ -44,11 +44,11 @@
         </div>
         <div class="goal-meta-item">
           <div class="label">Prazo</div>
-          <div class="value" style="font-size:1.1rem;color:#FFD700">Mar/2027</div>
+          <div class="value" style="color:var(--warning)">Mar/2027</div>
         </div>
         <div class="goal-meta-item">
           <div class="label">Tipo</div>
-          <div class="value" style="font-size:1rem;color:#06D6A0">Hard Gainer</div>
+          <div class="value" style="color:var(--success)">Hard Gainer</div>
         </div>
       </div>
 
@@ -144,6 +144,24 @@
       🏋️ IAPersornal &copy; 2025 — Feito com ❤️ e IA
     </div>
   </footer>
+
+  <!-- ── BOTTOM NAVIGATION (mobile) ── -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav__inner">
+      <a href="index.html" class="bottom-nav__item">
+        <i class="fa-solid fa-dumbbell"></i><span>Treino</span>
+      </a>
+      <a href="dieta.html" class="bottom-nav__item active">
+        <i class="fa-solid fa-utensils"></i><span>Dieta</span>
+      </a>
+      <button class="bottom-nav__item" disabled style="opacity:0.4">
+        <i class="fa-solid fa-share-nodes"></i><span>Compartilhar</span>
+      </button>
+      <button class="bottom-nav__item" onclick="logout()">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i><span>Sair</span>
+      </button>
+    </div>
+  </nav>
 
   <script src="js/auth.js"></script>
   <script src="js/main.js"></script>
