@@ -14,6 +14,7 @@
   /* Fundo */
   --bg:          #F0F4F8;
   --bg-alt:      #E8EDF2;
+  --navbar-h:    64px;
 
   /* Superfícies */
   --surface:     #FFFFFF;
@@ -65,8 +66,6 @@
   --transition: all .22s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-spring: all .35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-  /* Navbar */
-  --navbar-h: 60px;
 }
 
 /* ── Barbara: Roxo / Rosa ── */
@@ -91,6 +90,7 @@ body[data-user="barbara"] {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--navbar-h) + 1rem);
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -103,8 +103,10 @@ body {
   color: var(--text);
   min-height: 100vh;
   line-height: 1.6;
-  overflow-x: hidden;
 }
+
+/* Prevent horizontal scroll without breaking position:fixed layout */
+.page-main { overflow-x: clip; }
 
 img { max-width: 100%; display: block; }
 button { cursor: pointer; font-family: inherit; border: none; background: none; }
@@ -122,10 +124,11 @@ input, select { font-family: inherit; }
 .t-caption { font-size: 0.73rem; font-weight: 600; letter-spacing: 0.6px; color: var(--text-muted); }
 
 .gradient-text {
+  color: var(--accent);
   background: var(--accent-gradient);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ════════════════════════════════════════════════
@@ -138,7 +141,7 @@ input, select { font-family: inherit; }
 }
 
 .page-main {
-  padding-top: calc(var(--navbar-h) + 1.5rem);
+  padding-top: calc(var(--navbar-h) + 2.5rem);
   padding-bottom: 6rem;
   min-height: 100vh;
 }
@@ -286,10 +289,11 @@ input, select { font-family: inherit; }
 }
 
 .page-title span.gradient-text {
+  color: var(--accent);
   background: var(--accent-gradient);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .page-subtitle {
