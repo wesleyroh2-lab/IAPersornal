@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Chat Social | IAPersornal</title>
+  <meta name="description" content="Chat social fitness em tempo real — compartilhe treinos, músicas e progresso com a galera." />
+  <meta name="theme-color" content="#0B0D11" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Chat Social | IAPersornal" />
+  <meta property="og:description" content="Chat fitness em tempo real com playlists Spotify." />
+  <meta property="og:type" content="website" />
+
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+</head>
+<body class="chat-page">
+
+  <!-- ── SIDEBAR OVERLAY (mobile) ── -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <!-- ══════════════════════════════════════
+       SIDEBAR
+  ══════════════════════════════════════ -->
+  <aside class="chat-sidebar">
+
+    <!-- Logo -->
+    <div class="sidebar-logo">
+      <span class="sidebar-logo__icon">🏋️</span>
+      <span class="sidebar-logo__name">IAPersornal</span>
+    </div>
+
+    <!-- Usuário atual -->
+    <div class="sidebar-user">
+      <div class="su-avatar-wrap">
+        <span class="su-avatar" id="chat-user-avatar">🧔</span>
+        <span class="su-dot online" id="user-status-dot"></span>
+      </div>
+      <div class="su-info">
+        <span class="su-name" id="chat-user-name">Carregando…</span>
+        <span class="su-status" id="chat-user-status">🟢 Online</span>
+      </div>
+    </div>
+
+    <!-- Canais -->
+    <div class="sidebar-section-title">
+      <i class="fa-solid fa-hashtag"></i> Canais
+    </div>
+    <div id="channel-list" class="channel-list">
+      <!-- gerado por chat.js -->
+    </div>
+
+    <!-- Usuários online -->
+    <div class="sidebar-section-title">
+      <i class="fa-solid fa-circle" style="color:#3FB950;font-size:8px;vertical-align:middle"></i>
+      Online (<span id="online-count">2</span>)
+    </div>
+    <div id="online-users-list" class="online-users-list">
+      <!-- gerado por chat.js -->
+    </div>
+
+    <!-- Ações -->
+    <div class="sidebar-actions">
+      <a href="index.html" class="sa-btn">
+        <i class="fa-solid fa-dumbbell"></i> Meu Treino
+      </a>
+      <a href="dieta.html" class="sa-btn">
+        <i class="fa-solid fa-utensils"></i> Dieta
+      </a>
+      <button class="sa-btn sa-btn--share" onclick="shareWorkoutInChat()">
+        <i class="fa-solid fa-share-nodes"></i> Compartilhar Treino
+      </button>
+      <button class="sa-btn sa-btn--logout" onclick="logout()">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- ══════════════════════════════════════
+       MAIN
+  ══════════════════════════════════════ -->
+  <div class="chat-main">
+
+    <!-- Header -->
+    <div class="chat-header">
+      <button class="chat-header__menu" onclick="toggleSidebar()" title="Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="chat-header__title" id="chat-channel-title">💬 Geral</div>
+
+      <!-- View tabs -->
+      <div class="view-tabs">
+        <button class="view-tab active" data-view="chat"      onclick="showView('chat')">
+          <i class="fa-solid fa-comments"></i> Chat
+        </button>
+        <button class="view-tab"        data-view="playlists" onclick="showView('playlists')">
+          <i class="fa-brands fa-spotify"></i> Playlists
+        </button>
+      </div>
+
+      <div class="chat-header__actions">
+        <span class="now-playing-badge" id="now-playing-info" style="display:none"></span>
+      </div>
+    </div>
+
+    <!-- Firebase demo banner -->
+    <div class="firebase-banner" id="firebase-banner" style="display:none">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>Modo demo — mensagens salvas localmente.
+        <a href="https://console.firebase.google.com" target="_blank" rel="noopener">Configure Firebase</a>
+        para chat em tempo real.</span>
+      <button class="fb-close" onclick="document.getElementById('firebase-banner').style.display='none'">✕</button>
+    </div>
+
+    <!-- ── VIEW: CHAT ── -->
+    <div id="view-chat" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+
+      <!-- Feed de mensagens -->
+      <div class="chat-feed" id="chat-feed">
+        <!-- mensagens renderizadas por chat.js -->
+      </div>
+
+      <!-- Typing indicator -->
+      <div class="typing-indicator" id="typing-indicator" style="display:none">
+        <div class="typing-avatar">💬</div>
+        <div class="typing-bubble">
+          <span class="typing-name">Alguém</span> está digitando
+          <span class="typing-dots">
+            <span></span><span></span><span></span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Input bar -->
+      <div class="chat-input-bar">
+        <div class="input-actions-left">
+          <button class="ia-btn" onclick="shareWorkoutInChat()" title="Compartilhar treino">
+            <i class="fa-solid fa-dumbbell"></i>
+          </button>
+          <button class="ia-btn" onclick="toggleEmojiPicker()" title="Emoji">
+            <i class="fa-regular fa-face-smile"></i>
+          </button>
+        </div>
+
+        <div class="input-wrap">
+          <!-- Emoji picker (aparece acima) -->
+          <div class="emoji-picker" id="emoji-picker" style="display:none">
+            <!-- gerado por chat.js -->
+          </div>
+
+          <textarea
+            id="chat-input"
+            class="chat-textarea"
+            placeholder="Mensagem no canal… (Enter para enviar)"
+            rows="1"
+            maxlength="500"
+          ></textarea>
+        </div>
+
+        <button class="chat-send-btn" id="chat-send-btn" title="Enviar">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+
+    </div><!-- /view-chat -->
+
+    <!-- ── VIEW: PLAYLISTS ── -->
+    <div id="view-playlists" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+
+      <div class="playlists-layout">
+
+        <!-- Lista de playlists -->
+        <div class="playlists-col">
+          <div class="playlists-col__title">
+            <i class="fa-brands fa-spotify" style="color:#1DB954"></i>
+            Playlists para Treino
+          </div>
+          <div class="playlist-grid" id="playlist-grid">
+            <!-- gerado por chat.js -->
+          </div>
+        </div>
+
+        <!-- Player Spotify embutido -->
+        <div class="player-col">
+          <div class="player-col__placeholder" id="player-placeholder">
+            <i class="fa-brands fa-spotify" style="font-size:3rem;color:#1DB954"></i>
+            <p>Selecione uma playlist para tocar</p>
+            <p style="font-size:.8rem;opacity:.6">Requer conta Spotify (gratuita ou premium)</p>
+          </div>
+          <div id="spotify-player" style="display:none"></div>
+        </div>
+
+      </div>
+
+    </div><!-- /view-playlists -->
+
+  </div><!-- /chat-main -->
+
+  <!-- Training toast (aparece quando está treinando) -->
+  <div class="training-toast" id="training-toast" style="display:none">
+    <span class="training-pulse"></span>
+    <span>🔴 Você está treinando agora!</span>
+    <button onclick="shareWorkoutInChat()">Compartilhar</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/share.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/chat.js"></script>
+
+</body>
+</html>
