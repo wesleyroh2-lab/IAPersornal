@@ -155,6 +155,16 @@ body{min-height:100vh;padding-bottom:calc(var(--nav-h) + 2rem)}
   color:#EF4444;font-size:.7rem;font-weight:700;padding:.3rem .75rem;border-radius:6px;
   cursor:pointer;width:100%;text-decoration:none;margin:.5rem 0 0;
 }
+.ex-img-wrap{
+  margin:0 .6rem .6rem;border-radius:10px;overflow:hidden;
+  border:1px solid var(--border);position:relative;background:var(--surface3);
+}
+.ex-img-wrap img{width:100%;height:160px;object-fit:cover;display:block;transition:transform .3s ease;}
+.ex-img-wrap:hover img{transform:scale(1.03)}
+.ex-img-loading{
+  height:80px;display:flex;align-items:center;justify-content:center;
+  gap:.4rem;color:var(--muted);font-size:.7rem;
+}
 
 /* ── Image Modal ── */
 .img-modal{
@@ -270,7 +280,8 @@ body{min-height:100vh;padding-bottom:calc(var(--nav-h) + 2rem)}
          main/exercises/{FOLDER}/images/0.jpg
    Formato "gh:FOLDER" ou "yt:BUSCA" como fallback
 ══════════════════════════════════════════════════════ */
-const GH = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+// jsDelivr serve conteúdo do GitHub com cache/CDN — muito mais confiável que raw.githubusercontent
+const GH = 'https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/';
 
 function imgUrl(code){
   if(!code) return null;
@@ -547,30 +558,13 @@ function techniqueBadge(t){
 
 function renderExercise(ex, dayId, gi, groupName){
   const done=isDone(dayId,gi);
-  const url=imgUrl(ex.img);
-  const encodedTip=(ex.tip||'').replace(/'/g,'&#39;').replace(/"/g,'&quot;');
-  const encodedName=ex.nome.replace(/'/g,'&#39;').replace(/"/g,'&quot;');
-  const encodedGroup=groupName.replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+  const encName=ex.nome.replace(/"/g,'&quot;');
+  const encTip=(ex.tip||'').replace(/"/g,'&quot;');
+  const encGroup=groupName.replace(/"/g,'&quot;');
 
-  // Thumbnail section
-  let imgSection='';
-  if(url){
-    imgSection=`
-      <div class="ex-img-section" onclick="openModal('${encodedName}','${ex.img||''}','${encodedTip}','${encodedGroup}')">
-        <img src="${url}" alt="${ex.nome}" loading="lazy" onerror="this.parentElement.querySelector('.ex-img-overlay').innerHTML='<div style=\\'display:flex;align-items:center;gap:.4rem;padding:.5rem .75rem;width:100%\\'><span>🏋️</span><a href=\\'${ytUrl(ex.nome)}\\' target=\\'_blank\\' style=\\'color:#EF4444;font-size:.72rem;font-weight:700;text-decoration:none\\'>▶ Ver no YouTube</a></div>';this.style.display=\\'none\\'" />
-        <div class="ex-img-overlay">
-          <span class="ex-img-label">📸 ${ex.nome.split(' ').slice(0,3).join(' ')}</span>
-          <span class="ex-img-btn">🔍 Ampliar</span>
-        </div>
-      </div>`;
-  }else{
-    imgSection=`
-      <div class="ex-img-section" style="background:none;border:none;margin:.2rem .6rem .4rem" onclick="openModal('${encodedName}','','${encodedTip}','${encodedGroup}')">
-        <a class="ex-yt-btn" href="${ytUrl(ex.nome)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-          ▶ Ver como fazer no YouTube
-        </a>
-      </div>`;
-  }
+  const imgSection=`<div class="ex-img-wrap" data-img="${ex.img||''}" data-nome="${encName}" data-tip="${encTip}" data-group="${encGroup}">
+    <div class="ex-img-loading"><span>⏳</span><span>Carregando foto…</span></div>
+  </div>`;
 
   return `
     <div class="exercise-card${done?' done':''}" id="ex-${dayId}-${gi}">
@@ -688,6 +682,34 @@ function renderAll(){
     main.appendChild(wrap.firstChild);
   });
   activateDay(currentDay);
+  initImages();
+}
+
+function initImages(){
+  document.querySelectorAll('.ex-img-wrap').forEach(wrap=>{
+    const imgKey=wrap.dataset.img;
+    const nome=wrap.dataset.nome;
+    const tip=wrap.dataset.tip;
+    const group=wrap.dataset.group;
+    const url=imgKey?imgUrl(imgKey):null;
+    const yt=ytUrl(nome);
+    if(!url){
+      wrap.style.cssText='background:none;border:none;margin:.2rem .6rem .4rem';
+      wrap.innerHTML=`<a class="ex-yt-btn" href="${yt}" target="_blank" rel="noopener">▶ Ver como fazer no YouTube</a>`;
+      return;
+    }
+    const t=new Image();
+    t.onload=()=>{
+      wrap.innerHTML=`<img src="${url}" alt="${nome}" /><div class="ex-img-overlay"><span class="ex-img-label">📸 ${nome.split(' ').slice(0,3).join(' ')}</span><span class="ex-img-btn">🔍 Ampliar</span></div>`;
+      wrap.style.cursor='pointer';
+      wrap.onclick=()=>openModal(nome,imgKey,tip,group);
+    };
+    t.onerror=()=>{
+      wrap.style.cssText='background:none;border:none;margin:.2rem .6rem .4rem';
+      wrap.innerHTML=`<a class="ex-yt-btn" href="${yt}" target="_blank" rel="noopener">▶ Ver como fazer no YouTube</a>`;
+    };
+    t.src=url;
+  });
 }
 
 function activateDay(dayId){
