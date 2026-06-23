@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
 <title>Treino Wesley — Hipertrofia</title>
 <style>
-/* ── Reset & Base ───────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0D1117;--surface:#161B22;--surface2:#1C2128;--surface3:#22272E;
@@ -18,301 +17,224 @@
 }
 html{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;scroll-behavior:smooth}
 body{min-height:100vh;padding-bottom:calc(var(--nav-h) + 2rem)}
-
-/* ── Scrollbar ──────────────────────────────────────────── */
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:99px}
 
-/* ── Header ─────────────────────────────────────────────── */
+/* ── Header ── */
 .app-header{
-  background:rgba(13,17,23,.9);backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-  padding:.85rem 1rem .5rem;
+  background:rgba(13,17,23,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);padding:.85rem 1rem .5rem;
   position:sticky;top:0;z-index:100;
 }
 .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem}
 .header-brand{font-size:1rem;font-weight:800;letter-spacing:-.3px}
-.header-brand span{
-  background:linear-gradient(90deg,#EF4444,#F59E0B);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
-}
-.header-week{font-size:.72rem;color:var(--muted)}
-.reset-btn{
-  background:var(--surface2);border:1px solid var(--border2);
-  color:var(--muted);font-size:.7rem;font-weight:600;
-  padding:.3rem .65rem;border-radius:8px;cursor:pointer;
-}
+.header-brand span{background:linear-gradient(90deg,#EF4444,#F59E0B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.reset-btn{background:var(--surface2);border:1px solid var(--border2);color:var(--muted);font-size:.7rem;font-weight:600;padding:.3rem .65rem;border-radius:8px;cursor:pointer;}
 .reset-btn:hover{color:var(--text);background:var(--surface3)}
 
-/* ── Day Nav ─────────────────────────────────────────────── */
-.day-nav{
-  display:flex;gap:4px;overflow-x:auto;padding-bottom:2px;
-  scrollbar-width:none;-ms-overflow-style:none
-}
+/* ── Day Nav ── */
+.day-nav{display:flex;gap:4px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;-ms-overflow-style:none}
 .day-nav::-webkit-scrollbar{display:none}
 .day-btn{
   flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:1px;
-  padding:.4rem .6rem;border-radius:10px;
-  background:none;border:none;cursor:pointer;
+  padding:.4rem .6rem;border-radius:10px;background:none;border:none;cursor:pointer;
   color:var(--muted);font-size:.65rem;font-weight:700;letter-spacing:.5px;
-  transition:background .15s,color .15s;
-  position:relative;
+  transition:background .15s,color .15s;position:relative;
 }
-.day-btn .day-abbr{font-size:.72rem}
-.day-btn .day-type{font-size:.6rem;opacity:.7}
 .day-btn:hover{background:var(--surface2);color:var(--text)}
 .day-btn.active{background:var(--surface2);color:var(--text)}
-.day-btn.active::after{
-  content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);
-  width:24px;height:3px;border-radius:99px;background:var(--accent-day,var(--red))
-}
-.day-btn .done-dot{
-  width:5px;height:5px;border-radius:50%;background:var(--green);
-  position:absolute;top:4px;right:4px;display:none
-}
+.day-btn.active::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:24px;height:3px;border-radius:99px;background:var(--accent-day,var(--red))}
+.day-btn .done-dot{width:5px;height:5px;border-radius:50%;background:var(--green);position:absolute;top:4px;right:4px;display:none}
 .day-btn.completed .done-dot{display:block}
 
-/* ── Main Content ────────────────────────────────────────── */
+/* ── Main ── */
 .main{padding:1rem;max-width:640px;margin:0 auto}
-
-/* ── Day Panel ────────────────────────────────────────────── */
 .day-panel{display:none;animation:fadeUp .2s ease}
 .day-panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:none}
-}
-
-/* ── Day Header ───────────────────────────────────────────── */
-.day-header{
-  border-radius:16px;padding:1.25rem 1.25rem 1rem;
-  margin-bottom:1rem;
-  border:1px solid var(--border);
-  position:relative;overflow:hidden;
-}
-.day-header::before{
-  content:'';position:absolute;inset:0;
-  background:var(--day-gradient);opacity:.12;
-}
+/* ── Day Header ── */
+.day-header{border-radius:16px;padding:1.25rem 1.25rem 1rem;margin-bottom:1rem;border:1px solid var(--border);position:relative;overflow:hidden;}
+.day-header::before{content:'';position:absolute;inset:0;background:var(--day-gradient);opacity:.12;}
 .day-header-content{position:relative}
-.day-badge{
-  display:inline-flex;align-items:center;gap:.35rem;
-  background:rgba(255,255,255,.08);border:1px solid var(--border2);
-  padding:.2rem .6rem;border-radius:99px;
-  font-size:.62rem;font-weight:800;letter-spacing:1px;
-  color:var(--day-color);margin-bottom:.5rem;
-}
+.day-badge{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.08);border:1px solid var(--border2);padding:.2rem .6rem;border-radius:99px;font-size:.62rem;font-weight:800;letter-spacing:1px;color:var(--day-color);margin-bottom:.5rem;}
 .day-title{font-size:1.5rem;font-weight:900;letter-spacing:-.5px;margin-bottom:.15rem}
 .day-subtitle{font-size:.8rem;color:var(--muted)}
-.day-meta{
-  display:flex;gap:.75rem;margin-top:.75rem;
-  font-size:.72rem;color:var(--muted)
-}
+.day-meta{display:flex;gap:.75rem;margin-top:.75rem;font-size:.72rem;color:var(--muted)}
 .day-meta span{display:flex;align-items:center;gap:.25rem}
 
-/* ── Progress Bar ─────────────────────────────────────────── */
-.day-progress{
-  background:var(--surface2);border:1px solid var(--border);
-  border-radius:12px;padding:.85rem 1rem;margin-bottom:1rem;
-}
+/* ── Progress ── */
+.day-progress{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:.85rem 1rem;margin-bottom:1rem;}
 .progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
 .progress-label{font-size:.75rem;font-weight:700}
 .progress-pct{font-size:.72rem;color:var(--muted)}
 .progress-bar-wrap{height:6px;background:var(--surface3);border-radius:99px;overflow:hidden}
-.progress-bar-fill{
-  height:100%;border-radius:99px;
-  background:var(--day-gradient);
-  transition:width .4s cubic-bezier(.4,0,.2,1);
-}
+.progress-bar-fill{height:100%;border-radius:99px;background:var(--day-gradient);transition:width .4s cubic-bezier(.4,0,.2,1);}
 .progress-counts{display:flex;justify-content:space-between;margin-top:.4rem;font-size:.68rem;color:var(--muted)}
 
-/* ── Muscle Group ─────────────────────────────────────────── */
-.muscle-group{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:16px;margin-bottom:.85rem;overflow:hidden;
-}
-.group-header{
-  display:flex;align-items:center;gap:.65rem;
-  padding:.9rem 1rem;border-bottom:1px solid var(--border);
-  cursor:pointer;user-select:none;
-}
+/* ── Muscle Group ── */
+.muscle-group{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:.85rem;overflow:hidden;}
+.group-header{display:flex;align-items:center;gap:.65rem;padding:.9rem 1rem;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
 .group-icon{font-size:1.2rem;line-height:1;flex-shrink:0}
 .group-info{flex:1;min-width:0}
 .group-name{font-size:.88rem;font-weight:800;color:var(--text)}
 .group-count{font-size:.7rem;color:var(--muted);margin-top:1px}
-.group-badge{
-  font-size:.58rem;font-weight:800;letter-spacing:.8px;
-  padding:.18rem .55rem;border-radius:99px;white-space:nowrap;flex-shrink:0;
-}
+.group-badge{font-size:.58rem;font-weight:800;letter-spacing:.8px;padding:.18rem .55rem;border-radius:99px;white-space:nowrap;flex-shrink:0;}
 .badge-priority{background:rgba(239,68,68,.15);color:#EF4444;border:1px solid rgba(239,68,68,.3)}
 .badge-superset{background:rgba(168,85,247,.15);color:#A855F7;border:1px solid rgba(168,85,247,.3)}
 .badge-volume{background:rgba(59,130,246,.15);color:#60A5FA;border:1px solid rgba(59,130,246,.3)}
 .badge-power{background:rgba(245,158,11,.15);color:#F59E0B;border:1px solid rgba(245,158,11,.3)}
-
 .group-toggle{color:var(--muted);font-size:.9rem;transition:transform .2s;flex-shrink:0}
 .group-collapsed .group-toggle{transform:rotate(-90deg)}
 .group-collapsed .group-body{display:none}
-
-.group-progress-line{
-  height:3px;background:var(--group-color,var(--red));
-  transition:width .3s ease;border-radius:0 0 0 0;
-}
-
-/* ── Exercise Cards ──────────────────────────────────────── */
+.group-progress-line{height:3px;background:var(--group-color,var(--red));transition:width .3s ease;border-radius:0}
 .group-body{padding:.5rem .6rem .6rem}
 
+/* ── Exercise Card ── */
 .exercise-card{
-  display:flex;align-items:flex-start;gap:.7rem;
-  background:var(--surface2);border:1px solid var(--border);
-  border-radius:12px;padding:.75rem .9rem;margin-top:.4rem;
-  transition:background .2s,border-color .2s,opacity .3s;
-  cursor:pointer;
+  background:var(--surface2);border:1px solid var(--border);border-radius:12px;
+  margin-top:.4rem;overflow:hidden;transition:border-color .2s;
 }
-.exercise-card:hover{background:var(--surface3)}
-.exercise-card.done{
-  opacity:.5;
-  background:rgba(34,197,94,.04);
-  border-color:rgba(34,197,94,.15);
-}
+.exercise-card:hover{border-color:var(--border2)}
+.exercise-card.done{opacity:.55;background:rgba(34,197,94,.04);border-color:rgba(34,197,94,.15);}
 .exercise-card.done .ex-name{text-decoration:line-through;color:var(--muted)}
 
-/* Checkbox */
-.ex-check{
-  width:22px;height:22px;border-radius:6px;
-  border:2px solid var(--border2);
-  background:none;flex-shrink:0;margin-top:1px;
-  display:flex;align-items:center;justify-content:center;
-  transition:background .2s,border-color .2s;
-}
-.exercise-card.done .ex-check{
-  background:var(--green);border-color:var(--green);
-}
+.ex-main-row{display:flex;align-items:flex-start;gap:.7rem;padding:.75rem .9rem .5rem;cursor:pointer;}
+.ex-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--border2);background:none;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;}
+.exercise-card.done .ex-check{background:var(--green);border-color:var(--green);}
 .ex-check-mark{color:#fff;font-size:.75rem;opacity:0;transition:opacity .2s}
 .exercise-card.done .ex-check-mark{opacity:1}
-
-/* Content */
 .ex-content{flex:1;min-width:0}
 .ex-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.35rem}
 .ex-name{font-size:.88rem;font-weight:700;color:var(--text);line-height:1.3}
-.ex-technique{
-  font-size:.55rem;font-weight:800;letter-spacing:.7px;
-  padding:.15rem .45rem;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-top:1px;
-}
+.ex-technique{font-size:.55rem;font-weight:800;letter-spacing:.7px;padding:.15rem .45rem;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-top:1px;}
 .tech-drop{background:rgba(239,68,68,.2);color:#EF4444;border:1px solid rgba(239,68,68,.35)}
 .tech-rest{background:rgba(245,158,11,.2);color:#F59E0B;border:1px solid rgba(245,158,11,.35)}
 .tech-super{background:rgba(168,85,247,.2);color:#A855F7;border:1px solid rgba(168,85,247,.35)}
 .tech-giant{background:rgba(236,72,153,.2);color:#EC4899;border:1px solid rgba(236,72,153,.35)}
 .tech-heavy{background:rgba(6,182,212,.2);color:#06B6D4;border:1px solid rgba(6,182,212,.35)}
 .tech-prog{background:rgba(34,197,94,.2);color:#22C55E;border:1px solid rgba(34,197,94,.35)}
-
 .ex-stats{display:flex;flex-wrap:wrap;gap:.4rem .8rem}
-.ex-stat{
-  display:flex;align-items:center;gap:.25rem;
-  font-size:.72rem;color:var(--muted);
-}
-.ex-stat-icon{font-size:.75rem}
+.ex-stat{display:flex;align-items:center;gap:.25rem;font-size:.72rem;color:var(--muted);}
 .ex-stat-val{font-weight:600;color:var(--text)}
+.ex-tip{margin:.35rem .9rem .5rem;padding:.4rem .6rem;background:rgba(255,255,255,.03);border-left:2px solid var(--border2);border-radius:0 6px 6px 0;font-size:.7rem;color:var(--muted);line-height:1.45;}
 
-.ex-tip{
-  margin-top:.45rem;padding:.4rem .6rem;
-  background:rgba(255,255,255,.03);border-left:2px solid var(--border2);
-  border-radius:0 6px 6px 0;
-  font-size:.7rem;color:var(--muted);line-height:1.45;
+/* ── Exercise Image Section ── */
+.ex-img-section{
+  margin:0 .6rem .6rem;border-radius:10px;overflow:hidden;
+  border:1px solid var(--border);cursor:pointer;position:relative;
+  background:var(--surface3);
+}
+.ex-img-section img{
+  width:100%;height:160px;object-fit:cover;display:block;
+  transition:transform .3s ease;
+}
+.ex-img-section:hover img{transform:scale(1.03)}
+.ex-img-overlay{
+  position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 50%);
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:.6rem .75rem;
+}
+.ex-img-label{font-size:.7rem;font-weight:700;color:#fff;opacity:.9}
+.ex-img-btn{
+  display:flex;align-items:center;gap:.3rem;
+  background:rgba(255,255,255,.15);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.2);color:#fff;
+  font-size:.62rem;font-weight:700;padding:.25rem .55rem;border-radius:6px;
+  cursor:pointer;white-space:nowrap;
+}
+.ex-img-placeholder{
+  height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.4rem;color:var(--muted);font-size:.72rem;padding:1rem;
+}
+.ex-img-placeholder .ph-icon{font-size:1.5rem}
+.ex-yt-btn{
+  display:flex;align-items:center;justify-content:center;gap:.4rem;
+  background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);
+  color:#EF4444;font-size:.7rem;font-weight:700;padding:.3rem .75rem;border-radius:6px;
+  cursor:pointer;width:100%;text-decoration:none;margin:.5rem 0 0;
 }
 
-/* ── Completion Banner ──────────────────────────────────── */
-.completion-banner{
-  display:none;
-  background:linear-gradient(135deg,rgba(34,197,94,.15),rgba(6,182,212,.1));
-  border:1px solid rgba(34,197,94,.3);
-  border-radius:16px;padding:1.25rem;text-align:center;
-  margin-bottom:1rem;animation:fadeUp .4s ease;
+/* ── Image Modal ── */
+.img-modal{
+  position:fixed;inset:0;z-index:1000;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
+  padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s ease;
 }
+.img-modal.open{opacity:1;pointer-events:auto}
+.img-modal-sheet{
+  background:var(--surface);border:1px solid var(--border2);border-radius:20px;
+  max-width:480px;width:100%;max-height:92vh;overflow-y:auto;
+  transform:translateY(20px);transition:transform .25s ease;scrollbar-width:thin;
+}
+.img-modal.open .img-modal-sheet{transform:none}
+.img-modal-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:20px 20px 0 0;display:block;}
+.img-modal-img.square{aspect-ratio:1}
+.img-modal-body{padding:1rem 1.25rem 1.5rem}
+.img-modal-title{font-size:1rem;font-weight:800;margin-bottom:.3rem}
+.img-modal-badge{display:inline-block;font-size:.62rem;font-weight:700;padding:.18rem .55rem;border-radius:99px;margin-bottom:.75rem}
+.img-modal-section{font-size:.65rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:.75rem 0 .35rem}
+.img-modal-tip{font-size:.82rem;color:var(--muted);line-height:1.6;padding:.6rem .75rem;background:var(--surface2);border-radius:8px;margin-bottom:.75rem}
+.img-modal-yt{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  background:linear-gradient(135deg,#EF4444,#DC2626);color:#fff;
+  font-size:.82rem;font-weight:700;padding:.7rem 1.25rem;border-radius:10px;
+  text-decoration:none;width:100%;margin-bottom:.5rem;
+}
+.img-modal-close{
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface2);border:1px solid var(--border);color:var(--muted);
+  font-size:.8rem;font-weight:600;padding:.55rem;border-radius:10px;
+  width:100%;cursor:pointer;margin-top:.25rem;
+}
+.img-modal-close:hover{color:var(--text)}
+.modal-no-img{
+  height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.5rem;font-size:2.5rem;border-radius:20px 20px 0 0;
+  background:linear-gradient(135deg,var(--surface2),var(--surface3));
+}
+.modal-no-img p{font-size:.75rem;color:var(--muted)}
+
+/* ── Completion Banner ── */
+.completion-banner{display:none;background:linear-gradient(135deg,rgba(34,197,94,.15),rgba(6,182,212,.1));border:1px solid rgba(34,197,94,.3);border-radius:16px;padding:1.25rem;text-align:center;margin-bottom:1rem;animation:fadeUp .4s ease;}
 .completion-banner.show{display:block}
 .completion-icon{font-size:2rem;margin-bottom:.4rem}
 .completion-title{font-size:1rem;font-weight:800;color:var(--green);margin-bottom:.25rem}
 .completion-sub{font-size:.8rem;color:var(--muted)}
 
-/* ── Rest day ─────────────────────────────────────────────── */
-.rest-card{
-  text-align:center;padding:3rem 1rem;
-  background:var(--surface);border:1px solid var(--border);border-radius:16px;
-}
+/* ── Rest Card ── */
+.rest-card{text-align:center;padding:3rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:16px;}
 .rest-icon{font-size:3rem;margin-bottom:.75rem}
 .rest-title{font-size:1.1rem;font-weight:800;margin-bottom:.4rem}
 .rest-sub{font-size:.8rem;color:var(--muted)}
 
-/* ── Bottom Nav ──────────────────────────────────────────── */
-.bottom-bar{
-  position:fixed;bottom:0;left:0;right:0;
-  background:rgba(13,17,23,.95);backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  border-top:1px solid var(--border);
-  padding:.5rem .75rem;
-  padding-bottom:calc(.5rem + env(safe-area-inset-bottom));
-  display:flex;gap:.4rem;align-items:center;justify-content:space-between;
-  z-index:200;
-}
-.bb-info{
-  display:flex;flex-direction:column;
-  font-size:.68rem;color:var(--muted);
-  min-width:0;flex:1;
-}
+/* ── Bottom Bar ── */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(13,17,23,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:.5rem .75rem;padding-bottom:calc(.5rem + env(safe-area-inset-bottom));display:flex;gap:.4rem;align-items:center;justify-content:space-between;z-index:200;}
+.bb-info{display:flex;flex-direction:column;font-size:.68rem;color:var(--muted);min-width:0;flex:1;}
 .bb-info-title{font-weight:700;color:var(--text);font-size:.75rem}
-.bb-info-sub{margin-top:1px}
 .bb-actions{display:flex;gap:.5rem;flex-shrink:0}
-.bb-btn{
-  display:flex;align-items:center;gap:.3rem;
-  padding:.45rem .85rem;border-radius:10px;
-  font-size:.72rem;font-weight:700;
-  border:none;cursor:pointer;transition:opacity .2s,transform .15s;
-}
+.bb-btn{display:flex;align-items:center;gap:.3rem;padding:.45rem .85rem;border-radius:10px;font-size:.72rem;font-weight:700;border:none;cursor:pointer;transition:opacity .2s,transform .15s;}
 .bb-btn:active{transform:scale(.96)}
-.bb-btn-day{
-  background:var(--surface2);color:var(--text);
-  border:1px solid var(--border2);
-}
-.bb-btn-done{
-  background:linear-gradient(135deg,var(--green),#16A34A);color:#fff;
-}
-.bb-btn:hover{opacity:.85}
+.bb-btn-day{background:var(--surface2);color:var(--text);border:1px solid var(--border2);}
+.bb-btn-done{background:linear-gradient(135deg,var(--green),#16A34A);color:#fff;}
 
-/* ── Swipe hint ──────────────────────────────────────────── */
-.swipe-hint{
-  text-align:center;padding:.6rem;
-  font-size:.65rem;color:var(--dim);margin-bottom:.5rem;
-}
-
-/* ── Responsive ──────────────────────────────────────────── */
-@media(min-width:600px){
-  .main{padding:1.25rem 1.5rem}
-  .day-title{font-size:1.75rem}
-}
+@media(min-width:600px){.main{padding:1.25rem 1.5rem}.day-title{font-size:1.75rem}}
 </style>
 </head>
 <body>
 
-<!-- ══ HEADER ══ -->
 <header class="app-header">
   <div class="header-top">
     <div class="header-brand">🏋️ <span>Wesley</span> — Hipertrofia</div>
-    <button class="reset-btn" onclick="resetAll()">🔄 Reiniciar semana</button>
+    <button class="reset-btn" onclick="resetAll()">🔄 Semana</button>
   </div>
-  <nav class="day-nav" id="dayNav">
-    <!-- injetado via JS -->
-  </nav>
+  <nav class="day-nav" id="dayNav"></nav>
 </header>
 
-<!-- ══ MAIN ══ -->
-<main class="main" id="mainContent">
-  <div class="swipe-hint">Selecione o dia acima para ver seu treino ↑</div>
-  <!-- painéis injetados via JS -->
-</main>
+<main class="main" id="mainContent"></main>
 
-<!-- ══ BOTTOM BAR ══ -->
 <div class="bottom-bar" id="bottomBar" style="display:none">
   <div class="bb-info">
     <div class="bb-info-title" id="bbTitle">—</div>
@@ -324,254 +246,354 @@ body{min-height:100vh;padding-bottom:calc(var(--nav-h) + 2rem)}
   </div>
 </div>
 
+<!-- ══ IMAGE MODAL ══ -->
+<div class="img-modal" id="imgModal" onclick="handleModalClick(event)">
+  <div class="img-modal-sheet" id="imgModalSheet">
+    <div id="imgModalImgWrap"></div>
+    <div class="img-modal-body">
+      <div class="img-modal-title" id="imgModalTitle"></div>
+      <div class="img-modal-badge" id="imgModalBadge"></div>
+      <div class="img-modal-section">💡 Como executar</div>
+      <div class="img-modal-tip" id="imgModalTip"></div>
+      <a class="img-modal-yt" id="imgModalYt" target="_blank" rel="noopener">
+        ▶ Ver tutorial no YouTube
+      </a>
+      <button class="img-modal-close" onclick="closeModal()">✕ Fechar</button>
+    </div>
+  </div>
+</div>
+
 <script>
-/* ══════════════════════════════════════════════════════════
-   DADOS DO TREINO
-   ══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   IMAGENS — Mapeadas do free-exercise-db (GitHub público)
+   Base: raw.githubusercontent.com/yuhonas/free-exercise-db/
+         main/exercises/{FOLDER}/images/0.jpg
+   Formato "gh:FOLDER" ou "yt:BUSCA" como fallback
+══════════════════════════════════════════════════════ */
+const GH = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+
+function imgUrl(code){
+  if(!code) return null;
+  if(code.startsWith('gh:')) return GH + code.slice(3) + '/images/0.jpg';
+  return null;
+}
+function ytUrl(name){
+  return 'https://www.youtube.com/results?search_query=' + encodeURIComponent('como fazer ' + name + ' academia musculação');
+}
+
+/* ══════════════════════════════════════════════════════
+   TREINO DATA
+══════════════════════════════════════════════════════ */
 const TREINO = {
-  segunda: {
-    label:'SEG', dayName:'Segunda-feira', tipo:'EMPURRAR A',
-    subtitulo:'Peito · Ombro · Tríceps',
-    cor:'#EF4444', gradient:'linear-gradient(135deg,#EF4444,#F59E0B)',
-    icon:'🔥',
+  segunda:{
+    label:'SEG',dayName:'Segunda-feira',tipo:'EMPURRAR A',subtitulo:'Peito · Ombro · Tríceps',
+    cor:'#EF4444',gradient:'linear-gradient(135deg,#EF4444,#F59E0B)',icon:'🔥',
     grupos:[
       {
-        nome:'PEITO', icon:'🎯', badge:'badge-priority', badgeText:'PRIORIDADE',
-        cor:'#EF4444',
+        nome:'PEITO',icon:'🎯',badge:'badge-priority',badgeText:'PRIORIDADE',cor:'#EF4444',
         exercicios:[
-          {nome:'Supino Reto com Barra',series:'5×5',reps:'5 reps (MÁXIMO PESO)',descanso:'3 min',tecnica:'HEAVY',tip:'Barra desce ao peito, pausa de 1s, empurra explosivo. Progressão obrigatória a cada semana.'},
-          {nome:'Supino Inclinado com Halteres',series:'4×8',reps:'8–10 reps',descanso:'90s',tecnica:'PROG',tip:'Inclinação 30–45°. Foco na porção superior do peitoral. Controle na descida (2s).'},
-          {nome:'Supino Declinado com Barra',series:'4×8',reps:'8–10 reps (+DROP SET)',descanso:'90s',tecnica:'DROP',tip:'Na última série: complete as reps, reduza 20% da carga, execute até a falha sem descanso.'},
-          {nome:'Crucifixo com Halteres (banco plano)',series:'4×12',reps:'12 reps',descanso:'60s',tip:'Cotovelos ligeiramente flexionados, abre o máximo. Foco no estiramento do peitoral.'},
-          {nome:'Crossover no Cabo (alto → baixo)',series:'4×15',reps:'15 reps',descanso:'60s',tip:'Cabos altos, cruza as mãos na altura do umbigo. Espreme no fechamento por 2 segundos.'},
-          {nome:'Mergulho no Paralelo (lastro)',series:'3×falha',reps:'Falha + REST-PAUSE',descanso:'60s',tecnica:'REST',tip:'Ao falhar, descanse 15s e execute mais reps. Repita até não conseguir mais. Tronco levemente inclinado para frente.'},
+          {nome:'Supino Reto com Barra',series:'5×5',reps:'5 reps (MÁXIMO PESO)',descanso:'3 min',tecnica:'HEAVY',img:'gh:Barbell_Bench_Press_-_Medium_Grip',tip:'Barra desce ao peito, pausa de 1s, empurra explosivo. Progressão obrigatória a cada semana.'},
+          {nome:'Supino Inclinado com Halteres',series:'4×8',reps:'8–10 reps',descanso:'90s',tecnica:'PROG',img:'gh:Incline_Dumbbell_Bench_Press',tip:'Inclinação 30–45°. Foco na porção superior do peitoral. Controle na descida (2s).'},
+          {nome:'Supino Declinado com Barra',series:'4×8',reps:'8–10 reps (+DROP SET)',descanso:'90s',tecnica:'DROP',img:'gh:Decline_Barbell_Bench_Press',tip:'Na última série: complete as reps, reduza 20% da carga, execute até a falha sem descanso.'},
+          {nome:'Crucifixo com Halteres (banco plano)',series:'4×12',reps:'12 reps',descanso:'60s',img:'gh:Dumbbell_Flyes',tip:'Cotovelos ligeiramente flexionados, abre o máximo. Foco no estiramento do peitoral.'},
+          {nome:'Crossover no Cabo (alto → baixo)',series:'4×15',reps:'15 reps',descanso:'60s',img:'gh:Cable_Cross_Over',tip:'Cabos altos, cruza as mãos na altura do umbigo. Espreme no fechamento por 2 segundos.'},
+          {nome:'Mergulho no Paralelo (lastro)',series:'3×falha',reps:'Falha + REST-PAUSE',descanso:'60s',tecnica:'REST',img:'gh:Weighted_Dip_-_Triceps',tip:'Ao falhar, descanse 15s e execute mais reps. Tronco levemente inclinado para frente.'},
         ]
       },
       {
-        nome:'OMBRO', icon:'💪', badgeText:'', cor:'#3B82F6',
+        nome:'OMBRO',icon:'💪',cor:'#3B82F6',
         exercicios:[
-          {nome:'Desenvolvimento com Barra (frente)',series:'4×8',reps:'8–10 reps',descanso:'90s',tecnica:'HEAVY',tip:'Sentado ou em pé. Barra desce até a altura da queixo. Core ativado.'},
-          {nome:'Elevação Lateral com Halteres',series:'4×12',reps:'12–15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',tip:'Última série: vai até a falha, reduz 30%, continua. Polegar ligeiramente abaixado (cuidado rotador).'},
-          {nome:'Elevação Frontal com Halteres',series:'3×12',reps:'12 reps',descanso:'60s',tip:'Alternada. Sobe até a altura dos olhos. Controle na descida.'},
-          {nome:'Arnold Press',series:'3×10',reps:'10–12 reps',descanso:'90s',tip:'Começa com palmas voltadas para o rosto, gira ao subir. Full range de movimento.'},
+          {nome:'Desenvolvimento com Barra (frente)',series:'4×8',reps:'8–10 reps',descanso:'90s',tecnica:'HEAVY',img:'gh:Barbell_Overhead_Press',tip:'Sentado ou em pé. Barra desce até a altura do queixo. Core ativado.'},
+          {nome:'Elevação Lateral com Halteres',series:'4×12',reps:'12–15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',img:'gh:Side_Lateral_Raise',tip:'Última série: vai até a falha, reduz 30%, continua. Polegar ligeiramente abaixado.'},
+          {nome:'Elevação Frontal com Halteres',series:'3×12',reps:'12 reps alternada',descanso:'60s',img:'gh:Alternate_Dumbbell_Front_Raise',tip:'Alternada. Sobe até a altura dos olhos. Controle na descida.'},
+          {nome:'Arnold Press',series:'3×10',reps:'10–12 reps',descanso:'90s',img:'gh:Arnold_Dumbbell_Press',tip:'Começa com palmas voltadas para o rosto, gira ao subir. Full range de movimento.'},
         ]
       },
       {
-        nome:'TRÍCEPS', icon:'⚡', badgeText:'SUPERSET', badge:'badge-superset', cor:'#A855F7',
+        nome:'TRÍCEPS',icon:'⚡',badge:'badge-superset',badgeText:'SUPERSET',cor:'#A855F7',
         exercicios:[
-          {nome:'Tríceps Testa com Barra EZ',series:'4×10',reps:'10–12 reps',descanso:'60s',tip:'Deitado no banco. Barra desce até a testa. Cotovelos fixos apontando para cima.'},
-          {nome:'Pulley Tríceps – Barra Reta',series:'4×12',reps:'12–15 reps',descanso:'60s',tip:'Cotovelos colados ao corpo. Total extensão no final. Não balance o tronco.'},
-          {nome:'Tríceps Coice com Haltere',series:'3×12',reps:'12 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',tip:'Execute direto com Extensão Overhead sem descanso entre os dois exercícios.'},
-          {nome:'Extensão Overhead com Haltere',series:'3×12',reps:'12 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',tip:'Duas mãos no haltere, desce atrás da cabeça. Mantenha cotovelos fechados.'},
+          {nome:'Tríceps Testa com Barra EZ',series:'4×10',reps:'10–12 reps',descanso:'60s',img:'gh:EZ-Bar_Skullcrusher',tip:'Deitado no banco. Barra desce até a testa. Cotovelos fixos apontando para cima.'},
+          {nome:'Pulley Tríceps – Barra Reta',series:'4×12',reps:'12–15 reps',descanso:'60s',img:'gh:Triceps_Pushdown_-_Rope_Attachment',tip:'Cotovelos colados ao corpo. Total extensão no final. Não balance o tronco.'},
+          {nome:'Tríceps Coice com Haltere',series:'3×12',reps:'12 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:'gh:Dumbbell_Tricep_Kickback',tip:'Execute direto com Extensão Overhead sem descanso entre os dois exercícios.'},
+          {nome:'Extensão Overhead com Haltere',series:'3×12',reps:'12 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:'gh:Overhead_Tricep_Extension_with_Dumbbell',tip:'Duas mãos no haltere, desce atrás da cabeça. Mantenha cotovelos fechados.'},
         ]
       }
     ]
   },
 
-  terca: {
-    label:'TER', dayName:'Terça-feira', tipo:'PUXAR A',
-    subtitulo:'Costas · Bíceps · Post. Ombro',
-    cor:'#3B82F6', gradient:'linear-gradient(135deg,#3B82F6,#06B6D4)',
-    icon:'💙',
+  terca:{
+    label:'TER',dayName:'Terça-feira',tipo:'PUXAR A',subtitulo:'Costas · Bíceps · Post. Ombro',
+    cor:'#3B82F6',gradient:'linear-gradient(135deg,#3B82F6,#06B6D4)',icon:'💙',
     grupos:[
       {
-        nome:'COSTAS', icon:'🏋️', badgeText:'POWER', badge:'badge-power', cor:'#3B82F6',
+        nome:'COSTAS',icon:'🏋️',badge:'badge-power',badgeText:'POWER',cor:'#3B82F6',
         exercicios:[
-          {nome:'Levantamento Terra',series:'5×5',reps:'5 reps (MÁXIMO PESO)',descanso:'3 min',tecnica:'HEAVY',tip:'Posição neutra na coluna, pés na largura dos ombros. Barra rente às pernas. Progressão semanal obrigatória.'},
-          {nome:'Remada Curvada com Barra',series:'4×8',reps:'8–10 reps',descanso:'90s',tip:'Tronco a ~45°, barra sobe até o umbigo. Aperta as escápulas no topo. Controle na descida.'},
-          {nome:'Puxada Frontal no Lat (pronada aberta)',series:'4×10',reps:'10–12 reps',descanso:'90s',tip:'Pegada larga. Puxa até a linha do queixo. Tronco ligeiramente inclinado para trás.'},
-          {nome:'Remada Unilateral com Haltere',series:'4×10',reps:'10–12 reps cada lado',descanso:'60s',tip:'Apoio no banco. Puxe o haltere até o quadril, não até o peito. Rotação da coluna mínima.'},
-          {nome:'Pullover com Haltere',series:'3×12',reps:'12–15 reps',descanso:'60s',tip:'Banco transversal. Braços semiextendidos. Foco na contração da costas/serrátil. Não use muito peso.'},
+          {nome:'Levantamento Terra',series:'5×5',reps:'5 reps (MÁXIMO PESO)',descanso:'3 min',tecnica:'HEAVY',img:'gh:Barbell_Deadlift',tip:'Posição neutra na coluna, pés na largura dos ombros. Barra rente às pernas. Progressão semanal obrigatória.'},
+          {nome:'Remada Curvada com Barra',series:'4×8',reps:'8–10 reps',descanso:'90s',tecnica:'PROG',img:'gh:Barbell_Bent_Over_Row',tip:'Tronco a ~45°, barra sobe até o umbigo. Aperta as escápulas no topo.'},
+          {nome:'Puxada Frontal no Lat (pronada aberta)',series:'4×10',reps:'10–12 reps',descanso:'90s',img:'gh:Wide-Grip_Lat_Pulldown',tip:'Pegada larga. Puxa até a linha do queixo. Tronco ligeiramente inclinado para trás.'},
+          {nome:'Remada Unilateral com Haltere',series:'4×10',reps:'10–12 reps cada lado',descanso:'60s',img:'gh:One-Arm_Dumbbell_Row',tip:'Apoio no banco. Puxe o haltere até o quadril, não até o peito. Rotação da coluna mínima.'},
+          {nome:'Pullover com Haltere',series:'3×12',reps:'12–15 reps',descanso:'60s',img:'gh:Dumbbell_Pull_Over',tip:'Banco transversal. Braços semiextendidos. Foco na contração da costas/serrátil.'},
         ]
       },
       {
-        nome:'POST. OMBRO', icon:'🔵', badgeText:'VOLUME', badge:'badge-volume', cor:'#06B6D4',
+        nome:'POST. OMBRO',icon:'🔵',badge:'badge-volume',badgeText:'VOLUME',cor:'#06B6D4',
         exercicios:[
-          {nome:'Crucifixo Invertido com Halteres',series:'4×15',reps:'15 reps',descanso:'60s',tip:'Deitado de bruços no banco inclinado ou curvado. Cotovelos levemente flexionados. Espreme deltóide posterior.'},
-          {nome:'Face Pull no Cabo (corda)',series:'4×15',reps:'15 reps',descanso:'60s',tip:'Cabo na altura dos olhos. Puxa a corda para o rosto, abrindo externamente. Essencial para saúde do ombro.'},
-          {nome:'Remada Alta com Barra (Upright Row)',series:'3×12',reps:'12 reps',descanso:'60s',tip:'Pegada mais aberta que os ombros. Sobe os cotovelos acima dos ombros. Não force se sentir dor.'},
-          {nome:'Peck Deck Inverso (máquina)',series:'3×15',reps:'15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',tip:'Última série: falha → reduz 20% → até a falha novamente.'},
+          {nome:'Crucifixo Invertido com Halteres',series:'4×15',reps:'15 reps',descanso:'60s',img:'gh:Seated_Bent-Over_Rear_Delt_Raise',tip:'Deitado de bruços no banco inclinado ou curvado. Cotovelos levemente flexionados. Espreme deltóide posterior.'},
+          {nome:'Face Pull no Cabo (corda)',series:'4×15',reps:'15 reps',descanso:'60s',img:null,tip:'Cabo na altura dos olhos. Puxa a corda para o rosto, abrindo externamente. Essencial para saúde do ombro.'},
+          {nome:'Remada Alta com Barra (Upright Row)',series:'3×12',reps:'12 reps',descanso:'60s',img:'gh:Barbell_Upright_Row',tip:'Pegada mais aberta que os ombros. Sobe os cotovelos acima dos ombros.'},
+          {nome:'Peck Deck Inverso (máquina)',series:'3×15',reps:'15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',img:null,tip:'Última série: falha → reduz 20% → até a falha novamente.'},
         ]
       },
       {
-        nome:'BÍCEPS', icon:'💪', badgeText:'VOLUME', badge:'badge-volume', cor:'#22C55E',
+        nome:'BÍCEPS',icon:'💪',badge:'badge-volume',badgeText:'VOLUME',cor:'#22C55E',
         exercicios:[
-          {nome:'Rosca Direta com Barra EZ',series:'4×10',reps:'10–12 reps',descanso:'60s',tip:'Cotovelos fixos ao corpo. Não balance o tronco. Controle na descida (2s).'},
-          {nome:'Rosca Alternada com Halteres',series:'4×10',reps:'10–12 reps',descanso:'60s',tip:'Supine o pulso no topo do movimento. Alternada, nunca simultaneamente.'},
-          {nome:'Rosca Concentrada',series:'3×12',reps:'12 reps cada braço',descanso:'60s',tip:'Cotovelo apoiado na coxa interna. Máximo isolamento do bíceps. Peso moderado, execução perfeita.'},
-          {nome:'Rosca no Cabo (barra reta)',series:'3×12',reps:'12–15 reps',descanso:'60s',tip:'Mantém tensão constante no bíceps. Pulley baixo. Ótimo finalizador.'},
-          {nome:'Rosca Martelo com Halteres',series:'3×12',reps:'12 reps (+REST-PAUSE)',descanso:'60s',tecnica:'REST',tip:'Pegada neutra (hammer). Desenvolve o braquial. Na última série: falha → 15s descanso → mais reps.'},
+          {nome:'Rosca Direta com Barra EZ',series:'4×10',reps:'10–12 reps',descanso:'60s',img:'gh:Barbell_Curl',tip:'Cotovelos fixos ao corpo. Não balance o tronco. Controle na descida (2s).'},
+          {nome:'Rosca Alternada com Halteres',series:'4×10',reps:'10–12 reps',descanso:'60s',img:'gh:Alternating_Dumbbell_Curl',tip:'Supine o pulso no topo do movimento. Alternada, nunca simultaneamente.'},
+          {nome:'Rosca Concentrada',series:'3×12',reps:'12 reps cada braço',descanso:'60s',img:'gh:Concentration_Curls',tip:'Cotovelo apoiado na coxa interna. Máximo isolamento do bíceps.'},
+          {nome:'Rosca no Cabo (barra reta)',series:'3×12',reps:'12–15 reps',descanso:'60s',img:'gh:Cable_Curl',tip:'Mantém tensão constante no bíceps. Pulley baixo. Ótimo finalizador.'},
+          {nome:'Rosca Martelo com Halteres',series:'3×12',reps:'12 reps (+REST-PAUSE)',descanso:'60s',tecnica:'REST',img:'gh:Hammer_Curls',tip:'Pegada neutra (hammer). Desenvolve o braquial. Na última série: falha → 15s descanso → mais reps.'},
         ]
       }
     ]
   },
 
-  quarta: {
-    label:'QUA', dayName:'Quarta-feira', tipo:'PERNA A',
-    subtitulo:'Quadríceps · Post. Coxa · Glúteos · Panturrilha',
-    cor:'#F59E0B', gradient:'linear-gradient(135deg,#F59E0B,#EF4444)',
-    icon:'🦵',
+  quarta:{
+    label:'QUA',dayName:'Quarta-feira',tipo:'PERNA A',subtitulo:'Quadríceps · Post. Coxa · Glúteos · Panturrilha',
+    cor:'#F59E0B',gradient:'linear-gradient(135deg,#F59E0B,#EF4444)',icon:'🦵',
     grupos:[
       {
-        nome:'QUADRÍCEPS', icon:'🦵', badgeText:'POWER', badge:'badge-power', cor:'#F59E0B',
+        nome:'QUADRÍCEPS',icon:'🦵',badge:'badge-power',badgeText:'POWER',cor:'#F59E0B',
         exercicios:[
-          {nome:'Agachamento Livre com Barra',series:'5×5',reps:'5 reps (MÁXIMO PESO)',descanso:'3 min',tecnica:'HEAVY',tip:'Barra no trapézio. Desce abaixo da paralela. Joelhos na linha dos pés. Sobe explosivo. Progressão semanal.'},
-          {nome:'Leg Press 45°',series:'4×10',reps:'10–12 reps',descanso:'90s',tip:'Pés na largura dos ombros, centralizados. Desce até 90°. Não trave os joelhos no topo.'},
-          {nome:'Cadeira Extensora',series:'4×15',reps:'15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',tip:'Última série: falha → reduz 30% → falha novamente. Pausa de 1s no topo para maior ativação.'},
-          {nome:'Avanço (Lunge) com Halteres',series:'3×12',reps:'12 reps cada perna',descanso:'60s',tip:'Passo longo. Joelho traseiro quase toca o chão. Alterna as pernas ou faz todas de um lado.'},
+          {nome:'Agachamento Livre com Barra',series:'5×5',reps:'5 reps (MÁXIMO PESO)',descanso:'3 min',tecnica:'HEAVY',img:'gh:Barbell_Squat',tip:'Barra no trapézio. Desce abaixo da paralela. Joelhos na linha dos pés. Sobe explosivo.'},
+          {nome:'Leg Press 45°',series:'4×10',reps:'10–12 reps',descanso:'90s',img:'gh:Leg_Press',tip:'Pés na largura dos ombros, centralizados. Desce até 90°. Não trave os joelhos no topo.'},
+          {nome:'Cadeira Extensora',series:'4×15',reps:'15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',img:'gh:Leg_Extensions',tip:'Última série: falha → reduz 30% → falha novamente. Pausa de 1s no topo.'},
+          {nome:'Avanço (Lunge) com Halteres',series:'3×12',reps:'12 reps cada perna',descanso:'60s',img:'gh:Dumbbell_Lunges',tip:'Passo longo. Joelho traseiro quase toca o chão. Alterna as pernas.'},
         ]
       },
       {
-        nome:'POST. COXA + GLÚTEOS', icon:'🍑', badgeText:'VOLUME', badge:'badge-volume', cor:'#EC4899',
+        nome:'POST. COXA + GLÚTEOS',icon:'🍑',badge:'badge-volume',badgeText:'VOLUME',cor:'#EC4899',
         exercicios:[
-          {nome:'Levantamento Terra Romeno (Stiff)',series:'4×10',reps:'10–12 reps',descanso:'90s',tip:'Joelhos levemente flexionados, barra rente às pernas. Sente o estiramento do posterior da coxa. Não arredonde a coluna.'},
-          {nome:'Cadeira Flexora',series:'4×12',reps:'12–15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',tip:'Última série: falha → reduz 20% → continua. Foco na contração máxima no topo.'},
-          {nome:'Hip Thrust com Barra',series:'4×10',reps:'10–12 reps',descanso:'90s',tip:'Banco na altura das escápulas, barra apoiada no quadril. Sobe até alinhar quadril e joelhos. Esprema o glúteo no topo.'},
-          {nome:'Mesa Flexora (deitado)',series:'3×12',reps:'12 reps',descanso:'60s',tip:'Controle total. Não balance o quadril para ajudar o movimento. Desce lento (3s).'},
+          {nome:'Levantamento Terra Romeno (Stiff)',series:'4×10',reps:'10–12 reps',descanso:'90s',img:'gh:Romanian_Deadlift',tip:'Joelhos levemente flexionados, barra rente às pernas. Sente o estiramento do posterior. Não arredonde a coluna.'},
+          {nome:'Cadeira Flexora',series:'4×12',reps:'12–15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',img:'gh:Lying_Leg_Curls',tip:'Última série: falha → reduz 20% → continua. Foco na contração máxima no topo.'},
+          {nome:'Hip Thrust com Barra',series:'4×10',reps:'10–12 reps',descanso:'90s',img:null,tip:'Banco na altura das escápulas, barra apoiada no quadril. Sobe até alinhar quadril e joelhos. Esprema o glúteo no topo.'},
+          {nome:'Mesa Flexora (deitado)',series:'3×12',reps:'12 reps',descanso:'60s',img:'gh:Lying_Leg_Curls',tip:'Controle total. Não balance o quadril. Desce lento (3s).'},
         ]
       },
       {
-        nome:'PANTURRILHA + ADUTORES', icon:'🦿', badgeText:'', cor:'#06B6D4',
+        nome:'PANTURRILHA + ADUTORES',icon:'🦿',cor:'#06B6D4',
         exercicios:[
-          {nome:'Panturrilha em Pé com Peso',series:'5×20',reps:'15–20 reps',descanso:'45s',tip:'Sobe na ponta máxima, segura 1s, desce abaixo do degrau. Volume alto é a chave para panturrilha.'},
-          {nome:'Panturrilha Sentado (máquina)',series:'4×20',reps:'20 reps',descanso:'45s',tip:'Foco na cabeça do sóleo. Execução lenta, sem bounce. Diferente da panturrilha em pé.'},
-          {nome:'Cadeira Adutora',series:'4×15',reps:'15 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',tip:'Execute direto com a Cadeira Abdutora sem descanso entre os dois.'},
-          {nome:'Cadeira Abdutora',series:'3×15',reps:'15 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',tip:'Rotação externa do quadril. Foco nos glúteos médio e mínimo. Execute junto com Adutora.'},
+          {nome:'Panturrilha em Pé com Peso',series:'5×20',reps:'15–20 reps',descanso:'45s',img:'gh:Standing_Calf_Raises',tip:'Sobe na ponta máxima, segura 1s, desce abaixo do degrau. Volume alto é a chave para panturrilha.'},
+          {nome:'Panturrilha Sentado (máquina)',series:'4×20',reps:'20 reps',descanso:'45s',img:'gh:Seated_Calf_Raise',tip:'Foco na cabeça do sóleo. Execução lenta, sem bounce.'},
+          {nome:'Cadeira Adutora',series:'4×15',reps:'15 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:null,tip:'Execute direto com a Cadeira Abdutora sem descanso entre os dois.'},
+          {nome:'Cadeira Abdutora',series:'3×15',reps:'15 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:null,tip:'Rotação externa do quadril. Foco nos glúteos médio e mínimo.'},
         ]
       }
     ]
   },
 
-  quinta: {
-    label:'QUI', dayName:'Quinta-feira', tipo:'EMPURRAR B',
-    subtitulo:'Peito · Ombro · Tríceps',
-    cor:'#A855F7', gradient:'linear-gradient(135deg,#A855F7,#EC4899)',
-    icon:'💜',
+  quinta:{
+    label:'QUI',dayName:'Quinta-feira',tipo:'EMPURRAR B',subtitulo:'Peito · Ombro · Tríceps',
+    cor:'#A855F7',gradient:'linear-gradient(135deg,#A855F7,#EC4899)',icon:'💜',
     grupos:[
       {
-        nome:'PEITO', icon:'🎯', badge:'badge-priority', badgeText:'PRIORIDADE',
-        cor:'#A855F7',
+        nome:'PEITO',icon:'🎯',badge:'badge-priority',badgeText:'PRIORIDADE',cor:'#A855F7',
         exercicios:[
-          {nome:'Supino Inclinado com Barra',series:'5×5',reps:'5 reps (MÁXIMO PESO)',descanso:'3 min',tecnica:'HEAVY',tip:'Peito alto em foco. 30–45° de inclinação. Frequência dupla no peito (Seg + Qui) é o diferencial para crescimento.'},
-          {nome:'Supino Reto com Halteres',series:'4×8',reps:'8–10 reps',descanso:'90s',tip:'Maior amplitude do que com barra. Os halteres descem mais fundo. Foco na contração.'},
-          {nome:'Peck Deck (Borboleta)',series:'4×12',reps:'12–15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',tip:'Última série: falha → reduz 30% → até nova falha. Pausa de 2s no fechamento máximo.'},
-          {nome:'Crucifixo Inclinado com Halteres',series:'4×10',reps:'10–12 reps',descanso:'60s',tip:'Banco 30°. Abre o máximo. Foco no estiramento da parte superior do peito.'},
-          {nome:'Crossover Cabo (baixo → alto)',series:'3×15',reps:'15 reps',descanso:'60s',tip:'Cabos baixos, puxa em diagonal para cima. Ativa a parte superior e interna do peito.'},
-          {nome:'Flexão de Braço com Sobrecarga',series:'3×falha',reps:'Falha (+REST-PAUSE)',descanso:'60s',tecnica:'REST',tip:'Coloque peso nas costas (disco ou colete). Falha → 15s → mais reps. Excelente pump final.'},
+          {nome:'Supino Inclinado com Barra',series:'5×5',reps:'5 reps (MÁXIMO PESO)',descanso:'3 min',tecnica:'HEAVY',img:'gh:Incline_Barbell_Bench_Press',tip:'Peito alto em foco. 30–45° de inclinação. Frequência dupla no peito (Seg+Qui) é o diferencial.'},
+          {nome:'Supino Reto com Halteres',series:'4×8',reps:'8–10 reps',descanso:'90s',img:'gh:Dumbbell_Bench_Press',tip:'Maior amplitude do que com barra. Os halteres descem mais fundo. Foco na contração.'},
+          {nome:'Peck Deck (Borboleta)',series:'4×12',reps:'12–15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',img:'gh:Butterfly',tip:'Última série: falha → reduz 30% → até nova falha. Pausa de 2s no fechamento máximo.'},
+          {nome:'Crucifixo Inclinado com Halteres',series:'4×10',reps:'10–12 reps',descanso:'60s',img:'gh:Incline_Dumbbell_Flyes',tip:'Banco 30°. Abre o máximo. Foco no estiramento da parte superior do peito.'},
+          {nome:'Crossover Cabo (baixo → alto)',series:'3×15',reps:'15 reps',descanso:'60s',img:'gh:Low_Cable_Crossover',tip:'Cabos baixos, puxa em diagonal para cima. Ativa a parte superior e interna do peito.'},
+          {nome:'Flexão de Braço com Sobrecarga',series:'3×falha',reps:'Falha (+REST-PAUSE)',descanso:'60s',tecnica:'REST',img:'gh:Weighted_Push-Up',tip:'Coloque peso nas costas (disco ou colete). Falha → 15s → mais reps. Excelente pump final.'},
         ]
       },
       {
-        nome:'OMBRO', icon:'🔵', badgeText:'VOLUME', badge:'badge-volume', cor:'#A855F7',
+        nome:'OMBRO',icon:'🔵',badge:'badge-volume',badgeText:'VOLUME',cor:'#A855F7',
         exercicios:[
-          {nome:'Desenvolvimento com Halteres (sentado)',series:'4×10',reps:'10–12 reps',descanso:'90s',tip:'Sentado com encosto. Halteres descem até a linha das orelhas. Não trave os cotovelos no topo.'},
-          {nome:'Elevação Lateral no Cabo',series:'4×15',reps:'15 reps',descanso:'60s',tip:'Tensão constante diferente do haltere. Faz um de cada vez ou os dois juntos com cabos cruzados.'},
-          {nome:'Remada Alta com Halteres',series:'3×12',reps:'12 reps',descanso:'60s',tip:'Sobe os cotovelos acima dos ombros. Trabalha deltóide lateral e posterior. Cuidado com a amplitude.'},
-          {nome:'Desenvolvimento na Máquina (Hammer)',series:'3×12',reps:'12 reps (+DROP SET)',descanso:'90s',tecnica:'DROP',tip:'Última série com drop set para máximo pump no ombro.'},
+          {nome:'Desenvolvimento com Halteres (sentado)',series:'4×10',reps:'10–12 reps',descanso:'90s',img:'gh:Seated_Dumbbell_Press',tip:'Sentado com encosto. Halteres descem até a linha das orelhas.'},
+          {nome:'Elevação Lateral no Cabo',series:'4×15',reps:'15 reps',descanso:'60s',img:'gh:Cable_Side_Lateral_Raise',tip:'Tensão constante diferente do haltere. Faz um de cada vez ou os dois juntos com cabos cruzados.'},
+          {nome:'Remada Alta com Halteres',series:'3×12',reps:'12 reps',descanso:'60s',img:'gh:Barbell_Upright_Row',tip:'Sobe os cotovelos acima dos ombros. Trabalha deltóide lateral e posterior.'},
+          {nome:'Desenvolvimento na Máquina',series:'3×12',reps:'12 reps (+DROP SET)',descanso:'90s',tecnica:'DROP',img:null,tip:'Última série com drop set para máximo pump no ombro.'},
         ]
       },
       {
-        nome:'TRÍCEPS', icon:'⚡', badgeText:'GIANT SET', badge:'badge-superset', cor:'#EC4899',
+        nome:'TRÍCEPS',icon:'⚡',badge:'badge-superset',badgeText:'GIANT SET',cor:'#EC4899',
         exercicios:[
-          {nome:'Tríceps Francês com Barra EZ',series:'4×10',reps:'10–12 reps',descanso:'60s',tip:'Deitado no banco, barra desce atrás da cabeça. Cotovelos apontando para o teto.'},
-          {nome:'Pulley Tríceps com Corda',series:'4×12',reps:'12–15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',tip:'Corda separa no final do movimento. Última série com drop set.'},
-          {nome:'Extensão Overhead no Cabo',series:'3×12',reps:'12 reps 🔥 GIANT SET',descanso:'60s',tecnica:'GIANT',tip:'Execute os 3 exercícios seguintes em sequência sem descanso entre eles.'},
-          {nome:'Tríceps no Banco (Bench Dips)',series:'3×falha',reps:'Falha 🔥 GIANT SET',descanso:'60s',tecnica:'GIANT',tip:'Último exercício do giant set. Pés afastados do banco para mais dificuldade.'},
+          {nome:'Tríceps Francês com Barra EZ',series:'4×10',reps:'10–12 reps',descanso:'60s',img:'gh:EZ-Bar_Skullcrusher',tip:'Deitado no banco, barra desce atrás da cabeça. Cotovelos apontando para o teto.'},
+          {nome:'Pulley Tríceps com Corda',series:'4×12',reps:'12–15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',img:'gh:Triceps_Pushdown',tip:'Corda separa no final do movimento. Última série com drop set.'},
+          {nome:'Extensão Overhead no Cabo',series:'3×12',reps:'12 reps 🔥 GIANT SET',descanso:'60s',tecnica:'GIANT',img:null,tip:'Execute os 2 exercícios seguintes em sequência sem descanso entre eles.'},
+          {nome:'Tríceps no Banco (Bench Dips)',series:'3×falha',reps:'Falha 🔥 GIANT SET',descanso:'60s',tecnica:'GIANT',img:'gh:Bench_Dips',tip:'Último exercício do giant set. Pés afastados do banco para mais dificuldade.'},
         ]
       }
     ]
   },
 
-  sexta: {
-    label:'SEX', dayName:'Sexta-feira', tipo:'PUXAR B',
-    subtitulo:'Costas · Bíceps · Perna Leve',
-    cor:'#22C55E', gradient:'linear-gradient(135deg,#22C55E,#06B6D4)',
-    icon:'💚',
+  sexta:{
+    label:'SEX',dayName:'Sexta-feira',tipo:'PUXAR B',subtitulo:'Costas · Bíceps · Perna Leve',
+    cor:'#22C55E',gradient:'linear-gradient(135deg,#22C55E,#06B6D4)',icon:'💚',
     grupos:[
       {
-        nome:'COSTAS', icon:'🏋️', badgeText:'VOLUME', badge:'badge-volume', cor:'#22C55E',
+        nome:'COSTAS',icon:'🏋️',badge:'badge-volume',badgeText:'VOLUME',cor:'#22C55E',
         exercicios:[
-          {nome:'Puxada Supinada (pegada fechada)',series:'4×8',reps:'8–12 reps',descanso:'90s',tip:'Pegada supinada, mais fechada. Puxa até o peito. Maior ativação do bíceps + costas.'},
-          {nome:'Remada no Cabo com Triângulo',series:'4×12',reps:'12 reps',descanso:'60s',tip:'Senta ereto. Puxada até o umbigo. Cotovelos passam do tronco. Aperta as escápulas.'},
-          {nome:'Puxada Aberta no Lat (pronada)',series:'4×10',reps:'10–12 reps',descanso:'90s',tip:'Variação da segunda. Pegada pronada e mais larga. Foco nos latíssimos.'},
-          {nome:'Remada Serrote com Haltere',series:'3×12',reps:'12 reps (+REST-PAUSE)',descanso:'60s',tecnica:'REST',tip:'Apoio no banco, puxe o haltere até o quadril. Última série com REST-PAUSE: falha → 15s → continua.'},
+          {nome:'Puxada Supinada (pegada fechada)',series:'4×8',reps:'8–12 reps',descanso:'90s',img:'gh:Chin-Up',tip:'Pegada supinada, mais fechada. Puxa até o peito. Maior ativação do bíceps + costas.'},
+          {nome:'Remada no Cabo com Triângulo',series:'4×12',reps:'12 reps',descanso:'60s',img:'gh:Seated_Cable_Rows',tip:'Senta ereto. Puxada até o umbigo. Cotovelos passam do tronco. Aperta as escápulas.'},
+          {nome:'Puxada Aberta no Lat (pronada)',series:'4×10',reps:'10–12 reps',descanso:'90s',img:'gh:Wide-Grip_Lat_Pulldown',tip:'Variação com pegada pronada e mais larga. Foco nos latíssimos.'},
+          {nome:'Remada Serrote com Haltere',series:'3×12',reps:'12 reps (+REST-PAUSE)',descanso:'60s',tecnica:'REST',img:'gh:One-Arm_Dumbbell_Row',tip:'Apoio no banco, puxe o haltere até o quadril. Última série com REST-PAUSE.'},
         ]
       },
       {
-        nome:'BÍCEPS', icon:'💪', badgeText:'INTENSIDADE', badge:'badge-power', cor:'#F59E0B',
+        nome:'BÍCEPS',icon:'💪',badge:'badge-power',badgeText:'INTENSIDADE',cor:'#F59E0B',
         exercicios:[
-          {nome:'Rosca Scott com Barra EZ',series:'4×10',reps:'10–12 reps',descanso:'60s',tip:'Apoio no banco Scott elimina trapaça. Isola perfeitamente o bíceps. Desce devagar (3s).'},
-          {nome:'Rosca 21s com Barra',series:'3×21',reps:'21 reps (7+7+7)',descanso:'60s',tecnica:'GIANT',tip:'7 reps da parte baixa (0–90°) + 7 reps da parte alta (90°–topo) + 7 reps completas. Volume brutal.'},
-          {nome:'Rosca Inversa Pronada',series:'3×12',reps:'12 reps',descanso:'60s',tip:'Pegada pronada (dorso da mão para cima). Desenvolve o braquiorradial e o antebraço.'},
-          {nome:'Rosca Concentrada',series:'3×12',reps:'12 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',tip:'Último exercício. Isolamento máximo. Última série: falha → reduz peso → falha novamente. Pico do volume semanal.'},
+          {nome:'Rosca Scott com Barra EZ',series:'4×10',reps:'10–12 reps',descanso:'60s',img:'gh:Preacher_Curl',tip:'Apoio no banco Scott elimina trapaça. Isola perfeitamente o bíceps. Desce devagar (3s).'},
+          {nome:'Rosca 21s com Barra',series:'3×21',reps:'21 reps (7+7+7)',descanso:'60s',tecnica:'GIANT',img:'gh:Barbell_Curl',tip:'7 reps da parte baixa (0–90°) + 7 reps da parte alta (90°–topo) + 7 reps completas.'},
+          {nome:'Rosca Inversa Pronada',series:'3×12',reps:'12 reps',descanso:'60s',img:'gh:Reverse_Grip_Barbell_Curl',tip:'Pegada pronada (dorso da mão para cima). Desenvolve o braquiorradial e o antebraço.'},
+          {nome:'Rosca Concentrada',series:'3×12',reps:'12 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',img:'gh:Concentration_Curls',tip:'Último exercício. Isolamento máximo. Última série: falha → reduz peso → falha novamente.'},
         ]
       },
       {
-        nome:'PERNA LEVE', icon:'🦵', badgeText:'MANUTENÇÃO', badge:'badge-volume', cor:'#06B6D4',
+        nome:'PERNA LEVE',icon:'🦵',badge:'badge-volume',badgeText:'MANUTENÇÃO',cor:'#06B6D4',
         exercicios:[
-          {nome:'Leg Press (carga moderada — 60%)',series:'3×15',reps:'15 reps',descanso:'60s',tip:'Não é dia de força, é manutenção. Carga moderada, mais volume. Excelente para fixar adaptações.'},
-          {nome:'Agachamento Goblet com Haltere',series:'3×15',reps:'15 reps',descanso:'60s',tip:'Haltere segurado na vertical no peito. Ótimo para mobilidade e técnica de agachamento.'},
-          {nome:'Cadeira Extensora (leve)',series:'3×15',reps:'15 reps',descanso:'60s',tip:'Carga leve, execução lenta. Não deixa o quadríceps esquecer que é dia de treino.'},
-          {nome:'Panturrilha em Pé',series:'4×20',reps:'20 reps',descanso:'45s',tip:'Frequência alta é o segredo para panturrilha. Aproveite qualquer oportunidade para treinar.'},
+          {nome:'Leg Press (carga moderada — 60%)',series:'3×15',reps:'15 reps',descanso:'60s',img:'gh:Leg_Press',tip:'Não é dia de força, é manutenção. Carga moderada, mais volume.'},
+          {nome:'Agachamento Goblet com Haltere',series:'3×15',reps:'15 reps',descanso:'60s',img:'gh:Dumbbell_Goblet_Squat',tip:'Haltere segurado na vertical no peito. Ótimo para mobilidade e técnica.'},
+          {nome:'Cadeira Extensora (leve)',series:'3×15',reps:'15 reps',descanso:'60s',img:'gh:Leg_Extensions',tip:'Carga leve, execução lenta. Mantém adaptação do quadríceps.'},
+          {nome:'Panturrilha em Pé',series:'4×20',reps:'20 reps',descanso:'45s',img:'gh:Standing_Calf_Raises',tip:'Frequência alta é o segredo para panturrilha. Aproveite qualquer oportunidade.'},
         ]
       }
     ]
   },
 
-  sabado: {
-    label:'SÁB', dayName:'Sábado', tipo:'DESCANSO', subtitulo:'Recuperação ativa',
-    cor:'#7D8590', gradient:'linear-gradient(135deg,#7D8590,#484F58)',
-    icon:'🧘', rest:true
+  sabado:{
+    label:'SÁB',dayName:'Sábado',tipo:'DESCANSO',subtitulo:'Recuperação ativa',
+    cor:'#7D8590',gradient:'linear-gradient(135deg,#7D8590,#484F58)',icon:'🧘',rest:true
   },
-  domingo: {
-    label:'DOM', dayName:'Domingo', tipo:'DESCANSO', subtitulo:'Recuperação ativa',
-    cor:'#7D8590', gradient:'linear-gradient(135deg,#7D8590,#484F58)',
-    icon:'😴', rest:true
+  domingo:{
+    label:'DOM',dayName:'Domingo',tipo:'DESCANSO',subtitulo:'Recuperação ativa',
+    cor:'#7D8590',gradient:'linear-gradient(135deg,#7D8590,#484F58)',icon:'😴',rest:true
   }
 };
 
-/* ══════════════════════════════════════════════════════════
-   ESTADO
-   ══════════════════════════════════════════════════════════ */
-const DAYS_ORDER = ['segunda','terca','quarta','quinta','sexta','sabado','domingo'];
-let currentDay = 'segunda';
+/* ══════════════════════════════════════════════════════
+   ESTADO & STORAGE
+══════════════════════════════════════════════════════ */
+const DAYS_ORDER=['segunda','terca','quarta','quinta','sexta','sabado','domingo'];
+let currentDay='segunda';
 
-function lsKey(day, exIdx){ return `treino_w_${day}_${exIdx}`; }
-function isDone(day, exIdx){ return localStorage.getItem(lsKey(day,exIdx)) === '1'; }
-function setDone(day, exIdx, val){ localStorage.setItem(lsKey(day,exIdx), val?'1':'0'); }
+function lsKey(day,idx){return `tw_${day}_${idx}`;}
+function isDone(day,idx){return localStorage.getItem(lsKey(day,idx))==='1';}
+function setDone(day,idx,v){localStorage.setItem(lsKey(day,idx),v?'1':'0');}
 function getDayProgress(dayId){
-  const d = TREINO[dayId]; if(!d||d.rest) return {done:0,total:0};
-  let total=0,done=0;
-  d.grupos.forEach(g=>g.exercicios.forEach((_,i)=>{ total++; if(isDone(dayId,getExGlobalIdx(dayId,g,i))) done++; }));
-  return {done,total};
-}
-function getExGlobalIdx(dayId, grupo, exInGroupIdx){
-  const d=TREINO[dayId]; let idx=0;
-  for(const g of d.grupos){
-    if(g===grupo) return idx+exInGroupIdx;
-    idx+=g.exercicios.length;
-  }
-  return exInGroupIdx;
+  const d=TREINO[dayId];if(!d||d.rest)return{done:0,total:0};
+  let total=0,done=0,gi=0;
+  d.grupos.forEach(g=>g.exercicios.forEach(()=>{total++;if(isDone(dayId,gi++))done++;}));
+  return{done,total};
 }
 
-/* ══════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
+   MODAL
+══════════════════════════════════════════════════════ */
+function openModal(name,imgCode,tip,muscle){
+  const m=document.getElementById('imgModal');
+  const wrap=document.getElementById('imgModalImgWrap');
+  const url=imgUrl(imgCode);
+
+  // Badge color
+  const colors={'PEITO':'#EF4444','COSTAS':'#3B82F6','BÍCEPS':'#22C55E','OMBRO':'#A855F7','TRÍCEPS':'#EC4899','QUADRÍCEPS':'#F59E0B','POST. COXA + GLÚTEOS':'#EC4899','PANTURRILHA + ADUTORES':'#06B6D4','PERNA LEVE':'#06B6D4','POST. OMBRO':'#06B6D4'};
+  const col=colors[muscle]||'#7D8590';
+
+  document.getElementById('imgModalTitle').textContent=name;
+  document.getElementById('imgModalBadge').textContent=muscle||'';
+  document.getElementById('imgModalBadge').style.cssText=`background:${col}22;color:${col};border:1px solid ${col}44;border-radius:99px;font-size:.62rem;font-weight:700;padding:.18rem .55rem`;
+  document.getElementById('imgModalTip').textContent=tip||'—';
+  document.getElementById('imgModalYt').href=ytUrl(name);
+
+  if(url){
+    wrap.innerHTML=`<img class="img-modal-img" src="${url}" alt="${name}" onerror="handleImgError(this,'${name}','${muscle||''}')" />`;
+  }else{
+    wrap.innerHTML=`<div class="modal-no-img" style="background:linear-gradient(135deg,${col}22,${col}11)">
+      <span style="font-size:2.5rem">🏋️</span>
+      <p style="color:${col};font-weight:700;font-size:.8rem">${name}</p>
+      <p>Veja o tutorial no YouTube</p>
+    </div>`;
+  }
+  m.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function handleImgError(img,name,muscle){
+  img.parentElement.innerHTML=`<div class="modal-no-img">
+    <span style="font-size:2.5rem">🏋️</span>
+    <p style="font-weight:700;font-size:.8rem;color:var(--text)">${name}</p>
+    <p>Veja o tutorial no YouTube abaixo</p>
+  </div>`;
+}
+
+function closeModal(){
+  document.getElementById('imgModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function handleModalClick(e){
+  if(e.target===document.getElementById('imgModal')) closeModal();
+}
+
+/* ══════════════════════════════════════════════════════
    RENDER
-   ══════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 function techniqueBadge(t){
   if(!t) return '';
-  const map={
-    'DROP': ['tech-drop','DROP SET'],
-    'REST': ['tech-rest','REST-PAUSE'],
-    'SUPER': ['tech-super','SUPERSET'],
-    'GIANT': ['tech-giant','GIANT SET'],
-    'HEAVY': ['tech-heavy','PESADO'],
-    'PROG': ['tech-prog','PROGRESSÃO'],
-  };
-  const [cls,label]=map[t]||['tech-prog',t];
+  const map={DROP:['tech-drop','DROP SET'],REST:['tech-rest','REST-PAUSE'],SUPER:['tech-super','SUPERSET'],GIANT:['tech-giant','GIANT SET'],HEAVY:['tech-heavy','PESADO'],PROG:['tech-prog','PROGRESSÃO']};
+  const[cls,label]=map[t]||['tech-prog',t];
   return `<span class="ex-technique ${cls}">${label}</span>`;
 }
 
+function renderExercise(ex, dayId, gi, groupName){
+  const done=isDone(dayId,gi);
+  const url=imgUrl(ex.img);
+  const encodedTip=(ex.tip||'').replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+  const encodedName=ex.nome.replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+  const encodedGroup=groupName.replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+
+  // Thumbnail section
+  let imgSection='';
+  if(url){
+    imgSection=`
+      <div class="ex-img-section" onclick="openModal('${encodedName}','${ex.img||''}','${encodedTip}','${encodedGroup}')">
+        <img src="${url}" alt="${ex.nome}" loading="lazy" onerror="this.parentElement.querySelector('.ex-img-overlay').innerHTML='<div style=\\'display:flex;align-items:center;gap:.4rem;padding:.5rem .75rem;width:100%\\'><span>🏋️</span><a href=\\'${ytUrl(ex.nome)}\\' target=\\'_blank\\' style=\\'color:#EF4444;font-size:.72rem;font-weight:700;text-decoration:none\\'>▶ Ver no YouTube</a></div>';this.style.display=\\'none\\'" />
+        <div class="ex-img-overlay">
+          <span class="ex-img-label">📸 ${ex.nome.split(' ').slice(0,3).join(' ')}</span>
+          <span class="ex-img-btn">🔍 Ampliar</span>
+        </div>
+      </div>`;
+  }else{
+    imgSection=`
+      <div class="ex-img-section" style="background:none;border:none;margin:.2rem .6rem .4rem" onclick="openModal('${encodedName}','','${encodedTip}','${encodedGroup}')">
+        <a class="ex-yt-btn" href="${ytUrl(ex.nome)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+          ▶ Ver como fazer no YouTube
+        </a>
+      </div>`;
+  }
+
+  return `
+    <div class="exercise-card${done?' done':''}" id="ex-${dayId}-${gi}">
+      <div class="ex-main-row" onclick="toggleExercise('${dayId}',${gi})">
+        <div class="ex-check"><span class="ex-check-mark">✓</span></div>
+        <div class="ex-content">
+          <div class="ex-top">
+            <div class="ex-name">${ex.nome}</div>
+            ${techniqueBadge(ex.tecnica)}
+          </div>
+          <div class="ex-stats">
+            <div class="ex-stat"><span>🔁</span><span class="ex-stat-val">${ex.series}</span>&nbsp;<span>${ex.reps}</span></div>
+            <div class="ex-stat"><span>⏱</span><span>Desc.: </span><span class="ex-stat-val">${ex.descanso||'60s'}</span></div>
+          </div>
+        </div>
+      </div>
+      ${imgSection}
+      ${ex.tip?`<div class="ex-tip">💡 ${ex.tip}</div>`:''}
+    </div>`;
+}
+
 function renderDayPanel(dayId){
-  const d = TREINO[dayId];
+  const d=TREINO[dayId];
   if(d.rest){
     return `<div class="day-panel" id="panel-${dayId}">
       <div class="day-header" style="--day-gradient:${d.gradient};--day-color:${d.cor}">
@@ -589,29 +611,11 @@ function renderDayPanel(dayId){
     </div>`;
   }
 
-  let globalIdx = 0;
-  const gruposHtml = d.grupos.map(g => {
-    const exsHtml = g.exercicios.map((ex,i) => {
-      const gi = globalIdx++;
-      const done = isDone(dayId, gi);
-      return `<div class="exercise-card${done?' done':''}" data-day="${dayId}" data-idx="${gi}" onclick="toggleExercise('${dayId}',${gi})">
-        <div class="ex-check"><span class="ex-check-mark">✓</span></div>
-        <div class="ex-content">
-          <div class="ex-top">
-            <div class="ex-name">${ex.nome}</div>
-            ${techniqueBadge(ex.tecnica)}
-          </div>
-          <div class="ex-stats">
-            <div class="ex-stat"><span class="ex-stat-icon">🔁</span><span class="ex-stat-val">${ex.series}</span>&nbsp;<span>${ex.reps}</span></div>
-            <div class="ex-stat"><span class="ex-stat-icon">⏱</span><span>Descanso: </span><span class="ex-stat-val">${ex.descanso||'60s'}</span></div>
-          </div>
-          ${ex.tip?`<div class="ex-tip">💡 ${ex.tip}</div>`:''}
-        </div>
-      </div>`;
-    }).join('');
-
-    const grpBadge = g.badge?`<span class="group-badge ${g.badge}">${g.badgeText}</span>`:'';
-    return `<div class="muscle-group" id="grp-${dayId}-${g.nome.replace(/\s+/g,'-')}">
+  let gi=0;
+  const gruposHtml=d.grupos.map(g=>{
+    const grpBadge=g.badge?`<span class="group-badge ${g.badge}">${g.badgeText}</span>`:'';
+    const exsHtml=g.exercicios.map(ex=>renderExercise(ex,dayId,gi++,g.nome)).join('');
+    return `<div class="muscle-group" id="grp-${dayId}-${g.nome.replace(/[^a-z0-9]/gi,'-')}">
       <div class="group-header" onclick="toggleGroup(this)">
         <span class="group-icon">${g.icon}</span>
         <div class="group-info">
@@ -626,6 +630,7 @@ function renderDayPanel(dayId){
     </div>`;
   }).join('');
 
+  const totalEx=d.grupos.reduce((s,g)=>s+g.exercicios.length,0);
   return `<div class="day-panel" id="panel-${dayId}">
     <div class="day-header" style="--day-gradient:${d.gradient};--day-color:${d.cor}">
       <div class="day-header-content">
@@ -633,9 +638,9 @@ function renderDayPanel(dayId){
         <div class="day-title">${d.dayName}</div>
         <div class="day-subtitle">${d.subtitulo}</div>
         <div class="day-meta">
-          <span>📊 ${countTotalEx(dayId)} exercícios</span>
-          <span>⏱ ~${estimateTime(dayId)} min</span>
-          <span>💪 ${countGroups(dayId)} grupos</span>
+          <span>📊 ${totalEx} exercícios</span>
+          <span>⏱ ~${Math.round(totalEx*3.5+10)} min</span>
+          <span>💪 ${d.grupos.length} grupos</span>
         </div>
       </div>
     </div>
@@ -648,8 +653,8 @@ function renderDayPanel(dayId){
         <div class="progress-bar-fill" id="bar-${dayId}" style="width:0%;background:${d.gradient}"></div>
       </div>
       <div class="progress-counts">
-        <span id="count-${dayId}">0 / ${countTotalEx(dayId)} exercícios concluídos</span>
-        <span id="status-${dayId}">💪 Bora treinar!</span>
+        <span id="count-${dayId}">0 / ${totalEx} exercícios</span>
+        <span id="status-${dayId}">💪 Bora!</span>
       </div>
     </div>
     <div class="completion-banner" id="complete-${dayId}">
@@ -661,66 +666,51 @@ function renderDayPanel(dayId){
   </div>`;
 }
 
-function countTotalEx(dayId){
-  return TREINO[dayId].grupos.reduce((s,g)=>s+g.exercicios.length,0);
-}
-function estimateTime(dayId){
-  const total=countTotalEx(dayId);
-  return Math.round(total*3.5+10);
-}
-function countGroups(dayId){ return TREINO[dayId].grupos.length; }
-
+/* ══════════════════════════════════════════════════════
+   ACTIONS
+══════════════════════════════════════════════════════ */
 function renderAll(){
-  const nav = document.getElementById('dayNav');
-  const main = document.getElementById('mainContent');
-  nav.innerHTML=''; main.innerHTML='';
-
-  DAYS_ORDER.forEach(dayId => {
+  const nav=document.getElementById('dayNav');
+  const main=document.getElementById('mainContent');
+  nav.innerHTML='';main.innerHTML='';
+  DAYS_ORDER.forEach(dayId=>{
     const d=TREINO[dayId];
-    const {done,total}=getDayProgress(dayId);
-    const completed = !d.rest && total>0 && done>=total;
+    const{done,total}=getDayProgress(dayId);
+    const completed=!d.rest&&total>0&&done>=total;
     const btn=document.createElement('button');
     btn.className='day-btn'+(dayId===currentDay?' active':'')+(completed?' completed':'');
-    btn.style.setProperty('--accent-day', d.cor);
-    btn.innerHTML=`<span class="day-abbr">${d.label}</span><span class="day-type">${d.tipo.split(' ')[0]}</span><span class="done-dot"></span>`;
+    btn.style.setProperty('--accent-day',d.cor);
+    btn.innerHTML=`<span>${d.label}</span><span style="font-size:.6rem;opacity:.7">${d.tipo.split(' ')[0]}</span><span class="done-dot"></span>`;
     btn.onclick=()=>switchDay(dayId);
     nav.appendChild(btn);
-
-    const panel=document.createElement('div');
-    panel.innerHTML=renderDayPanel(dayId);
-    main.appendChild(panel.firstChild);
+    const wrap=document.createElement('div');
+    wrap.innerHTML=renderDayPanel(dayId);
+    main.appendChild(wrap.firstChild);
   });
-
   activateDay(currentDay);
 }
 
 function activateDay(dayId){
   currentDay=dayId;
-  document.querySelectorAll('.day-btn').forEach((b,i)=>{
-    b.classList.toggle('active', DAYS_ORDER[i]===dayId);
-  });
+  document.querySelectorAll('.day-btn').forEach((b,i)=>b.classList.toggle('active',DAYS_ORDER[i]===dayId));
   document.querySelectorAll('.day-panel').forEach(p=>p.classList.remove('active'));
   const panel=document.getElementById(`panel-${dayId}`);
-  if(panel) panel.classList.add('active');
-
+  if(panel)panel.classList.add('active');
   updateProgress(dayId);
   updateBottomBar(dayId);
-
-  // Scroll nav to active
   const btns=document.querySelectorAll('.day-btn');
   const idx=DAYS_ORDER.indexOf(dayId);
-  if(btns[idx]) btns[idx].scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+  if(btns[idx])btns[idx].scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
 }
 
 function switchDay(dayId){
   activateDay(dayId);
-  document.getElementById('mainContent').scrollTop=0;
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function toggleExercise(dayId, idx){
-  const card=document.querySelector(`.exercise-card[data-day="${dayId}"][data-idx="${idx}"]`);
-  if(!card) return;
+function toggleExercise(dayId,idx){
+  const card=document.getElementById(`ex-${dayId}-${idx}`);
+  if(!card)return;
   const nowDone=!card.classList.contains('done');
   setDone(dayId,idx,nowDone);
   card.classList.toggle('done',nowDone);
@@ -730,48 +720,38 @@ function toggleExercise(dayId, idx){
 }
 
 function updateProgress(dayId){
-  const d=TREINO[dayId]; if(!d||d.rest) return;
-  const {done,total}=getDayProgress(dayId);
+  const d=TREINO[dayId];if(!d||d.rest)return;
+  const{done,total}=getDayProgress(dayId);
   const pct=total>0?Math.round(done/total*100):0;
   const bar=document.getElementById(`bar-${dayId}`);
+  if(bar)bar.style.width=pct+'%';
   const pctEl=document.getElementById(`pct-${dayId}`);
+  if(pctEl)pctEl.textContent=pct+'%';
   const countEl=document.getElementById(`count-${dayId}`);
+  if(countEl)countEl.textContent=`${done} / ${total} exercícios`;
   const statusEl=document.getElementById(`status-${dayId}`);
+  if(statusEl)statusEl.textContent=pct===100?'🏆 Concluído!':pct>=50?'🔥 Mais da metade!':pct>0?'💪 Bora!':'💪 Bora treinar!';
   const banner=document.getElementById(`complete-${dayId}`);
-  if(bar) bar.style.width=pct+'%';
-  if(pctEl) pctEl.textContent=pct+'%';
-  if(countEl) countEl.textContent=`${done} / ${total} exercícios concluídos`;
-  if(statusEl){
-    if(pct===100) statusEl.textContent='🏆 Concluído!';
-    else if(pct>=50) statusEl.textContent='🔥 Mais da metade!';
-    else if(pct>0) statusEl.textContent='💪 Bora!';
-    else statusEl.textContent='💪 Bora treinar!';
-  }
-  if(banner) banner.classList.toggle('show',pct===100);
+  if(banner)banner.classList.toggle('show',pct===100);
   updateBottomBar(dayId);
 }
 
 function updateGroupProgress(dayId){
-  const d=TREINO[dayId]; if(!d||d.rest) return;
-  let gIdx=0;
+  const d=TREINO[dayId];if(!d||d.rest)return;
+  let gi=0;
   d.grupos.forEach(g=>{
-    const total=g.exercicios.length;
+    const start=gi;
     let done=0;
-    g.exercicios.forEach((_,i)=>{ if(isDone(dayId,gIdx+i)) done++; });
-    const grpEl=document.getElementById(`grp-${dayId}-${g.nome.replace(/\s+/g,'-')}`);
-    if(grpEl){
-      const line=grpEl.querySelector('.group-progress-line');
-      if(line) line.style.width=(total>0?Math.round(done/total*100):0)+'%';
-    }
-    gIdx+=total;
+    g.exercicios.forEach(()=>{if(isDone(dayId,gi++))done++;});
+    const grpEl=document.getElementById(`grp-${dayId}-${g.nome.replace(/[^a-z0-9]/gi,'-')}`);
+    if(grpEl){const line=grpEl.querySelector('.group-progress-line');if(line)line.style.width=(g.exercicios.length>0?Math.round(done/g.exercicios.length*100):0)+'%';}
   });
 }
 
 function updateNavDots(){
   document.querySelectorAll('.day-btn').forEach((b,i)=>{
-    const dayId=DAYS_ORDER[i];
-    const d=TREINO[dayId]; if(d.rest) return;
-    const {done,total}=getDayProgress(dayId);
+    const d=TREINO[DAYS_ORDER[i]];if(d&&d.rest)return;
+    const{done,total}=getDayProgress(DAYS_ORDER[i]);
     b.classList.toggle('completed',total>0&&done>=total);
   });
 }
@@ -781,49 +761,36 @@ function updateBottomBar(dayId){
   const d=TREINO[dayId];
   if(!d||d.rest){bar.style.display='none';return;}
   bar.style.display='flex';
-  const {done,total}=getDayProgress(dayId);
+  const{done,total}=getDayProgress(dayId);
   document.getElementById('bbTitle').textContent=`${d.label} — ${d.tipo}`;
   document.getElementById('bbSub').textContent=`${done} / ${total} exercícios`;
 }
 
-function toggleGroup(headerEl){
-  const group=headerEl.closest('.muscle-group');
-  group.classList.toggle('group-collapsed');
-}
+function toggleGroup(headerEl){headerEl.closest('.muscle-group').classList.toggle('group-collapsed');}
 
 function markAllDone(){
-  const d=TREINO[currentDay]; if(!d||d.rest) return;
-  let idx=0;
-  d.grupos.forEach(g=>g.exercicios.forEach((_,i)=>{
-    setDone(currentDay,idx+i,true);
-  }));
-  // refresh
-  document.querySelectorAll(`.exercise-card[data-day="${currentDay}"]`).forEach(c=>c.classList.add('done'));
-  updateProgress(currentDay);
-  updateGroupProgress(currentDay);
-  updateNavDots();
+  const d=TREINO[currentDay];if(!d||d.rest)return;
+  let gi=0;
+  d.grupos.forEach(g=>g.exercicios.forEach(()=>setDone(currentDay,gi++,true)));
+  document.querySelectorAll(`[id^="ex-${currentDay}-"]`).forEach(c=>c.classList.add('done'));
+  updateProgress(currentDay);updateGroupProgress(currentDay);updateNavDots();
 }
 
 function resetDay(){
-  const d=TREINO[currentDay]; if(!d||d.rest) return;
-  if(!confirm(`Reiniciar treino de ${d.dayName}?`)) return;
-  let idx=0;
-  d.grupos.forEach(g=>g.exercicios.forEach((_,i)=>{
-    localStorage.removeItem(lsKey(currentDay,idx+i));
-    idx++;
-  }));
-  document.querySelectorAll(`.exercise-card[data-day="${currentDay}"]`).forEach(c=>c.classList.remove('done'));
-  updateProgress(currentDay);
-  updateGroupProgress(currentDay);
-  updateNavDots();
+  const d=TREINO[currentDay];if(!d||d.rest)return;
+  if(!confirm(`Reiniciar treino de ${d.dayName}?`))return;
+  let gi=0;
+  d.grupos.forEach(g=>g.exercicios.forEach(()=>localStorage.removeItem(lsKey(currentDay,gi++))));
+  document.querySelectorAll(`[id^="ex-${currentDay}-"]`).forEach(c=>c.classList.remove('done'));
+  updateProgress(currentDay);updateGroupProgress(currentDay);updateNavDots();
 }
 
 function resetAll(){
-  if(!confirm('Reiniciar TODO o progresso semanal?')) return;
+  if(!confirm('Reiniciar TODO o progresso semanal?'))return;
   DAYS_ORDER.forEach(dayId=>{
-    const d=TREINO[dayId]; if(d.rest) return;
-    let idx=0;
-    d.grupos.forEach(g=>g.exercicios.forEach((_,i)=>{ localStorage.removeItem(lsKey(dayId,idx+i)); idx++; }));
+    const d=TREINO[dayId];if(d.rest)return;
+    let gi=0;
+    d.grupos.forEach(g=>g.exercicios.forEach(()=>localStorage.removeItem(lsKey(dayId,gi++))));
   });
   renderAll();
 }
@@ -831,12 +798,13 @@ function resetAll(){
 /* ── Init ── */
 renderAll();
 updateNavDots();
-DAYS_ORDER.forEach(dayId=>updateGroupProgress(dayId));
+DAYS_ORDER.forEach(d=>{ if(!TREINO[d].rest){updateProgress(d);updateGroupProgress(d);} });
 
-// Detecta dia da semana automaticamente
-const WEEKDAY_MAP={1:'segunda',2:'terca',3:'quarta',4:'quinta',5:'sexta',6:'sabado',0:'domingo'};
-const todayDay=WEEKDAY_MAP[new Date().getDay()]||'segunda';
-switchDay(todayDay);
+const WEEKDAY={1:'segunda',2:'terca',3:'quarta',4:'quinta',5:'sexta',6:'sabado',0:'domingo'};
+switchDay(WEEKDAY[new Date().getDay()]||'segunda');
+
+// Fechar modal com ESC
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 </script>
 </body>
 </html>
