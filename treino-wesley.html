@@ -306,8 +306,8 @@ const TREINO = {
           {nome:'Supino Reto com Barra',series:'5×5',reps:'5 reps (MÁXIMO PESO)',descanso:'3 min',tecnica:'HEAVY',img:'gh:Barbell_Bench_Press_-_Medium_Grip',tip:'Barra desce ao peito, pausa de 1s, empurra explosivo. Progressão obrigatória a cada semana.'},
           {nome:'Supino Inclinado com Halteres',series:'4×8',reps:'8–10 reps',descanso:'90s',tecnica:'PROG',img:'gh:Incline_Dumbbell_Bench_Press',tip:'Inclinação 30–45°. Foco na porção superior do peitoral. Controle na descida (2s).'},
           {nome:'Supino Declinado com Barra',series:'4×8',reps:'8–10 reps (+DROP SET)',descanso:'90s',tecnica:'DROP',img:'gh:Decline_Barbell_Bench_Press',tip:'Na última série: complete as reps, reduza 20% da carga, execute até a falha sem descanso.'},
-          {nome:'Crucifixo com Halteres (banco plano)',series:'4×12',reps:'12 reps',descanso:'60s',img:'gh:Dumbbell_Flyes',tip:'Cotovelos ligeiramente flexionados, abre o máximo. Foco no estiramento do peitoral.'},
-          {nome:'Crossover no Cabo (alto → baixo)',series:'4×15',reps:'15 reps',descanso:'60s',img:'gh:Cable_Cross_Over',tip:'Cabos altos, cruza as mãos na altura do umbigo. Espreme no fechamento por 2 segundos.'},
+          {nome:'Crucifixo com Halteres (banco plano)',series:'4×12',reps:'12 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:'gh:Dumbbell_Flyes',tip:'Execute direto com o Crossover sem descanso. Estiramento máximo do peitoral, cotovelos levemente flexionados.'},
+          {nome:'Crossover no Cabo (alto → baixo)',series:'4×15',reps:'15 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:'gh:Cable_Cross_Over',tip:'Segundo do superset com o Crucifixo. Cabos altos, cruza as mãos na altura do umbigo. Espreme 2s no fechamento.'},
           {nome:'Mergulho no Paralelo (lastro)',series:'3×falha',reps:'Falha + REST-PAUSE',descanso:'60s',tecnica:'REST',img:'gh:Weighted_Dip_-_Triceps',tip:'Ao falhar, descanse 15s e execute mais reps. Tronco levemente inclinado para frente.'},
         ]
       },
@@ -315,8 +315,8 @@ const TREINO = {
         nome:'OMBRO',icon:'💪',cor:'#3B82F6',
         exercicios:[
           {nome:'Desenvolvimento com Barra (frente)',series:'4×8',reps:'8–10 reps',descanso:'90s',tecnica:'HEAVY',img:'gh:Barbell_Overhead_Press',tip:'Sentado ou em pé. Barra desce até a altura do queixo. Core ativado.'},
-          {nome:'Elevação Lateral com Halteres',series:'4×12',reps:'12–15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',img:'gh:Side_Lateral_Raise',tip:'Última série: vai até a falha, reduz 30%, continua. Polegar ligeiramente abaixado.'},
-          {nome:'Elevação Frontal com Halteres',series:'3×12',reps:'12 reps alternada',descanso:'60s',img:'gh:Alternate_Dumbbell_Front_Raise',tip:'Alternada. Sobe até a altura dos olhos. Controle na descida.'},
+          {nome:'Elevação Lateral com Halteres',series:'3×12',reps:'12–15 reps 🔗 SUPERSET (+DROP na última)',descanso:'60s',tecnica:'SUPER',img:'gh:Side_Lateral_Raise',tip:'Execute direto com a Elevação Frontal. Polegar levemente abaixado. Na 3ª série faça DROP SET ao terminar o superset.'},
+          {nome:'Elevação Frontal com Halteres',series:'3×12',reps:'12 reps alternada 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:'gh:Alternate_Dumbbell_Front_Raise',tip:'Segundo do superset com Lateral. Sobe até a altura dos olhos. Descanse 60s após completar o par.'},
           {nome:'Arnold Press',series:'3×10',reps:'10–12 reps',descanso:'90s',img:'gh:Arnold_Dumbbell_Press',tip:'Começa com palmas voltadas para o rosto, gira ao subir. Full range de movimento.'},
         ]
       },
@@ -360,8 +360,8 @@ const TREINO = {
         exercicios:[
           {nome:'Rosca Direta com Barra EZ',series:'4×10',reps:'10–12 reps',descanso:'60s',img:'gh:Barbell_Curl',tip:'Cotovelos fixos ao corpo. Não balance o tronco. Controle na descida (2s).'},
           {nome:'Rosca Alternada com Halteres',series:'4×10',reps:'10–12 reps',descanso:'60s',img:'gh:Alternating_Dumbbell_Curl',tip:'Supine o pulso no topo do movimento. Alternada, nunca simultaneamente.'},
-          {nome:'Rosca Concentrada',series:'3×12',reps:'12 reps cada braço',descanso:'60s',img:'gh:Concentration_Curls',tip:'Cotovelo apoiado na coxa interna. Máximo isolamento do bíceps.'},
-          {nome:'Rosca no Cabo (barra reta)',series:'3×12',reps:'12–15 reps',descanso:'60s',img:'gh:Cable_Curl',tip:'Mantém tensão constante no bíceps. Pulley baixo. Ótimo finalizador.'},
+          {nome:'Rosca Concentrada',series:'3×12',reps:'12 reps cada braço 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:'gh:Concentration_Curls',tip:'Execute direto com a Rosca no Cabo sem descanso. Cotovelo apoiado na coxa interna. Máximo isolamento.'},
+          {nome:'Rosca no Cabo (barra reta)',series:'3×12',reps:'12–15 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:'gh:Cable_Curl',tip:'Segundo do superset com a Concentrada. Tensão constante no bíceps. Pulley baixo. Descanse 60s após o par.'},
           {nome:'Rosca Martelo com Halteres',series:'3×12',reps:'12 reps (+REST-PAUSE)',descanso:'60s',tecnica:'REST',img:'gh:Hammer_Curls',tip:'Pegada neutra (hammer). Desenvolve o braquial. Na última série: falha → 15s descanso → mais reps.'},
         ]
       }
@@ -412,8 +412,8 @@ const TREINO = {
           {nome:'Supino Inclinado com Barra',series:'5×5',reps:'5 reps (MÁXIMO PESO)',descanso:'3 min',tecnica:'HEAVY',img:'gh:Incline_Barbell_Bench_Press',tip:'Peito alto em foco. 30–45° de inclinação. Frequência dupla no peito (Seg+Qui) é o diferencial.'},
           {nome:'Supino Reto com Halteres',series:'4×8',reps:'8–10 reps',descanso:'90s',img:'gh:Dumbbell_Bench_Press',tip:'Maior amplitude do que com barra. Os halteres descem mais fundo. Foco na contração.'},
           {nome:'Peck Deck (Borboleta)',series:'4×12',reps:'12–15 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',img:'gh:Butterfly',tip:'Última série: falha → reduz 30% → até nova falha. Pausa de 2s no fechamento máximo.'},
-          {nome:'Crucifixo Inclinado com Halteres',series:'4×10',reps:'10–12 reps',descanso:'60s',img:'gh:Incline_Dumbbell_Flyes',tip:'Banco 30°. Abre o máximo. Foco no estiramento da parte superior do peito.'},
-          {nome:'Crossover Cabo (baixo → alto)',series:'3×15',reps:'15 reps',descanso:'60s',img:'gh:Low_Cable_Crossover',tip:'Cabos baixos, puxa em diagonal para cima. Ativa a parte superior e interna do peito.'},
+          {nome:'Crucifixo Inclinado com Halteres',series:'4×10',reps:'10–12 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:'gh:Incline_Dumbbell_Flyes',tip:'Execute direto com o Crossover Baixo→Alto. Banco 30°. Estiramento máximo do peito superior.'},
+          {nome:'Crossover Cabo (baixo → alto)',series:'4×15',reps:'15 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:'gh:Low_Cable_Crossover',tip:'Segundo do superset com o Crucifixo Inclinado. Cabos baixos, diagonal para cima. Ativa peito superior e interno.'},
           {nome:'Flexão de Braço com Sobrecarga',series:'3×falha',reps:'Falha (+REST-PAUSE)',descanso:'60s',tecnica:'REST',img:'gh:Weighted_Push-Up',tip:'Coloque peso nas costas (disco ou colete). Falha → 15s → mais reps. Excelente pump final.'},
         ]
       },
@@ -422,8 +422,8 @@ const TREINO = {
         exercicios:[
           {nome:'Desenvolvimento com Halteres (sentado)',series:'4×10',reps:'10–12 reps',descanso:'90s',img:'gh:Seated_Dumbbell_Press',tip:'Sentado com encosto. Halteres descem até a linha das orelhas.'},
           {nome:'Elevação Lateral no Cabo',series:'4×15',reps:'15 reps',descanso:'60s',img:'gh:Cable_Side_Lateral_Raise',tip:'Tensão constante diferente do haltere. Faz um de cada vez ou os dois juntos com cabos cruzados.'},
-          {nome:'Remada Alta com Halteres',series:'3×12',reps:'12 reps',descanso:'60s',img:'gh:Barbell_Upright_Row',tip:'Sobe os cotovelos acima dos ombros. Trabalha deltóide lateral e posterior.'},
-          {nome:'Desenvolvimento na Máquina',series:'3×12',reps:'12 reps (+DROP SET)',descanso:'90s',tecnica:'DROP',img:null,tip:'Última série com drop set para máximo pump no ombro.'},
+          {nome:'Remada Alta com Halteres',series:'3×12',reps:'12 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:'gh:Barbell_Upright_Row',tip:'Execute direto com o Desenvolvimento na Máquina. Cotovelos acima dos ombros. Deltóide lateral e posterior.'},
+          {nome:'Desenvolvimento na Máquina',series:'3×12',reps:'12 reps 🔗 SUPERSET (+DROP na última)',descanso:'90s',tecnica:'SUPER',img:null,tip:'Segundo do superset com a Remada Alta. Na 3ª série termine com DROP SET para pump máximo no ombro.'},
         ]
       },
       {
@@ -456,8 +456,8 @@ const TREINO = {
         exercicios:[
           {nome:'Rosca Scott com Barra EZ',series:'4×10',reps:'10–12 reps',descanso:'60s',img:'gh:Preacher_Curl',tip:'Apoio no banco Scott elimina trapaça. Isola perfeitamente o bíceps. Desce devagar (3s).'},
           {nome:'Rosca 21s com Barra',series:'3×21',reps:'21 reps (7+7+7)',descanso:'60s',tecnica:'GIANT',img:'gh:Barbell_Curl',tip:'7 reps da parte baixa (0–90°) + 7 reps da parte alta (90°–topo) + 7 reps completas.'},
-          {nome:'Rosca Inversa Pronada',series:'3×12',reps:'12 reps',descanso:'60s',img:'gh:Reverse_Grip_Barbell_Curl',tip:'Pegada pronada (dorso da mão para cima). Desenvolve o braquiorradial e o antebraço.'},
-          {nome:'Rosca Concentrada',series:'3×12',reps:'12 reps (+DROP SET)',descanso:'60s',tecnica:'DROP',img:'gh:Concentration_Curls',tip:'Último exercício. Isolamento máximo. Última série: falha → reduz peso → falha novamente.'},
+          {nome:'Rosca Inversa Pronada',series:'3×12',reps:'12 reps 🔗 SUPERSET',descanso:'60s',tecnica:'SUPER',img:'gh:Reverse_Grip_Barbell_Curl',tip:'Execute direto com a Rosca Concentrada. Pegada pronada. Desenvolve braquiorradial e antebraço.'},
+          {nome:'Rosca Concentrada',series:'3×12',reps:'12 reps 🔗 SUPERSET (+DROP na última)',descanso:'60s',tecnica:'SUPER',img:'gh:Concentration_Curls',tip:'Segundo do superset com a Inversa. Na 3ª série termine com DROP SET até a falha. Isolamento máximo do bíceps.'},
         ]
       },
       {
