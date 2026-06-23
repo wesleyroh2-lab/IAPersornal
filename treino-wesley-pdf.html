@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Treino Wesley — PDF Hipertrofia</title>
+<style>
+/* ── Base ── */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#DC2626;--blue:#2563EB;--amber:#D97706;--purple:#7C3AED;--green:#16A34A;
+  --gray:#374151;--lightgray:#F3F4F6;--border:#E5E7EB;--text:#111827;--muted:#6B7280;
+}
+body{font-family:'Segoe UI',Arial,sans-serif;color:var(--text);background:#fff;font-size:10pt}
+
+/* ── Print setup ── */
+@page{size:A4 portrait;margin:15mm 12mm}
+@media print{
+  .no-print{display:none!important}
+  .page-break{page-break-before:always}
+  body{font-size:9pt}
+}
+
+/* ── Print button ── */
+.print-bar{
+  background:#111827;color:#fff;padding:1rem 1.5rem;display:flex;
+  align-items:center;justify-content:space-between;margin-bottom:0;
+}
+.print-bar-title{font-size:.9rem;font-weight:700}
+.print-bar-sub{font-size:.75rem;opacity:.7;margin-top:2px}
+.print-btn{
+  background:linear-gradient(135deg,#EF4444,#F59E0B);
+  color:#fff;border:none;padding:.55rem 1.25rem;border-radius:8px;
+  font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;
+}
+.print-btn:hover{opacity:.9}
+
+/* ── COVER ── */
+.cover{
+  background:linear-gradient(135deg,#111827 0%,#1F2937 60%,#111827 100%);
+  color:#fff;min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:3rem 2.5rem;position:relative;overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(239,68,68,.25),transparent 70%);
+}
+.cover-tag{
+  display:inline-block;background:rgba(239,68,68,.2);
+  border:1px solid rgba(239,68,68,.5);color:#FCA5A5;
+  font-size:.7rem;font-weight:800;letter-spacing:1.5px;
+  padding:.3rem .8rem;border-radius:99px;margin-bottom:1.5rem;
+}
+.cover-title{font-size:2.8rem;font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:.5rem}
+.cover-title span{
+  background:linear-gradient(90deg,#EF4444,#F59E0B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.cover-sub{font-size:1rem;color:rgba(255,255,255,.6);margin-bottom:2.5rem}
+.cover-stats{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.cstat{text-align:center}
+.cstat-val{font-size:1.8rem;font-weight:900;line-height:1}
+.cstat-label{font-size:.65rem;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase;margin-top:2px}
+.cover-split{margin-top:2rem}
+.cover-split-title{font-size:.65rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.75rem}
+.split-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem}
+.split-card{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;padding:.6rem .5rem;text-align:center;
+}
+.split-day{font-size:.6rem;font-weight:800;letter-spacing:.5px;color:rgba(255,255,255,.5);margin-bottom:.25rem}
+.split-type{font-size:.65rem;font-weight:700;color:#fff}
+.split-muscles{font-size:.55rem;color:rgba(255,255,255,.45);margin-top:2px}
+
+.cover-nota{
+  margin-top:2rem;padding:1rem 1.25rem;
+  background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);
+  border-radius:10px;font-size:.75rem;color:rgba(255,255,255,.7);line-height:1.5;
+}
+.cover-nota strong{color:#FCA5A5}
+
+/* ── Day pages ── */
+.day-page{padding:1.5rem 0 1rem}
+
+.day-header-pdf{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:1rem 1.25rem;border-radius:12px;margin-bottom:1rem;color:#fff;
+}
+.dhp-left{}
+.dhp-tag{font-size:.6rem;font-weight:800;letter-spacing:1.5px;opacity:.8;margin-bottom:.3rem}
+.dhp-title{font-size:1.5rem;font-weight:900;letter-spacing:-.5px}
+.dhp-sub{font-size:.78rem;opacity:.75;margin-top:.2rem}
+.dhp-right{text-align:right}
+.dhp-meta{font-size:.68rem;opacity:.7;line-height:1.8}
+
+/* ── Table ── */
+.ex-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-bottom:.75rem}
+.ex-table th{
+  background:var(--lightgray);color:var(--muted);
+  font-size:.62rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  padding:.45rem .6rem;text-align:left;border-bottom:2px solid var(--border);
+}
+.ex-table td{padding:.6rem .6rem;border-bottom:1px solid var(--border);vertical-align:top}
+.ex-table tr:last-child td{border-bottom:none}
+.ex-table tr:hover{background:#FAFAFA}
+
+/* Group header in table */
+.group-row td{
+  background:var(--group-bg,#FEF2F2);
+  color:var(--group-color,var(--red));
+  font-weight:800;font-size:.78rem;letter-spacing:.5px;
+  padding:.45rem .6rem;border-bottom:2px solid var(--group-border,#FCA5A5);
+}
+
+/* Column widths */
+.col-num{width:28px;color:var(--muted);font-size:.72rem;font-weight:700}
+.col-check{width:24px;text-align:center}
+.col-ex{min-width:140px}
+.col-series{width:50px;text-align:center;font-weight:700}
+.col-reps{width:100px}
+.col-rest{width:50px;text-align:center}
+.col-obs{color:var(--muted);font-size:.72rem}
+
+/* Technique pills */
+.t-pill{
+  display:inline-block;font-size:.55rem;font-weight:800;
+  padding:.1rem .38rem;border-radius:4px;margin-left:.3rem;
+  vertical-align:middle;white-space:nowrap;
+}
+.t-drop{background:#FEE2E2;color:#DC2626}
+.t-rest{background:#FEF3C7;color:#D97706}
+.t-super{background:#EDE9FE;color:#7C3AED}
+.t-giant{background:#FCE7F3;color:#DB2777}
+.t-heavy{background:#DBEAFE;color:#2563EB}
+.t-prog{background:#DCFCE7;color:#16A34A}
+
+/* Tip text */
+.ex-tip-pdf{color:var(--muted);font-size:.65rem;margin-top:.2rem;line-height:1.4}
+
+/* Legend */
+.legend-box{
+  background:var(--lightgray);border-radius:8px;
+  padding:.65rem .85rem;margin-bottom:.85rem;
+  display:flex;flex-wrap:wrap;gap:.4rem .75rem;align-items:center;
+}
+.legend-title{font-size:.62rem;font-weight:700;color:var(--muted);margin-right:.25rem}
+.legend-item{display:flex;align-items:center;gap:.25rem;font-size:.62rem;color:var(--gray)}
+
+/* Summary table */
+.summary-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-bottom:1rem}
+.summary-table th{background:#111827;color:#fff;padding:.5rem .75rem;text-align:left;font-size:.72rem}
+.summary-table td{padding:.55rem .75rem;border-bottom:1px solid var(--border)}
+.summary-table tr:nth-child(even) td{background:#FAFAFA}
+
+/* Section title */
+.section-title{
+  font-size:.65rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:.5rem;margin-top:1rem;padding-bottom:.3rem;
+  border-bottom:1px solid var(--border);
+}
+
+/* Tips box */
+.tips-box{
+  background:#FFF7ED;border:1px solid #FED7AA;border-radius:8px;
+  padding:.85rem 1rem;margin-bottom:1rem;
+}
+.tips-box h4{font-size:.8rem;color:#C2410C;margin-bottom:.5rem}
+.tips-list{list-style:none;font-size:.75rem;color:#92400E;line-height:1.8}
+.tips-list li::before{content:'→ ';font-weight:700}
+</style>
+</head>
+<body>
+
+<!-- ══ PRINT BAR (não imprime) ══ -->
+<div class="print-bar no-print">
+  <div>
+    <div class="print-bar-title">🏋️ Treino Wesley — Hipertrofia</div>
+    <div class="print-bar-sub">Clique em "Salvar como PDF" → Destino: "Salvar como PDF" no menu de impressão</div>
+  </div>
+  <button class="print-btn" onclick="window.print()">🖨️ Salvar como PDF</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     CAPA
+══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-tag">PROGRAMA DE HIPERTROFIA — SPLITS PPL</div>
+  <div class="cover-title">Treino <span>Wesley</span><br>Hipertrofia</div>
+  <div class="cover-sub">Programa pesado 5×/semana · Peito em Prioridade · Técnicas Avançadas</div>
+
+  <div class="cover-stats">
+    <div class="cstat"><div class="cstat-val" style="color:#EF4444">5</div><div class="cstat-label">Dias/Semana</div></div>
+    <div class="cstat"><div class="cstat-val" style="color:#F59E0B">26</div><div class="cstat-label">Exercícios</div></div>
+    <div class="cstat"><div class="cstat-val" style="color:#22C55E">3</div><div class="cstat-label">Grupos em Foco</div></div>
+    <div class="cstat"><div class="cstat-val" style="color:#A855F7">2×</div><div class="cstat-label">Freq. Peito</div></div>
+  </div>
+
+  <div class="cover-split">
+    <div class="cover-split-title">Estrutura semanal</div>
+    <div class="split-grid">
+      <div class="split-card">
+        <div class="split-day">SEG</div>
+        <div class="split-type" style="color:#EF4444">PUSH A</div>
+        <div class="split-muscles">Peito · Ombro · Tri</div>
+      </div>
+      <div class="split-card">
+        <div class="split-day">TER</div>
+        <div class="split-type" style="color:#3B82F6">PULL A</div>
+        <div class="split-muscles">Costas · Bíceps · Ombro</div>
+      </div>
+      <div class="split-card">
+        <div class="split-day">QUA</div>
+        <div class="split-type" style="color:#F59E0B">PERNA A</div>
+        <div class="split-muscles">Quad · Post · Glúteo</div>
+      </div>
+      <div class="split-card">
+        <div class="split-day">QUI</div>
+        <div class="split-type" style="color:#A855F7">PUSH B</div>
+        <div class="split-muscles">Peito · Ombro · Tri</div>
+      </div>
+      <div class="split-card">
+        <div class="split-day">SEX</div>
+        <div class="split-type" style="color:#22C55E">PULL B</div>
+        <div class="split-muscles">Costas · Bíceps · Perna</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-nota">
+    <strong>🎯 Prioridade: PEITO</strong> — Frequência dupla semanal (SEG + QUI) com 2 exercícios pesados 5×5.
+    O peito recebe mais volume total que qualquer outro grupo muscular.
+    Aplique progressão de carga <strong>toda semana</strong> nos exercícios marcados como PESADO e PROGRESSÃO.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     LEGENDA
+══════════════════════════════════════════════════════ -->
+<div class="page-break"></div>
+<div class="day-page">
+  <div class="section-title">LEGENDA DAS TÉCNICAS</div>
+  <div class="legend-box" style="margin-bottom:1rem">
+    <span class="legend-title">Técnicas Avançadas:</span>
+    <span class="legend-item"><span class="t-pill t-heavy">PESADO</span> Carga máxima com boa forma</span>
+    <span class="legend-item"><span class="t-pill t-prog">PROGRESSÃO</span> Aumentar carga toda semana</span>
+    <span class="legend-item"><span class="t-pill t-drop">DROP SET</span> Ao falhar, reduz 20-30% e continua</span>
+    <span class="legend-item"><span class="t-pill t-rest">REST-PAUSE</span> Falha → 15s → mais reps</span>
+    <span class="legend-item"><span class="t-pill t-super">SUPERSET</span> 2 exercícios sem descanso entre eles</span>
+    <span class="legend-item"><span class="t-pill t-giant">GIANT SET</span> 3+ exercícios em sequência sem descanso</span>
+  </div>
+
+  <div class="section-title">RESUMO SEMANAL</div>
+  <table class="summary-table">
+    <thead><tr><th>Dia</th><th>Tipo</th><th>Grupos Musculares</th><th>Exercícios</th><th>Tempo Est.</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Segunda</strong></td><td>Empurrar A</td><td>🎯 Peito (6) · Ombro (4) · Tríceps (4)</td><td>14</td><td>~70 min</td></tr>
+      <tr><td><strong>Terça</strong></td><td>Puxar A</td><td>Costas (5) · Post. Ombro (4) · Bíceps (5)</td><td>14</td><td>~70 min</td></tr>
+      <tr><td><strong>Quarta</strong></td><td>Perna A</td><td>Quadríceps (4) · Post. Coxa + Glúteo (4) · Pant. + Adut. (4)</td><td>12</td><td>~65 min</td></tr>
+      <tr><td><strong>Quinta</strong></td><td>Empurrar B</td><td>🎯 Peito (6) · Ombro (4) · Tríceps (4)</td><td>14</td><td>~70 min</td></tr>
+      <tr><td><strong>Sexta</strong></td><td>Puxar B</td><td>Costas (4) · Bíceps (4) · Perna Leve (4)</td><td>12</td><td>~60 min</td></tr>
+      <tr><td><strong>Sáb/Dom</strong></td><td>Descanso</td><td>Recuperação ativa (caminhada, alongamento)</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tips-box">
+    <h4>🔑 Princípios do Programa</h4>
+    <ul class="tips-list">
+      <li>Progressão de carga toda semana nos exercícios 5×5 — isso é MANDATÓRIO para hipertrofia</li>
+      <li>Descida controlada (2–3 segundos) em todos os exercícios de isolamento</li>
+      <li>DROP SET, REST-PAUSE e SUPERSETS são usados somente nas últimas séries — não comece com eles</li>
+      <li>Proteína: mínimo 2g por kg de peso corporal por dia</li>
+      <li>Sono: 7–9h é onde o músculo CRESCE — não negligencie</li>
+      <li>Peito: se sentir fraqueza no peito especificamente, acrescente 1 exercício de isometria (peso no peito deitado)</li>
+      <li>Revise e aumente as cargas a cada 4 semanas — anote tudo</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SEGUNDA — EMPURRAR A
+══════════════════════════════════════════════════════ -->
+<div class="page-break"></div>
+<div class="day-page">
+  <div class="day-header-pdf" style="background:linear-gradient(135deg,#DC2626,#D97706)">
+    <div class="dhp-left">
+      <div class="dhp-tag">SEGUNDA-FEIRA · PUSH DAY A</div>
+      <div class="dhp-title">Empurrar A</div>
+      <div class="dhp-sub">🎯 Peito em Prioridade · Ombro · Tríceps</div>
+    </div>
+    <div class="dhp-right">
+      <div class="dhp-meta">14 exercícios<br>~70 min<br>3 grupos</div>
+    </div>
+  </div>
+
+  <table class="ex-table">
+    <thead><tr>
+      <th class="col-check">✓</th>
+      <th class="col-num">#</th>
+      <th class="col-ex">Exercício</th>
+      <th class="col-series">Séries</th>
+      <th class="col-reps">Repetições</th>
+      <th class="col-rest">Desc.</th>
+      <th class="col-obs">Observação / Carga</th>
+    </tr></thead>
+    <tbody>
+
+    <!-- PEITO -->
+    <tr class="group-row" style="--group-bg:#FEF2F2;--group-color:#DC2626;--group-border:#FCA5A5">
+      <td colspan="7">🎯 PEITO — PRIORIDADE MÁXIMA (6 exercícios)</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">1</td>
+      <td class="col-ex">Supino Reto com Barra <span class="t-pill t-heavy">PESADO</span></td>
+      <td class="col-series">5×5</td>
+      <td class="col-reps">5 reps (máx. peso)</td>
+      <td class="col-rest">3 min</td>
+      <td class="col-obs">____ kg · Barra ao peito, pausa 1s, sobe explosivo</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">2</td>
+      <td class="col-ex">Supino Inclinado com Halteres <span class="t-pill t-prog">PROGRESSÃO</span></td>
+      <td class="col-series">4×8</td>
+      <td class="col-reps">8–10 reps</td>
+      <td class="col-rest">90s</td>
+      <td class="col-obs">____ kg · Inclinação 30–45°, descida 2s</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">3</td>
+      <td class="col-ex">Supino Declinado com Barra <span class="t-pill t-drop">DROP SET</span></td>
+      <td class="col-series">4×8</td>
+      <td class="col-reps">8–10 reps + drop na última</td>
+      <td class="col-rest">90s</td>
+      <td class="col-obs">____ kg → reduz 20% e vai até a falha</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">4</td>
+      <td class="col-ex">Crucifixo com Halteres (banco plano)</td>
+      <td class="col-series">4×12</td>
+      <td class="col-reps">12 reps</td>
+      <td class="col-rest">60s</td>
+      <td class="col-obs">____ kg · Cotovelos semiflexionados, estiramento máximo</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">5</td>
+      <td class="col-ex">Crossover no Cabo (alto → baixo)</td>
+      <td class="col-series">4×15</td>
+      <td class="col-reps">15 reps</td>
+      <td class="col-rest">60s</td>
+      <td class="col-obs">____ kg · Espreme 2s no fechamento abaixo do umbigo</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">6</td>
+      <td class="col-ex">Mergulho no Paralelo (lastro) <span class="t-pill t-rest">REST-PAUSE</span></td>
+      <td class="col-series">3×falha</td>
+      <td class="col-reps">Falha + 15s + mais reps</td>
+      <td class="col-rest">60s</td>
+      <td class="col-obs">____ kg lastro · Tronco levemente inclinado à frente</td>
+    </tr>
+
+    <!-- OMBRO -->
+    <tr class="group-row" style="--group-bg:#EFF6FF;--group-color:#2563EB;--group-border:#93C5FD">
+      <td colspan="7">💪 OMBRO (4 exercícios)</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">7</td>
+      <td class="col-ex">Desenvolvimento com Barra (frente) <span class="t-pill t-heavy">PESADO</span></td>
+      <td class="col-series">4×8</td>
+      <td class="col-reps">8–10 reps</td>
+      <td class="col-rest">90s</td>
+      <td class="col-obs">____ kg · Barra desce até a queixo, core ativado</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">8</td>
+      <td class="col-ex">Elevação Lateral com Halteres <span class="t-pill t-drop">DROP SET</span></td>
+      <td class="col-series">4×12</td>
+      <td class="col-reps">12–15 reps + drop</td>
+      <td class="col-rest">60s</td>
+      <td class="col-obs">____ kg · Polegar ligeiramente abaixado</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">9</td>
+      <td class="col-ex">Elevação Frontal com Halteres</td>
+      <td class="col-series">3×12</td>
+      <td class="col-reps">12 reps alternada</td>
+      <td class="col-rest">60s</td>
+      <td class="col-obs">____ kg · Sobe até altura dos olhos</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">10</td>
+      <td class="col-ex">Arnold Press</td>
+      <td class="col-series">3×10</td>
+      <td class="col-reps">10–12 reps</td>
+      <td class="col-rest">90s</td>
+      <td class="col-obs">____ kg · Gira as palmas ao subir</td>
+    </tr>
+
+    <!-- TRÍCEPS -->
+    <tr class="group-row" style="--group-bg:#FAF5FF;--group-color:#7C3AED;--group-border:#C4B5FD">
+      <td colspan="7">⚡ TRÍCEPS — SUPERSET nos 2 últimos (4 exercícios)</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">11</td>
+      <td class="col-ex">Tríceps Testa com Barra EZ</td>
+      <td class="col-series">4×10</td>
+      <td class="col-reps">10–12 reps</td>
+      <td class="col-rest">60s</td>
+      <td class="col-obs">____ kg · Cotovelos fixos apontando para o teto</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">12</td>
+      <td class="col-ex">Pulley Tríceps – Barra Reta</td>
+      <td class="col-series">4×12</td>
+      <td class="col-reps">12–15 reps</td>
+      <td class="col-rest">60s</td>
+      <td class="col-obs">____ kg · Cotovelos colados ao corpo</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">13</td>
+      <td class="col-ex">Tríceps Coice com Haltere <span class="t-pill t-super">SUPERSET</span></td>
+      <td class="col-series">3×12</td>
+      <td class="col-reps">12 reps → vai p/ ex.14</td>
+      <td class="col-rest">60s</td>
+      <td class="col-obs">____ kg · Execute direto c/ extensão overhead</td>
+    </tr>
+    <tr>
+      <td class="col-check">☐</td><td class="col-num">14</td>
+      <td class="col-ex">Extensão Overhead com Haltere <span class="t-pill t-super">SUPERSET</span></td>
+      <td class="col-series">3×12</td>
+      <td class="col-reps">12 reps</td>
+      <td class="col-rest">60s</td>
+      <td class="col-obs">____ kg · Duas mãos, desce atrás da cabeça</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TERÇA — PUXAR A
+══════════════════════════════════════════════════════ -->
+<div class="page-break"></div>
+<div class="day-page">
+  <div class="day-header-pdf" style="background:linear-gradient(135deg,#2563EB,#06B6D4)">
+    <div class="dhp-left">
+      <div class="dhp-tag">TERÇA-FEIRA · PULL DAY A</div>
+      <div class="dhp-title">Puxar A</div>
+      <div class="dhp-sub">💙 Costas · Posterior Ombro · Bíceps</div>
+    </div>
+    <div class="dhp-right"><div class="dhp-meta">14 exercícios<br>~70 min<br>3 grupos</div></div>
+  </div>
+  <table class="ex-table">
+    <thead><tr>
+      <th class="col-check">✓</th><th class="col-num">#</th>
+      <th class="col-ex">Exercício</th><th class="col-series">Séries</th>
+      <th class="col-reps">Repetições</th><th class="col-rest">Desc.</th>
+      <th class="col-obs">Observação / Carga</th>
+    </tr></thead>
+    <tbody>
+    <tr class="group-row" style="--group-bg:#EFF6FF;--group-color:#1D4ED8;--group-border:#93C5FD">
+      <td colspan="7">🏋️ COSTAS — POWER (5 exercícios)</td>
+    </tr>
+    <tr><td>☐</td><td>1</td><td>Levantamento Terra <span class="t-pill t-heavy">PESADO</span></td><td>5×5</td><td>5 reps (máx. peso)</td><td>3 min</td><td>____ kg · Coluna neutra, barra rente às pernas</td></tr>
+    <tr><td>☐</td><td>2</td><td>Remada Curvada com Barra <span class="t-pill t-prog">PROGRESSÃO</span></td><td>4×8</td><td>8–10 reps</td><td>90s</td><td>____ kg · Tronco ~45°, barra ao umbigo</td></tr>
+    <tr><td>☐</td><td>3</td><td>Puxada Frontal no Lat (pronada aberta)</td><td>4×10</td><td>10–12 reps</td><td>90s</td><td>____ kg · Puxa até a queixo</td></tr>
+    <tr><td>☐</td><td>4</td><td>Remada Unilateral com Haltere</td><td>4×10</td><td>10–12 reps cada lado</td><td>60s</td><td>____ kg · Apoio no banco, puxe ao quadril</td></tr>
+    <tr><td>☐</td><td>5</td><td>Pullover com Haltere</td><td>3×12</td><td>12–15 reps</td><td>60s</td><td>____ kg · Banco transversal, braços semiflexionados</td></tr>
+
+    <tr class="group-row" style="--group-bg:#ECFEFF;--group-color:#0E7490;--group-border:#67E8F9">
+      <td colspan="7">🔵 POSTERIOR DE OMBRO (4 exercícios)</td>
+    </tr>
+    <tr><td>☐</td><td>6</td><td>Crucifixo Invertido com Halteres</td><td>4×15</td><td>15 reps</td><td>60s</td><td>____ kg · Deitado de bruços ou curvado</td></tr>
+    <tr><td>☐</td><td>7</td><td>Face Pull no Cabo (corda)</td><td>4×15</td><td>15 reps</td><td>60s</td><td>____ kg · Cabo na altura dos olhos, abre externamente</td></tr>
+    <tr><td>☐</td><td>8</td><td>Remada Alta com Barra (Upright Row)</td><td>3×12</td><td>12 reps</td><td>60s</td><td>____ kg · Cotovelos acima dos ombros</td></tr>
+    <tr><td>☐</td><td>9</td><td>Peck Deck Inverso <span class="t-pill t-drop">DROP SET</span></td><td>3×15</td><td>15 reps + drop</td><td>60s</td><td>____ kg · Última série: drop set 20%</td></tr>
+
+    <tr class="group-row" style="--group-bg:#F0FDF4;--group-color:#15803D;--group-border:#86EFAC">
+      <td colspan="7">💪 BÍCEPS — VOLUME (5 exercícios)</td>
+    </tr>
+    <tr><td>☐</td><td>10</td><td>Rosca Direta com Barra EZ</td><td>4×10</td><td>10–12 reps</td><td>60s</td><td>____ kg · Cotovelos fixos, não balancie</td></tr>
+    <tr><td>☐</td><td>11</td><td>Rosca Alternada com Halteres</td><td>4×10</td><td>10–12 reps</td><td>60s</td><td>____ kg · Supine o pulso no topo</td></tr>
+    <tr><td>☐</td><td>12</td><td>Rosca Concentrada</td><td>3×12</td><td>12 reps cada braço</td><td>60s</td><td>____ kg · Cotovelo na coxa interna</td></tr>
+    <tr><td>☐</td><td>13</td><td>Rosca no Cabo (barra reta)</td><td>3×12</td><td>12–15 reps</td><td>60s</td><td>____ kg · Pulley baixo, tensão constante</td></tr>
+    <tr><td>☐</td><td>14</td><td>Rosca Martelo com Halteres <span class="t-pill t-rest">REST-PAUSE</span></td><td>3×12</td><td>12 reps + REST-PAUSE</td><td>60s</td><td>____ kg · Pegada neutra, última série com REST-PAUSE</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     QUARTA — PERNA A
+══════════════════════════════════════════════════════ -->
+<div class="page-break"></div>
+<div class="day-page">
+  <div class="day-header-pdf" style="background:linear-gradient(135deg,#D97706,#DC2626)">
+    <div class="dhp-left">
+      <div class="dhp-tag">QUARTA-FEIRA · LEGS DAY A</div>
+      <div class="dhp-title">Perna A</div>
+      <div class="dhp-sub">🦵 Quadríceps · Post. Coxa + Glúteos · Panturrilha + Adutores</div>
+    </div>
+    <div class="dhp-right"><div class="dhp-meta">12 exercícios<br>~65 min<br>3 grupos</div></div>
+  </div>
+  <table class="ex-table">
+    <thead><tr>
+      <th class="col-check">✓</th><th class="col-num">#</th>
+      <th class="col-ex">Exercício</th><th class="col-series">Séries</th>
+      <th class="col-reps">Repetições</th><th class="col-rest">Desc.</th>
+      <th class="col-obs">Observação / Carga</th>
+    </tr></thead>
+    <tbody>
+    <tr class="group-row" style="--group-bg:#FFFBEB;--group-color:#B45309;--group-border:#FCD34D">
+      <td colspan="7">🦵 QUADRÍCEPS — POWER (4 exercícios)</td>
+    </tr>
+    <tr><td>☐</td><td>1</td><td>Agachamento Livre com Barra <span class="t-pill t-heavy">PESADO</span></td><td>5×5</td><td>5 reps (máx. peso)</td><td>3 min</td><td>____ kg · Abaixo da paralela, joelhos na linha dos pés</td></tr>
+    <tr><td>☐</td><td>2</td><td>Leg Press 45°</td><td>4×10</td><td>10–12 reps</td><td>90s</td><td>____ kg · Desce até 90°, não trave os joelhos</td></tr>
+    <tr><td>☐</td><td>3</td><td>Cadeira Extensora <span class="t-pill t-drop">DROP SET</span></td><td>4×15</td><td>15 reps + drop</td><td>60s</td><td>____ kg · Pausa 1s no topo, drop set na última série</td></tr>
+    <tr><td>☐</td><td>4</td><td>Avanço (Lunge) com Halteres</td><td>3×12</td><td>12 reps cada perna</td><td>60s</td><td>____ kg · Passo longo, joelho traseiro quase no chão</td></tr>
+
+    <tr class="group-row" style="--group-bg:#FDF2F8;--group-color:#9D174D;--group-border:#F9A8D4">
+      <td colspan="7">🍑 POSTERIOR DE COXA + GLÚTEOS (4 exercícios)</td>
+    </tr>
+    <tr><td>☐</td><td>5</td><td>Levantamento Terra Romeno (Stiff)</td><td>4×10</td><td>10–12 reps</td><td>90s</td><td>____ kg · Joelhos levemente flexionados, barra rente</td></tr>
+    <tr><td>☐</td><td>6</td><td>Cadeira Flexora <span class="t-pill t-drop">DROP SET</span></td><td>4×12</td><td>12–15 reps + drop</td><td>60s</td><td>____ kg · Contração máxima no topo</td></tr>
+    <tr><td>☐</td><td>7</td><td>Hip Thrust com Barra</td><td>4×10</td><td>10–12 reps</td><td>90s</td><td>____ kg · Escápulas no banco, esprema glúteo no topo</td></tr>
+    <tr><td>☐</td><td>8</td><td>Mesa Flexora (deitado)</td><td>3×12</td><td>12 reps</td><td>60s</td><td>____ kg · Desce lento (3s), não mova o quadril</td></tr>
+
+    <tr class="group-row" style="--group-bg:#ECFEFF;--group-color:#0E7490;--group-border:#67E8F9">
+      <td colspan="7">🦿 PANTURRILHA + ADUTORES — SUPERSET (4 exercícios)</td>
+    </tr>
+    <tr><td>☐</td><td>9</td><td>Panturrilha em Pé com Peso</td><td>5×20</td><td>15–20 reps</td><td>45s</td><td>____ kg · Sobe máximo, desce abaixo do degrau</td></tr>
+    <tr><td>☐</td><td>10</td><td>Panturrilha Sentado (máquina)</td><td>4×20</td><td>20 reps</td><td>45s</td><td>____ kg · Foco no sóleo, execução lenta</td></tr>
+    <tr><td>☐</td><td>11</td><td>Cadeira Adutora <span class="t-pill t-super">SUPERSET</span></td><td>4×15</td><td>15 reps → vai p/ ex.12</td><td>60s</td><td>____ kg · Execute direto com abdutora</td></tr>
+    <tr><td>☐</td><td>12</td><td>Cadeira Abdutora <span class="t-pill t-super">SUPERSET</span></td><td>3×15</td><td>15 reps</td><td>60s</td><td>____ kg · Glúteo médio e mínimo</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     QUINTA — EMPURRAR B
+══════════════════════════════════════════════════════ -->
+<div class="page-break"></div>
+<div class="day-page">
+  <div class="day-header-pdf" style="background:linear-gradient(135deg,#7C3AED,#EC4899)">
+    <div class="dhp-left">
+      <div class="dhp-tag">QUINTA-FEIRA · PUSH DAY B</div>
+      <div class="dhp-title">Empurrar B</div>
+      <div class="dhp-sub">💜 Peito em Prioridade · Ombro · Tríceps</div>
+    </div>
+    <div class="dhp-right"><div class="dhp-meta">14 exercícios<br>~70 min<br>3 grupos</div></div>
+  </div>
+  <table class="ex-table">
+    <thead><tr>
+      <th class="col-check">✓</th><th class="col-num">#</th>
+      <th class="col-ex">Exercício</th><th class="col-series">Séries</th>
+      <th class="col-reps">Repetições</th><th class="col-rest">Desc.</th>
+      <th class="col-obs">Observação / Carga</th>
+    </tr></thead>
+    <tbody>
+    <tr class="group-row" style="--group-bg:#FAF5FF;--group-color:#6D28D9;--group-border:#C4B5FD">
+      <td colspan="7">🎯 PEITO — PRIORIDADE (6 exercícios) — 2ª freqüência semanal</td>
+    </tr>
+    <tr><td>☐</td><td>1</td><td>Supino Inclinado com Barra <span class="t-pill t-heavy">PESADO</span></td><td>5×5</td><td>5 reps (máx. peso)</td><td>3 min</td><td>____ kg · Peito alto. 30–45° de inclinação</td></tr>
+    <tr><td>☐</td><td>2</td><td>Supino Reto com Halteres <span class="t-pill t-prog">PROGRESSÃO</span></td><td>4×8</td><td>8–10 reps</td><td>90s</td><td>____ kg · Amplitude maior que com barra</td></tr>
+    <tr><td>☐</td><td>3</td><td>Peck Deck (Borboleta) <span class="t-pill t-drop">DROP SET</span></td><td>4×12</td><td>12–15 reps + drop</td><td>60s</td><td>____ kg · Pausa 2s no fechamento máximo</td></tr>
+    <tr><td>☐</td><td>4</td><td>Crucifixo Inclinado com Halteres</td><td>4×10</td><td>10–12 reps</td><td>60s</td><td>____ kg · 30° inclinação, estiramento máximo</td></tr>
+    <tr><td>☐</td><td>5</td><td>Crossover Cabo (baixo → alto)</td><td>3×15</td><td>15 reps</td><td>60s</td><td>____ kg · Cabos baixos, diagonal para cima</td></tr>
+    <tr><td>☐</td><td>6</td><td>Flexão com Sobrecarga <span class="t-pill t-rest">REST-PAUSE</span></td><td>3×falha</td><td>Falha + 15s + mais reps</td><td>60s</td><td>____ kg (disco/colete) · Excelente pump final</td></tr>
+
+    <tr class="group-row" style="--group-bg:#FAF5FF;--group-color:#7C3AED;--group-border:#C4B5FD">
+      <td colspan="7">🔵 OMBRO — VOLUME (4 exercícios)</td>
+    </tr>
+    <tr><td>☐</td><td>7</td><td>Desenvolvimento com Halteres (sentado)</td><td>4×10</td><td>10–12 reps</td><td>90s</td><td>____ kg · Desce até linha das orelhas</td></tr>
+    <tr><td>☐</td><td>8</td><td>Elevação Lateral no Cabo</td><td>4×15</td><td>15 reps</td><td>60s</td><td>____ kg · Tensão constante vs haltere</td></tr>
+    <tr><td>☐</td><td>9</td><td>Remada Alta com Halteres</td><td>3×12</td><td>12 reps</td><td>60s</td><td>____ kg · Cotovelos acima dos ombros</td></tr>
+    <tr><td>☐</td><td>10</td><td>Desenv. Máquina Hammer <span class="t-pill t-drop">DROP SET</span></td><td>3×12</td><td>12 reps + drop</td><td>90s</td><td>____ kg · Drop set na última série</td></tr>
+
+    <tr class="group-row" style="--group-bg:#FDF2F8;--group-color:#9D174D;--group-border:#F9A8D4">
+      <td colspan="7">⚡ TRÍCEPS — GIANT SET nos 2 últimos (4 exercícios)</td>
+    </tr>
+    <tr><td>☐</td><td>11</td><td>Tríceps Francês com Barra EZ</td><td>4×10</td><td>10–12 reps</td><td>60s</td><td>____ kg · Barra desce atrás da cabeça</td></tr>
+    <tr><td>☐</td><td>12</td><td>Pulley Tríceps com Corda <span class="t-pill t-drop">DROP SET</span></td><td>4×12</td><td>12–15 reps + drop</td><td>60s</td><td>____ kg · Corda separa no final</td></tr>
+    <tr><td>☐</td><td>13</td><td>Extensão Overhead no Cabo <span class="t-pill t-giant">GIANT SET</span></td><td>3×12</td><td>12 reps → vai p/ ex.14</td><td>60s</td><td>____ kg · Execute os 2 seguintes em sequência</td></tr>
+    <tr><td>☐</td><td>14</td><td>Tríceps no Banco (Bench Dips) <span class="t-pill t-giant">GIANT SET</span></td><td>3×falha</td><td>Falha</td><td>60s</td><td>— · Pés afastados para mais dificuldade</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SEXTA — PUXAR B
+══════════════════════════════════════════════════════ -->
+<div class="page-break"></div>
+<div class="day-page">
+  <div class="day-header-pdf" style="background:linear-gradient(135deg,#16A34A,#06B6D4)">
+    <div class="dhp-left">
+      <div class="dhp-tag">SEXTA-FEIRA · PULL DAY B</div>
+      <div class="dhp-title">Puxar B</div>
+      <div class="dhp-sub">💚 Costas · Bíceps · Perna Leve</div>
+    </div>
+    <div class="dhp-right"><div class="dhp-meta">12 exercícios<br>~60 min<br>3 grupos</div></div>
+  </div>
+  <table class="ex-table">
+    <thead><tr>
+      <th class="col-check">✓</th><th class="col-num">#</th>
+      <th class="col-ex">Exercício</th><th class="col-series">Séries</th>
+      <th class="col-reps">Repetições</th><th class="col-rest">Desc.</th>
+      <th class="col-obs">Observação / Carga</th>
+    </tr></thead>
+    <tbody>
+    <tr class="group-row" style="--group-bg:#F0FDF4;--group-color:#15803D;--group-border:#86EFAC">
+      <td colspan="7">🏋️ COSTAS — VOLUME (4 exercícios)</td>
+    </tr>
+    <tr><td>☐</td><td>1</td><td>Puxada Supinada (pegada fechada)</td><td>4×8</td><td>8–12 reps</td><td>90s</td><td>____ kg · Puxa até o peito, latíssimo + bíceps</td></tr>
+    <tr><td>☐</td><td>2</td><td>Remada no Cabo com Triângulo</td><td>4×12</td><td>12 reps</td><td>60s</td><td>____ kg · Cotovelos passam do tronco</td></tr>
+    <tr><td>☐</td><td>3</td><td>Puxada Aberta no Lat (pronada)</td><td>4×10</td><td>10–12 reps</td><td>90s</td><td>____ kg · Pegada larga, foco nos latíssimos</td></tr>
+    <tr><td>☐</td><td>4</td><td>Remada Serrote com Haltere <span class="t-pill t-rest">REST-PAUSE</span></td><td>3×12</td><td>12 reps + REST-PAUSE</td><td>60s</td><td>____ kg · Apoio no banco, puxe ao quadril</td></tr>
+
+    <tr class="group-row" style="--group-bg:#FFFBEB;--group-color:#B45309;--group-border:#FCD34D">
+      <td colspan="7">💪 BÍCEPS — INTENSIDADE (4 exercícios)</td>
+    </tr>
+    <tr><td>☐</td><td>5</td><td>Rosca Scott com Barra EZ</td><td>4×10</td><td>10–12 reps</td><td>60s</td><td>____ kg · Sem trapaça, isolamento puro</td></tr>
+    <tr><td>☐</td><td>6</td><td>Rosca 21s com Barra <span class="t-pill t-giant">GIANT SET</span></td><td>3×21</td><td>7+7+7 reps</td><td>60s</td><td>____ kg · Parte baixa + alta + completa</td></tr>
+    <tr><td>☐</td><td>7</td><td>Rosca Inversa Pronada</td><td>3×12</td><td>12 reps</td><td>60s</td><td>____ kg · Desenvolve braquiorradial e antebraço</td></tr>
+    <tr><td>☐</td><td>8</td><td>Rosca Concentrada <span class="t-pill t-drop">DROP SET</span></td><td>3×12</td><td>12 reps + drop</td><td>60s</td><td>____ kg · Pico de volume bíceps na semana</td></tr>
+
+    <tr class="group-row" style="--group-bg:#ECFEFF;--group-color:#0E7490;--group-border:#67E8F9">
+      <td colspan="7">🦵 PERNA LEVE — MANUTENÇÃO (4 exercícios)</td>
+    </tr>
+    <tr><td>☐</td><td>9</td><td>Leg Press (60% da carga normal)</td><td>3×15</td><td>15 reps</td><td>60s</td><td>____ kg · Volume, não força. Mantém adaptação.</td></tr>
+    <tr><td>☐</td><td>10</td><td>Agachamento Goblet com Haltere</td><td>3×15</td><td>15 reps</td><td>60s</td><td>____ kg · Haltere no peito, ótimo para mobilidade</td></tr>
+    <tr><td>☐</td><td>11</td><td>Cadeira Extensora (leve)</td><td>3×15</td><td>15 reps</td><td>60s</td><td>____ kg · Carga leve, execução lenta</td></tr>
+    <tr><td>☐</td><td>12</td><td>Panturrilha em Pé</td><td>4×20</td><td>20 reps</td><td>45s</td><td>____ kg · Alta frequência é o segredo</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Notas finais -->
+  <div class="tips-box" style="margin-top:1rem">
+    <h4>📋 Caderno de Cargas — Anote sempre!</h4>
+    <ul class="tips-list">
+      <li>Supino Reto 5×5: _____ kg → meta semana seguinte: _____ kg</li>
+      <li>Supino Inclinado 5×5: _____ kg → meta: _____ kg</li>
+      <li>Levantamento Terra 5×5: _____ kg → meta: _____ kg</li>
+      <li>Agachamento 5×5: _____ kg → meta: _____ kg</li>
+      <li>Anotações gerais: ____________________________________________</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
